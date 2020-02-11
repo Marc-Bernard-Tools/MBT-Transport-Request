@@ -1,5 +1,3 @@
-![abap package version](https://img.shields.io/endpoint?url=https://shield.abap.space/version-shield-json/github/mbtools/mbt-bc-cts-req/.apack-manifest.xml&label=version)
-
 # MBT Transport Request Display
 
 This tool is an enhancement for the display of transport requests.
