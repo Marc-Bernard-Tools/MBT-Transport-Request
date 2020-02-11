@@ -9,9 +9,8 @@ CLASS /mbtools/cl_cts_req_disp_bds DEFINITION
   FINAL
   CREATE PUBLIC .
 
-*"* public components of class /MBTOOLS/CL_CTS_REQ_DISP_BDS
-*"* do not include other source files here!!!
   PUBLIC SECTION.
+    TYPE-POOLS icon .
     TYPE-POOLS skwfc .
 
     INTERFACES if_badi_interface .
@@ -27,8 +26,6 @@ CLASS /mbtools/cl_cts_req_disp_bds DEFINITION
 
     CLASS-METHODS class_constructor .
   PROTECTED SECTION.
-*"* protected components of class /MBTOOLS/CL_CTS_REQ_DISP_BDS
-*"* do not include other source files here!!!
   PRIVATE SECTION.
 
     CLASS-DATA p_r_term TYPE REF TO cl_kwui_terminology .

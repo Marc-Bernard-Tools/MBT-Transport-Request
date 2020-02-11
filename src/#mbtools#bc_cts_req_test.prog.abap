@@ -48,12 +48,6 @@ START-OF-SELECTION.
 
     CREATE OBJECT gr_class TYPE (g_class).
 
-    ASSIGN gr_class->('C_VERSION') TO <version>.
-    CHECK sy-subrc = 0.
-
-    WRITE: / 'Version:', AT 20 <version>.
-    SKIP.
-
     ASSIGN gr_class->('NT_OBJECT_LIST') TO <object_list>.
     CHECK sy-subrc = 0.
 

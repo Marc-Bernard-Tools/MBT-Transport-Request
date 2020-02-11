@@ -9,8 +9,6 @@ CLASS /mbtools/cl_cts_req_disp_wdy DEFINITION
   FINAL
   CREATE PUBLIC .
 
-*"* public components of class /MBTOOLS/CL_CTS_REQ_DISP_WDY
-*"* do not include other source files here!!!
   PUBLIC SECTION.
     TYPE-POOLS icon .
 
@@ -27,8 +25,6 @@ CLASS /mbtools/cl_cts_req_disp_wdy DEFINITION
 
     CLASS-METHODS class_constructor .
   PROTECTED SECTION.
-*"* protected components of class /MBTOOLS/CL_CTS_REQ_DISP_WDY
-*"* do not include other source files here!!!
   PRIVATE SECTION.
 ENDCLASS.
 

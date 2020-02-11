@@ -9,8 +9,6 @@ CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
   FINAL
   CREATE PUBLIC .
 
-*"* public components of class /MBTOOLS/CL_CTS_REQ_DISP_BW
-*"* do not include other source files here!!!
   PUBLIC SECTION.
     TYPE-POOLS icon .
 
@@ -27,12 +25,7 @@ CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
 
     CLASS-METHODS class_constructor .
   PROTECTED SECTION.
-*"* protected components of class /MBTOOLS/CL_CTS_REQ_DISP_BW
-*"* do not include other source files here!!!
   PRIVATE SECTION.
-
-*"* private components of class /MBTOOLS/CL_CTS_REQ_DISP_BW
-*"* do not include other source files here!!!
     CLASS-DATA p_r_repository TYPE REF TO cl_rso_repository .
     CLASS-DATA p_th_tlogoprop TYPE rso_th_tlogoprop .
 ENDCLASS.

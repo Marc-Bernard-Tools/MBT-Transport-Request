@@ -10,8 +10,6 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
   FINAL
   CREATE PUBLIC .
 
-*"* public components of class /MBTOOLS/CL_CTS_REQ_DISP_WB
-*"* do not include other source files here!!!
   PUBLIC SECTION.
     TYPE-POOLS icon .
     TYPE-POOLS swbm .
@@ -24,15 +22,12 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
     ALIASES get_object_icon
       FOR /mbtools/if_cts_req_display~get_object_icon .
 
-    CONSTANTS c_version TYPE string VALUE '1.0.0' ##NO_TEXT.
     CLASS-DATA:
       nt_object_list TYPE RANGE OF e071-object READ-ONLY .
     CONSTANTS c_as4pos TYPE ddposition VALUE '999999' ##NO_TEXT.
 
     CLASS-METHODS class_constructor .
   PROTECTED SECTION.
-*"* protected components of class /MBTOOLS/CL_CTS_REQ_DISP_WB
-*"* do not include other source files here!!!
   PRIVATE SECTION.
 
     CLASS-METHODS split_object

@@ -4,27 +4,27 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-class /MBTOOLS/CL_CTS_REQ_DISPLAY definition
-  public
-  final
-  create public .
+CLASS /mbtools/cl_cts_req_display DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces ZIF_APACK_MANIFEST .
-  interfaces /MBTOOLS/IF_MANIFEST .
+    INTERFACES zif_apack_manifest .
+    INTERFACES /mbtools/if_manifest .
 
-  constants C_VERSION type STRING value '1.0.0' ##NO_TEXT.
-  constants C_NAME type STRING value 'MBT_Transport_Request_Display' ##NO_TEXT.
+    CONSTANTS c_version TYPE string VALUE '1.0.0' ##NO_TEXT.
+    CONSTANTS c_name TYPE string VALUE 'MBT_Transport_Request_Display' ##NO_TEXT.
 
-  methods CONSTRUCTOR .
+    METHODS constructor .
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  aliases APACK_MANIFEST
-    for ZIF_APACK_MANIFEST~DESCRIPTOR .
-  aliases MBT_MANIFEST
-    for /MBTOOLS/IF_MANIFEST~DESCRIPTOR .
+    ALIASES apack_manifest
+      FOR zif_apack_manifest~descriptor .
+    ALIASES mbt_manifest
+      FOR /mbtools/if_manifest~descriptor .
 ENDCLASS.
 
 
