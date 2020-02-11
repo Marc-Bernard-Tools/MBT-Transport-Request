@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_ENHO" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <TOOL>HOOK_IMPL</TOOL>
+   <SHORTTEXT>MBT Request Display - Object List</SHORTTEXT>
+   <ORIGINAL_OBJECT>
+    <PGMID>R3TR</PGMID>
+    <ORG_OBJ_TYPE>FUGR</ORG_OBJ_TYPE>
+    <ORG_OBJ_NAME>STRH</ORG_OBJ_NAME>
+    <ORG_MAIN_TYPE>FUGR</ORG_MAIN_TYPE>
+    <ORG_MAIN_NAME>STRH</ORG_MAIN_NAME>
+    <PROGRAMNAME>SAPLSTRH</PROGRAMNAME>
+   </ORIGINAL_OBJECT>
+   <ENHANCEMENTS>
+    <ENH_HOOK_IMPL>
+     <PROGRAMNAME>SAPLSTRH</PROGRAMNAME>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\PR:SAPLSTRH\FO:CREATE_OBJECT_LIST\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item>************************************************************************</item>
+      <item>* /MBTOOLS/BC_CTS_OBJECT_LIST</item>
+      <item>* MBT Request Display</item>
+      <item>*</item>
+      <item>* (c) MBT 2020 https://marcbernardtools.com/</item>
+      <item>************************************************************************</item>
+      <item/>
+      <item>DATA mbt_active TYPE abap_bool.</item>
+      <item/>
+      <item>mbt_active = /mbtools/cl_tools=&gt;is_active( i_name = /mbtools/cl_cts_req_display=&gt;c_name ).</item>
+      <item/>
+      <item>IF mbt_active = abap_true.</item>
+      <item>PERFORM create_object_list IN PROGRAM /mbtools/bc_cts_object_list</item>
+      <item>USING    pv_parent_level</item>
+      <item>pv_trkorr</item>
+      <item>pv_with_keys</item>
+      <item>CHANGING pt_e071</item>
+      <item>pt_e071k</item>
+      <item>pt_e071k_str</item>
+      <item>pt_nodes.</item>
+      <item>EXIT.</item>
+      <item>ENDIF.</item>
+      <item/>
+     </SOURCE>
+    </ENH_HOOK_IMPL>
+    <ENH_HOOK_IMPL>
+     <PROGRAMNAME>SAPLSTRH</PROGRAMNAME>
+     <ENHMODE>D</ENHMODE>
+     <FULL_NAME>\PR:SAPLSTRH\FO:CREATE_KEY_LIST\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item>************************************************************************</item>
+      <item>* /MBTOOLS/BC_CTS_OBJECT_LIST</item>
+      <item>* MBT Request Display</item>
+      <item>*</item>
+      <item>* (c) MBT 2020 https://marcbernardtools.com/</item>
+      <item>************************************************************************</item>
+      <item/>
+      <item>DATA mbt_active TYPE abap_bool.</item>
+      <item/>
+      <item>mbt_active = /mbtools/cl_tools=&gt;is_active( i_name = /mbtools/cl_cts_req_display=&gt;c_name ).</item>
+      <item/>
+      <item>IF mbt_active = abap_true.</item>
+      <item>PERFORM create_key_list IN PROGRAM /mbtools/bc_cts_object_list</item>
+      <item>USING    pv_keep_nodes</item>
+      <item>pv_object_level</item>
+      <item>pv_as4pos</item>
+      <item>pt_e071</item>
+      <item>pt_e071k</item>
+      <item>pt_e071k_str</item>
+      <item>CHANGING pt_nodes.</item>
+      <item>EXIT.</item>
+      <item>ENDIF.</item>
+      <item/>
+     </SOURCE>
+    </ENH_HOOK_IMPL>
+   </ENHANCEMENTS>
+   <SPACES>
+    <item>
+     <FULL_NAME>\PR:SAPLSTRH\FO:CREATE_OBJECT_LIST\SE:BEGIN\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>2</item>
+      <item>0</item>
+      <item>2</item>
+      <item>0</item>
+      <item>2</item>
+      <item>4</item>
+      <item>6</item>
+      <item>15</item>
+      <item>15</item>
+      <item>6</item>
+      <item>15</item>
+      <item>15</item>
+      <item>15</item>
+      <item>4</item>
+      <item>2</item>
+      <item>0</item>
+     </SPACES>
+    </item>
+    <item>
+     <FULL_NAME>\PR:SAPLSTRH\FO:CREATE_KEY_LIST\SE:BEGIN\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>0</item>
+      <item>2</item>
+      <item>0</item>
+      <item>2</item>
+      <item>0</item>
+      <item>2</item>
+      <item>4</item>
+      <item>6</item>
+      <item>15</item>
+      <item>15</item>
+      <item>15</item>
+      <item>15</item>
+      <item>15</item>
+      <item>6</item>
+      <item>4</item>
+      <item>2</item>
+      <item>0</item>
+     </SPACES>
+    </item>
+   </SPACES>
+  </asx:values>
+ </asx:abap>
+</abapGit>
