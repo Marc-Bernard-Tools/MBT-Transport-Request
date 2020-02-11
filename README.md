@@ -1,4 +1,4 @@
-![abap package version](https://img.shields.io/endpoint?url=https://shield.abap.space/version-shield-json/github/mbtools/mbt-bc-cts-req/src/#mbtools#cl_cts_req_display.clas.abap/c_version&label=version)
+![abap package version](https://img.shields.io/endpoint?url=https://shield.abap.space/version-shield-json/github/mbtools/mbt-bc-cts-req/.apack-manifest.xml&label=version)
 
 # MBT Transport Request Display
 
