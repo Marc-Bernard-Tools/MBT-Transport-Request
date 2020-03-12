@@ -14,7 +14,7 @@ CLASS /mbtools/cl_cts_req_display DEFINITION
     INTERFACES zif_apack_manifest .
     INTERFACES /mbtools/if_manifest .
 
-    CONSTANTS c_version TYPE string VALUE '1.2.0' ##NO_TEXT.
+    CONSTANTS c_version TYPE string VALUE '1.0.0' ##NO_TEXT.
     CONSTANTS c_name TYPE string VALUE 'MBT_Transport_Request_Display' ##NO_TEXT.
     CONSTANTS c_title TYPE string VALUE 'MBT Transport Request Display' ##NO_TEXT.
     CONSTANTS c_description TYPE string VALUE 'Enhancement for Display for Transport Requests' ##NO_TEXT.
@@ -41,10 +41,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISPLAY IMPLEMENTATION.
   METHOD constructor.
     " APACK
     apack_manifest = VALUE #(
-      group_id    = 'github.com/mbtools/mbt-bc-cts-req'
+      group_id    = 'github.com/mbtools/' && c_name
       artifact_id = 'com.marcbernardtools.abap.bc_cts_req'
       version     = c_version
-      git_url     = 'https://github.com/mbtools/mbt-bc-cts-req.git'
+      git_url     = 'https://github.com/mbtools/' && c_name && '.git'
     ).
     " MBT
     mbt_manifest = VALUE #(
