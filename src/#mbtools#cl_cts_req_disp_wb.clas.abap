@@ -919,7 +919,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ELSE.
           e_obj_type = 'PROG'.
         ENDIF.
-      WHEN 'REPT'.
+      WHEN 'REPS' OR 'REPT'.
         IF e_obj_name+30(2) = 'CP'.
           e_obj_type = 'CLAS'.
           SPLIT e_obj_name(30) AT '=' INTO e_obj_name l_name.

@@ -560,11 +560,25 @@ FORM get_object_and_display_name
     rv_found = abap_true.
 
 *   Check if object has been deleted already
+    lv_deleted = abap_false.
+
     SELECT SINGLE delflag FROM tadir INTO lv_deleted
       WHERE pgmid    = iv_pgmid
         AND object   = iv_object
         AND obj_name = iv_obj_name.
-    IF sy-subrc = 0 AND lv_deleted = abap_true.
+    IF sy-subrc = 0.
+      IF lv_deleted = abap_false.
+*       Check some special cases related to generated table maintenance
+        CASE iv_object.
+          WHEN 'FUGR'.
+            lv_deleted = /mbtools/cl_sap=>is_function_deleted( iv_obj_name ).
+          WHEN 'TOBJ'.
+            lv_deleted = /mbtools/cl_sap=>is_tobject_deleted( iv_obj_name ).
+        ENDCASE.
+      ENDIF.
+    ENDIF.
+
+    IF lv_deleted = abap_true.
       ls_txt-icon = icon_delete.
       ls_txt-text = 'To be deleted in target system'(del).
     ENDIF.
