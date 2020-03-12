@@ -36,7 +36,7 @@ FIELD-SYMBOLS:
 
 START-OF-SELECTION.
 
-  gt_object_text = /mbtools/cl_objects=>get_object_texts( ).
+  gt_object_text = /mbtools/cl_sap=>get_object_texts( ).
 
   SELECT DISTINCT clsname FROM seometarel INTO TABLE gt_classes
     WHERE clsname IN so_class AND refclsname = '/MBTOOLS/IF_CTS_REQ_DISPLAY'

@@ -10,6 +10,7 @@ CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+
     TYPE-POOLS icon .
 
     INTERFACES if_badi_interface .
@@ -24,10 +25,14 @@ CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
       nt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
     CLASS-METHODS class_constructor .
+
   PROTECTED SECTION.
+
   PRIVATE SECTION.
+
     CLASS-DATA p_r_repository TYPE REF TO cl_rso_repository .
     CLASS-DATA p_th_tlogoprop TYPE rso_th_tlogoprop .
+
 ENDCLASS.
 
 

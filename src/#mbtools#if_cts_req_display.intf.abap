@@ -7,7 +7,6 @@
 INTERFACE /mbtools/if_cts_req_display
   PUBLIC .
 
-
   INTERFACES if_badi_interface .
 
   CLASS-METHODS get_object_descriptions
@@ -23,4 +22,5 @@ INTERFACE /mbtools/if_cts_req_display
       VALUE(i_icon)   TYPE icon_d OPTIONAL
     CHANGING
       VALUE(r_icon)   TYPE icon_d .
+
 ENDINTERFACE.

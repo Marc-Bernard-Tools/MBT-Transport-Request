@@ -2,8 +2,8 @@
 <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
  <asx:values>
   <DATA>
-   <GROUP_ID>github.com/mbtools</GROUP_ID>
-   <ARTIFACT_ID>mbt-bc-cts-req</ARTIFACT_ID>
+   <GROUP_ID>github.com/mbtools/mbt-bc-cts-req</GROUP_ID>
+   <ARTIFACT_ID>com.marcbernardtools.abap.bc_cts_req</ARTIFACT_ID>
    <VERSION>1.2.0</VERSION>
    <REPOSITORY_TYPE>abapGit</REPOSITORY_TYPE>
    <GIT_URL>https://github.com/mbtools/mbt-bc-cts-req.git</GIT_URL>

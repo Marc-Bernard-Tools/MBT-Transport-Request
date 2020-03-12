@@ -7,10 +7,12 @@
 
 REPORT /mbtools/bc_cts_object_list.
 
-TYPE-POOLS: icons.
+TYPE-POOLS: icon.
 
 * Length of data element SEU_TEXT
 CONSTANTS: c_max_len TYPE i VALUE 75.
+* Position for ellipsis (c_max_len - 2)
+CONSTANTS: c_pos_ellipsis TYPE i VALUE 73.
 
 *&---------------------------------------------------------------------*
 *&      Global Types and Data (LSTRHTOP)
@@ -93,8 +95,11 @@ FORM create_object_list
         lv_application    TYPE si_rq_filecntrl-attribute_value.
 
 *{   INSERT         M0NK900019                                        1
+  LOG-POINT ID /mbtools/bc SUBKEY /mbtools/cl_cts_req_display=>c_name
+    FIELDS sy-datum sy-uzeit sy-uname.
+
 * Read texts of object list headings
-  gt_object_texts = /mbtools/cl_objects=>get_object_texts( ).
+  gt_object_texts = /mbtools/cl_sap=>get_object_texts( ).
 *
 *}   INSERT
 
@@ -576,14 +581,14 @@ FORM get_object_and_display_name
 *   End texts that are too long with ellipsis
     lv_more = strlen( rv_obj_name ).
     IF lv_more > c_max_len.
-      CONCATENATE rv_obj_name(73) '…]' INTO rv_obj_name.
+      CONCATENATE rv_obj_name(c_pos_ellipsis) '…]' INTO rv_obj_name.
     ENDIF.
 
     CONCATENATE '[' ls_txt-name ']' INTO rv_disp_name.
 
     lv_more = strlen( rv_disp_name ).
     IF lv_more > c_max_len.
-      CONCATENATE rv_disp_name(73) '…]' INTO rv_disp_name.
+      CONCATENATE rv_disp_name(c_pos_ellipsis) '…]' INTO rv_disp_name.
     ENDIF.
   ELSE.
     rv_found = abap_false.

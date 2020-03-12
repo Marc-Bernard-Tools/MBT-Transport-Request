@@ -10,6 +10,7 @@ CLASS /mbtools/cl_cts_req_disp_bds DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+
     TYPE-POOLS icon .
     TYPE-POOLS skwfc .
 
@@ -25,10 +26,13 @@ CLASS /mbtools/cl_cts_req_disp_bds DEFINITION
       nt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
     CLASS-METHODS class_constructor .
+
   PROTECTED SECTION.
+
   PRIVATE SECTION.
 
     CLASS-DATA p_r_term TYPE REF TO cl_kwui_terminology .
+
 ENDCLASS.
 
 

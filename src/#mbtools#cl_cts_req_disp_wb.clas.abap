@@ -3,7 +3,6 @@
 * MBT Request Display
 *
 * (c) MBT 2019 https://marcbernardtools.com/
-* Last update: 2020-01-07
 ************************************************************************
 CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
   PUBLIC
@@ -11,6 +10,7 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
   CREATE PUBLIC .
 
   PUBLIC SECTION.
+
     TYPE-POOLS icon .
     TYPE-POOLS swbm .
 
@@ -27,7 +27,9 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
     CONSTANTS c_as4pos TYPE ddposition VALUE '999999' ##NO_TEXT.
 
     CLASS-METHODS class_constructor .
+
   PROTECTED SECTION.
+
   PRIVATE SECTION.
 
     CLASS-METHODS split_object
@@ -39,6 +41,7 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
         !e_obj_type TYPE trobjtype
         !e_obj_name TYPE sobj_name
         !e_encl_obj TYPE sobj_name .
+
 ENDCLASS.
 
 
