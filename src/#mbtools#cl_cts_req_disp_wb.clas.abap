@@ -82,12 +82,15 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 
     IF NOT l_t_object IS INITIAL.
 
-*      l_clear = abap_true.
+      " RS_SHORTTEXT_GET has bug in buffer so we have to clear it every (until we get a fix)
+      " Note: This workaround still does not fix all issues with this function but better than nothing
+      l_clear = abap_true.
+
       CALL FUNCTION 'RS_SHORTTEXT_GET'
-*        EXPORTING
-*          clear_buffer = l_clear
+        EXPORTING
+          clear_buffer = l_clear
         TABLES
-          obj_tab = l_t_object.
+          obj_tab      = l_t_object.
 
       LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN nt_object_list.
         CALL METHOD split_object
@@ -110,7 +113,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 
           CALL METHOD get_object_icon
             EXPORTING
-              i_object = l_s_object-object
+              i_object = <ls_e071>-object
             CHANGING
               r_icon   = l_s_e071_txt-icon.
 
@@ -148,8 +151,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       IF NOT l_t_object IS INITIAL.
 
         CALL FUNCTION 'RS_SHORTTEXT_GET'
+          EXPORTING
+            clear_buffer = l_clear
           TABLES
-            obj_tab = l_t_object.
+            obj_tab      = l_t_object.
 
         LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN nt_object_list.
           l_obj_name = <ls_e071k>-objname.
@@ -174,7 +179,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 
             CALL METHOD get_object_icon
               EXPORTING
-                i_object = l_s_object-object
+                i_object = <ls_e071k>-object
               CHANGING
                 r_icon   = l_s_e071_txt-icon.
 
@@ -190,7 +195,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 
 *   Table Strings (TABU)
     IF it_e071k_str IS SUPPLIED.
-
       CLEAR l_t_object.
 
       LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN nt_object_list.
@@ -214,8 +218,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       IF NOT l_t_object IS INITIAL.
 
         CALL FUNCTION 'RS_SHORTTEXT_GET'
+          EXPORTING
+            clear_buffer = l_clear
           TABLES
-            obj_tab = l_t_object.
+            obj_tab      = l_t_object.
 
         LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN nt_object_list.
           l_obj_name = <ls_e071k_str>-objname.
@@ -240,7 +246,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 
             CALL METHOD get_object_icon
               EXPORTING
-                i_object = l_s_object-object
+                i_object = <ls_e071k_str>-object
               CHANGING
                 r_icon   = l_s_e071_txt-icon.
 
@@ -268,11 +274,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       WHEN 'BMPC' OR swbm_c_type_proc_process.
         r_icon = icon_workflow_process.
       WHEN 'CLAS' OR swbm_c_type_class OR 'SHMA' OR swbm_c_type_shared_obj_area
-        OR 'CINC' OR 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK'.
+        OR 'CINC' OR 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK' OR 'MAPP'.
         r_icon = icon_oo_class.
       WHEN 'COCO' OR swbm_c_type_control_composite.
         r_icon = icon_layout_control.
-      WHEN 'DEVC' OR swbm_c_type_devclass.
+      WHEN 'DEVC' OR swbm_c_type_devclass OR 'DEVP'.
         r_icon = icon_package_standard.
       WHEN 'DIAL' OR swbm_c_type_dialog.
         r_icon = icon_wd_view.
@@ -304,7 +310,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_htm.
       WHEN 'INTF' OR swbm_c_type_interface.
         r_icon = icon_oo_interface.
-      WHEN 'MCOB' OR swbm_c_type_ddic_matchcode.
+      WHEN 'MCOB' OR swbm_c_type_ddic_matchcode OR 'MCOD'.
         r_icon = icon_value_help.
       WHEN 'MCID'.
         r_icon = icon_value_help.
@@ -312,7 +318,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_message_type.
       WHEN 'METH' OR swbm_c_type_cls_mtd_impl.
         r_icon = icon_oo_class_method.
-      WHEN 'MSAG' OR swbm_c_type_message_id.
+      WHEN 'MSAG' OR swbm_c_type_message_id OR 'MSAD'.
         r_icon = icon_message_type.
       WHEN 'PARA' OR swbm_c_type_parameter_id.
         r_icon = icon_parameter.
@@ -322,7 +328,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_workflow_activity.
       WHEN 'PDWS' OR swbm_c_type_wf_workflow.
         r_icon = icon_workflow.
-      WHEN 'PINF' OR swbm_c_type_package_interface.
+      WHEN 'PINF' OR swbm_c_type_package_interface OR 'PIFA' OR 'PIFH'.
         r_icon = icon_package_dynamic.
       WHEN 'PROG' OR 'REPS' OR swbm_c_type_prg_source OR swbm_c_type_prg_include.
         r_icon = icon_abap.
@@ -334,7 +340,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_businav_objects.
       WHEN 'SHI3' OR 'U'.
         r_icon = icon_context_menu.
-      WHEN 'SHLP' OR 'SHLD' OR swbm_c_type_ddic_searchhelp.
+      WHEN 'SHLP' OR 'SHLD' OR swbm_c_type_ddic_searchhelp OR 'SHLX'.
         r_icon = icon_value_help.
       WHEN 'SLDB' OR swbm_c_type_logical_database.
         r_icon = icon_database_table.
@@ -344,7 +350,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_modification_create.
       WHEN 'SUSO' OR swbm_c_type_auth_object.
         r_icon = icon_locked.
-      WHEN 'SQLT' OR swbm_c_type_ddic_pool_cluster.
+      WHEN 'SQLT' OR swbm_c_type_ddic_pool_cluster OR 'SQLD' OR 'SQTT'.
         r_icon = icon_database_table.
       WHEN 'SXSD' OR swbm_c_type_badi_def.
         r_icon = icon_abap.
@@ -358,7 +364,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_database_table.
       WHEN 'TRAN' OR swbm_c_type_transaction.
         r_icon = icon_execute_object.
-      WHEN 'TTYP' OR 'TTYD' OR swbm_c_type_ddic_tabletype.
+      WHEN 'TTYP' OR 'TTYD' OR swbm_c_type_ddic_tabletype OR 'TTYX'.
         r_icon = icon_view_table.
       WHEN 'TYPE' OR swbm_c_type_ddic_typepool.
         r_icon = icon_database_table_ina.
@@ -368,7 +374,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_businav_entity.
       WHEN 'VARI'.
         r_icon = icon_abap.
-      WHEN 'VIEW' OR 'VIED' OR swbm_c_type_ddic_view OR 'VDAT'.
+      WHEN 'VIEW' OR 'VIED' OR swbm_c_type_ddic_view OR 'VDAT' OR 'VIET'.
         r_icon = icon_database_table_ina.
       WHEN 'XSLT' OR swbm_c_type_xslt_file.
         r_icon = icon_xml_doc.
@@ -376,8 +382,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         r_icon = icon_htt.
       WHEN 'WTHM' OR swbm_c_type_o2_theme.
         r_icon = icon_htt.
-      WHEN 'WAPA' OR swbm_c_type_o2_application.
+      WHEN 'WAPA' OR swbm_c_type_o2_application OR 'WAPD'.
         r_icon = icon_wd_application.
+      WHEN 'WAPP' OR swbm_c_type_o2_page.
+        r_icon = icon_wd_view.
 *    WHEN 'WDYN' OR swbm_c_type_wdy_component.
 *      r_icon = icon_wd_component.
 *    WHEN 'WDYA' OR swbm_c_type_wdy_application.
@@ -475,11 +483,15 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'CPAK'. "NEW: class parts
     APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'MAPP'. "NEW: class parts
+    APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'COCO'.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_control_composite.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'DEVC'.
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'DEVP'. "LIMU mapping
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_devclass.
     APPEND ls_object_list TO nt_object_list.
@@ -551,6 +563,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'MCOB'.
     APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'MCOD'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_ddic_matchcode.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'MCID'.
@@ -564,6 +578,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     ls_object_list-low = swbm_c_type_cls_mtd_impl.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'MSAG'.
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'MSAD'. "LIMU mapping
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_message_id.
     APPEND ls_object_list TO nt_object_list.
@@ -585,6 +601,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'PINF'.
     APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'PIFA'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'PIFH'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_package_interface.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'PROG'.
@@ -595,7 +615,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_prg_include.
     APPEND ls_object_list TO nt_object_list.
-    ls_object_list-low = 'REPT'.    "NEW: Report texts
+    ls_object_list-low = 'REPT'. "NEW: Report texts
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'SCAT'.
     APPEND ls_object_list TO nt_object_list.
@@ -613,6 +633,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'SHLD'.
     APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'SHLX'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_ddic_searchhelp.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'SLDB'.
@@ -628,6 +650,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     ls_object_list-low = swbm_c_type_auth_object.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'SQLT'.
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'SQLD'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'SQTT'. "LIMU mapping
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_ddic_pool_cluster.
     APPEND ls_object_list TO nt_object_list.
@@ -669,6 +695,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'TTYD'.
     APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'TTYX'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_ddic_tabletype.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'TYPE'.
@@ -689,6 +717,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'VIED'.
     APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'VIET'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_ddic_view.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'XSLT'.
@@ -704,6 +734,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     ls_object_list-low = swbm_c_type_o2_theme.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'WAPA'.
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'WAPD'. "LIMU mapping
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'WAPP'. "LIMU mapping
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_o2_application.
     APPEND ls_object_list TO nt_object_list.
@@ -780,6 +814,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     ls_object_list-low = 'ECSC'.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = swbm_c_type_ecatt_test_script.
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'AUT'. "wb mapping
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'AUTH'.
     APPEND ls_object_list TO nt_object_list.
@@ -860,11 +896,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       l_objlen   = strlen( l_name ).
       l_msag     = l_objlen - gc_mess.
       IF l_msag < 2.                " wrong syntax
-*      PERFORM get_object_description  USING    i_pgmid
-*                                               i_object
-*                                      CHANGING l_text.
-*      MESSAGE e197(tk)  WITH  l_text i_pgmid i_object
-*                              RAISING jump_not_possible.
+*         PERFORM get_object_description  USING    i_pgmid
+*                                                  i_object
+*                                         CHANGING l_text.
+*         MESSAGE e197(tk)  WITH  l_text i_pgmid i_object
+*                                 RAISING jump_not_possible.
       ENDIF.
       e_obj_name = l_name+l_msag(gc_mess).
       e_encl_obj = l_name(l_msag).
@@ -894,9 +930,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       e_obj_type = 'WAPP'.
       e_obj_name = i_obj_name+gc_wapa(gc_wapp).
       e_encl_obj = i_obj_name(gc_wapa).
-*  ELSEIF i_pgmid = 'R3TR'  AND  i_object = 'TABU'.
-*    e_obj_type = 'DT'.
-*    e_obj_name = i_obj_name.
+*    ELSEIF i_pgmid = 'R3TR'  AND  i_object = 'TABU'.
+*      e_obj_type = 'DT'.
+*      e_obj_name = i_obj_name.
     ELSEIF i_pgmid = 'LIMU'  AND  i_object = 'ADIR'.
       e_obj_type = i_obj_name+4(4).
       e_obj_name = i_obj_name+8.
@@ -908,9 +944,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 
 *   Map some object types
     CASE i_object.
-      WHEN 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK'.
-        e_obj_type = 'CLAS'.
-      WHEN 'SHMA'.
+      WHEN 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK' OR 'MAPP'.
         e_obj_type = 'CLAS'.
       WHEN 'CINC'.
         IF e_obj_name+30(2) = 'CC'.
@@ -926,16 +960,18 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ELSE.
           e_obj_type = 'PROG'.
         ENDIF.
-      WHEN 'TABU' OR 'TABT' OR 'TABD'.
+      WHEN 'TABU' OR 'TABT'.
         e_obj_type = 'TABL'.
-      WHEN 'VDAT' OR 'CDAT'.
+      WHEN 'VDAT' OR 'CDAT' OR 'VIET'.
         e_obj_type = 'VIEW'.
-      WHEN 'SHLD'.
+      WHEN 'SHLD' OR 'SHLX'.
         e_obj_type = 'SHLP'.
+      WHEN 'TTYX'.
+        e_obj_type = 'TTYP'.
       WHEN 'TYPD'.
         e_obj_type = 'TYPE'.
       WHEN 'CUAD'.
-        e_obj_type = swbm_c_type_cua_status.
+        e_obj_type = 'PROG'.
       WHEN 'XPRA'.
         e_obj_type = 'PROG'.
       WHEN 'INDX'.
@@ -946,21 +982,36 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       WHEN 'DSEL'.
         e_obj_type = swbm_c_type_logical_database.
         e_obj_name = e_obj_name+3(20).
-      WHEN 'IARP'.
+      WHEN 'IARP' OR swbm_c_type_w3_resource.
         e_obj_type = 'IASP'.
         e_obj_name = e_obj_name(14).
+      WHEN 'IATU' OR swbm_c_type_w3_template.
+        e_obj_name = e_obj_name+20(*).
+        e_encl_obj = e_obj_name(20).
       WHEN 'SPRX'.
-        IF e_obj_name(4) = 'DTEL'.
-          e_obj_type = 'DTEL'.
-          e_obj_name = e_obj_name+4(*).
-        ELSE.
-          e_obj_type = 'TABL'.
-          e_obj_name = e_obj_name+4(*).
-        ENDIF.
+        e_obj_type = e_obj_name(4).
+        e_obj_name = e_obj_name+4(*).
       WHEN 'DDLS'.
         e_obj_type = swbm_c_type_ddic_ddl_source.
       WHEN 'DCLS'.
         e_obj_type = 'Q0R'.
+      WHEN 'DEVP'.
+        e_obj_type = 'DEVC'.
+      WHEN 'PIFA' OR 'PIFH'.
+        e_obj_type = 'PINF'.
+      WHEN 'MCOD'.
+        e_obj_type = 'MCOB'.
+      WHEN 'MSAD'.
+        e_obj_type = 'MSAG'.
+      WHEN 'WAPD'.
+        e_obj_type = 'WAPA'.
+      WHEN 'WAPP'.
+*        TODO: Test if it works with or without this and implement workaround if necesssary (table O2PAGDIRT)
+*        e_obj_type = 'WAPA'.
+*        e_obj_name = e_obj_name(30). "appl
+*        e_encl_obj = e_obj_name+30(*). "page
+      WHEN 'SQLD' OR 'SQTT'.
+        e_obj_type = 'SQLT'.
     ENDCASE.
 
   ENDMETHOD.

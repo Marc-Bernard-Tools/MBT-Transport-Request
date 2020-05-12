@@ -79,13 +79,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
           SELECT SINGLE description FROM wdy_applicationt INTO l_s_e071_txt-text
             WHERE application_name = <ls_e071>-obj_name
               AND langu            = sy-langu.
-        WHEN 'WDYC'. " Web Dynpro Controller
+        WHEN 'WDYC' OR 'WDYD'. " Web Dynpro Controller
           SELECT SINGLE description FROM wdy_controllert INTO l_s_e071_txt-text
             WHERE component_name   = <ls_e071>-obj_name(30)
               AND controller_name  = <ls_e071>-obj_name+30(30)
               AND langu            = sy-langu.
-        WHEN 'WDYD'. " Web Dynpro Definition
-* TODO
         WHEN 'WDYL'. " Web Dynpro UI-Element Library
           SELECT SINGLE display_name FROM wdy_ui_library INTO l_s_e071_txt-text
             WHERE library_name   = <ls_e071>-obj_name.
@@ -98,7 +96,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
             WHERE component_name   = <ls_e071>-obj_name(30)
               AND view_name        = <ls_e071>-obj_name+30(30)
               AND langu            = sy-langu.
-        WHEN 'SOTT' OR 'SOTL'. " OTR Short/Long Text
+        WHEN 'SOTL' OR 'SOTS' OR 'SOTT' OR 'SOTU'. " OTR Short/Long Text
           SELECT SINGLE text FROM sotr_text INTO l_s_e071_txt-text
             WHERE concept = <ls_e071>-obj_name+30(32)
               AND langu   = sy-langu.
@@ -133,9 +131,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
         r_icon = icon_wd_component.
       WHEN 'WDYV'. " Web Dynpro View
         r_icon = icon_wd_view.
-      WHEN 'SOTT'. " OTR Short Text
+      WHEN 'SOTS' OR 'SOTT'. " OTR Short Text
         r_icon = icon_change_text.
-      WHEN 'SOTL'. " OTR Long Text
+      WHEN 'SOTL' OR 'SOTU'. " OTR Long Text
         r_icon = icon_annotation.
       WHEN OTHERS.
         r_icon = icon_dummy.
@@ -171,9 +169,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'WDYV'. " Web Dynpro Definitions
     APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'SOTL'. " Web Dynpro Online Text Repository (OTR)
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'SOTS'. " Web Dynpro Online Text Repository (OTR)
+    APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'SOTT'. " Web Dynpro Online Text Repository (OTR)
     APPEND ls_object_list TO nt_object_list.
-    ls_object_list-low = 'SOTL'. " Web Dynpro Online Text Repository (OTR)
+    ls_object_list-low = 'SOTU'. " Web Dynpro Online Text Repository (OTR)
     APPEND ls_object_list TO nt_object_list.
 
   ENDMETHOD.

@@ -13,39 +13,45 @@
    </PROGDIR>
    <TPOOL>
     <item>
-     <ID>I</ID>
-     <KEY>DEL</KEY>
-     <ENTRY>To be deleted in target system</ENTRY>
-     <LENGTH>60</LENGTH>
-    </item>
-    <item>
-     <ID>I</ID>
-     <KEY>IMG</KEY>
-     <ENTRY>IMG Activity</ENTRY>
-     <LENGTH>50</LENGTH>
-    </item>
-    <item>
-     <ID>I</ID>
-     <KEY>KTV</KEY>
-     <ENTRY>No text exists</ENTRY>
-     <LENGTH>50</LENGTH>
-    </item>
-    <item>
-     <ID>I</ID>
-     <KEY>TRL</KEY>
-     <ENTRY>Translation for:</ENTRY>
-     <LENGTH>50</LENGTH>
-    </item>
-    <item>
      <ID>R</ID>
      <ENTRY>MBT Request Display - Test all BAdIs</ENTRY>
      <LENGTH>36</LENGTH>
     </item>
     <item>
      <ID>S</ID>
+     <KEY>P_BADI</KEY>
+     <ENTRY>Check BAdI Implementation</ENTRY>
+     <LENGTH>33</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_NONE</KEY>
+     <ENTRY>No Checks</ENTRY>
+     <LENGTH>17</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_OBJS</KEY>
+     <ENTRY>Check Object Types</ENTRY>
+     <LENGTH>26</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>P_SORT</KEY>
+     <ENTRY>Sort by Object Type</ENTRY>
+     <LENGTH>27</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
      <KEY>SO_CLASS</KEY>
      <ENTRY>BAdI Classname</ENTRY>
      <LENGTH>22</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
+     <KEY>SO_OBJ</KEY>
+     <ENTRY>Object</ENTRY>
+     <LENGTH>14</LENGTH>
     </item>
    </TPOOL>
   </asx:values>

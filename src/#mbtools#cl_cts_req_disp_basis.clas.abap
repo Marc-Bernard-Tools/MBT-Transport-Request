@@ -162,10 +162,18 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
             WHERE language      = sy-langu
               AND objtype_group = <ls_e071>-obj_name
               AND ai_version    = 'A'.
-        WHEN 'CUS0'. " Customizing Activity
+        WHEN 'CUS0'. " IMG Activity
           SELECT SINGLE text FROM cus_imgact INTO l_s_e071_txt-text
             WHERE spras     = sy-langu
               AND activity = <ls_e071>-obj_name.
+        WHEN 'CUS1'. " Customizing Activity
+          SELECT SINGLE text FROM cus_actt INTO l_s_e071_txt-text
+            WHERE spras  = sy-langu
+              AND act_id = <ls_e071>-obj_name.
+        WHEN 'CUS2'. " Customizing Attributes
+          SELECT SINGLE text FROM cus_atrt INTO l_s_e071_txt-text
+            WHERE spras   = sy-langu
+              AND attr_id = <ls_e071>-obj_name.
       ENDCASE.
 
       INSERT l_s_e071_txt INTO TABLE ct_e071_txt.
@@ -209,7 +217,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         r_icon = icon_business_area.
       WHEN 'WGRP'. " Object Type Group
         r_icon = icon_object_list.
-      WHEN 'CUS0'. " Customizing Activity
+      WHEN 'CUS0'. " IMG Activity
+        r_icon = icon_display_text.
+      WHEN 'CUS1'. " Customizing Activity
+        r_icon = icon_display_text.
+      WHEN 'CUS2'. " Customizing Attributes
         r_icon = icon_display_text.
       WHEN OTHERS.
         r_icon = icon_dummy.
@@ -257,7 +269,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'WGRP'. " Object Type Group
     APPEND ls_object_list TO nt_object_list.
-    ls_object_list-low = 'CUS0'. " Customizing Activity
+    ls_object_list-low = 'CUS0'. " IMG Activity
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'CUS1'. " Customizing Activity
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'CUS2'. " Customizing Attributes
     APPEND ls_object_list TO nt_object_list.
 
   ENDMETHOD.

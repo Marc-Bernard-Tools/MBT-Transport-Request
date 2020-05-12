@@ -62,7 +62,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
           r_icon   = l_s_e071_txt-icon.
 
       CASE <ls_e071>-object.
-        WHEN 'MERG' OR 'RELE'. " Comment: Object List Included, Comment Entry: Released
+        WHEN 'MERG' OR 'RELE' OR 'COMM'. " Comment: Object List Included, Comment Entry: Released, Object List of Request or Piece List
           SELECT SINGLE as4text FROM e07t INTO l_s_e071_txt-text
             WHERE trkorr = <ls_e071>-obj_name(10) AND langu = sy-langu.
           IF sy-subrc <> 0.
@@ -101,6 +101,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
         r_icon = icon_release.
       WHEN 'ADIR'. " Object Directory Entry
         r_icon = icon_detail.
+      WHEN 'COMM'. " Object List of Request or Piece List
+        r_icon = icon_document.
       WHEN OTHERS.
         r_icon = icon_dummy.
     ENDCASE.
@@ -122,6 +124,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
     ls_object_list-low = 'RELE'. " Comment Entry: Released
     APPEND ls_object_list TO nt_object_list.
     ls_object_list-low = 'ADIR'. " Object Directory Entry
+    APPEND ls_object_list TO nt_object_list.
+    ls_object_list-low = 'COMM'. " Object List of Request or Piece List
     APPEND ls_object_list TO nt_object_list.
 
   ENDMETHOD.
