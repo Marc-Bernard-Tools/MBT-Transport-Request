@@ -11,7 +11,7 @@ CLASS /mbtools/cl_cts_req_display DEFINITION
 
   PUBLIC SECTION.
 
-    INTERFACES zif_apack_manifest .
+    INTERFACES if_apack_manifest .
     INTERFACES /mbtools/if_manifest .
 
     CONSTANTS c_version TYPE string VALUE '1.0.0' ##NO_TEXT.
@@ -27,7 +27,7 @@ CLASS /mbtools/cl_cts_req_display DEFINITION
   PRIVATE SECTION.
 
     ALIASES apack_manifest
-      FOR zif_apack_manifest~descriptor .
+      FOR if_apack_manifest~descriptor .
     ALIASES mbt_manifest
       FOR /mbtools/if_manifest~descriptor .
 
