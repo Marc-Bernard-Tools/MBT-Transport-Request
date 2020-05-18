@@ -25,6 +25,12 @@
     </item>
     <item>
      <ID>S</ID>
+     <KEY>P_COUNT</KEY>
+     <ENTRY>Number of Objects per Type</ENTRY>
+     <LENGTH>34</LENGTH>
+    </item>
+    <item>
+     <ID>S</ID>
      <KEY>P_NONE</KEY>
      <ENTRY>No Checks</ENTRY>
      <LENGTH>17</LENGTH>

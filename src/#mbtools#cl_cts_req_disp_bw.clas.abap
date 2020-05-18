@@ -11,7 +11,7 @@ CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
 
   PUBLIC SECTION.
 
-    TYPE-POOLS icon .
+    TYPE-POOLS: icon, rsd.
 
     INTERFACES if_badi_interface .
     INTERFACES /mbtools/if_cts_req_display .
@@ -49,15 +49,19 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       l_s_e071_txt  TYPE /mbtools/trwbo_s_e071_txt,
       l_s_object    TYPE rso_s_tlogo,
       l_s_tlogoprop TYPE rstlogoprop,
+      l_tlogo       TYPE rstlogo,
       l_objvers     TYPE rsobjvers,
       l_txtlg       TYPE rstxtlg,
       l_icon        TYPE icon_d,
+      l_iobjtp      TYPE rsiobjtp,
       l_compid      TYPE rszcompid,
       l_deftp       TYPE rszdeftp,
       l_element     TYPE string,
       l_text        TYPE string.
 
     LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN nt_object_list.
+      CLEAR: l_icon, l_txtlg.
+
       CLEAR l_s_object.
       l_s_object-tlogo = <ls_e071>-object.
       l_s_object-objnm = <ls_e071>-obj_name.
@@ -67,13 +71,14 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
         WITH KEY tlogo_d = l_s_object-tlogo.
       IF sy-subrc = 0.
         l_objvers = rs_c_objvers-delivery.
+        l_s_object-tlogo = l_s_tlogoprop-tlogo.
       ELSE.
         l_objvers = rs_c_objvers-active.
       ENDIF.
 
 *     Source system objects
       CASE l_s_object-tlogo.
-        WHEN 'DSAA' OR 'DSAD'. " Application component hierarchy
+        WHEN 'DSAA'. " Application component hierarchy
           CALL METHOD get_object_icon
             EXPORTING
               i_object = l_s_object-tlogo
@@ -88,10 +93,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
           ENDIF.
           IF sy-subrc <> 0.
             l_icon = icon_delete.
-            l_txtlg = 'Not found'.
           ENDIF.
 
-        WHEN 'OSOA' OR 'OSOD'. " DataSource
+        WHEN 'OSOA'. " DataSource
           CALL METHOD get_object_icon
             EXPORTING
               i_object = l_s_object-tlogo
@@ -106,7 +110,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
           ENDIF.
           IF sy-subrc <> 0.
             l_icon = icon_delete.
-            l_txtlg = 'Not found'.
           ENDIF.
 
         WHEN OTHERS.
@@ -131,7 +134,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
                 r_icon   = l_icon.
           ELSE.
             l_icon = icon_delete.
-            l_txtlg = 'Not found'.
           ENDIF.
       ENDCASE.
 
@@ -141,16 +143,36 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       l_s_e071_txt-icon = l_icon.
       l_s_e071_txt-text = l_txtlg.
 
-*     Get technical name for objects based on GUIDs
       CASE l_s_object-tlogo.
-        WHEN rs_c_tlogo-element OR rs_c_tlogo-d_element.
-          IF l_objvers = rs_c_objvers-active.
-            SELECT SINGLE compid INTO l_compid FROM rszcompdir
-              WHERE compuid = l_s_object-objnm AND objvers = rs_c_objvers-active.
-          ELSE.
-            SELECT SINGLE compid INTO l_compid FROM rszcompdir
-              WHERE compuid = l_s_object-objnm AND objvers = rs_c_objvers-delivery.
+        WHEN rs_c_tlogo-infoobject.
+          " Get type of InfoObject
+          SELECT SINGLE iobjtp INTO l_iobjtp FROM rsdiobj
+            WHERE iobjnm = l_s_object-objnm AND objvers = l_objvers.
+
+          CASE l_iobjtp.
+            WHEN rsd_c_objtp-charact.
+              l_txtlg = 'Characteristic:'.
+            WHEN rsd_c_objtp-keyfigure.
+              l_txtlg = 'Key Figure:'.
+            WHEN rsd_c_objtp-time.
+              l_txtlg = 'Time Characteristic:'.
+            WHEN rsd_c_objtp-package.
+              l_txtlg = 'Data Packet Characteristic:'.
+            WHEN rsd_c_objtp-unit.
+              l_txtlg = 'Unit of Measurement:'.
+            WHEN rsd_c_objtp-xxl.
+              l_txtlg = 'XXL InfoObject:'.
+            WHEN OTHERS.
+              l_txtlg = ''.
+          ENDCASE.
+          IF NOT l_txtlg IS INITIAL.
+            CONCATENATE l_txtlg l_s_e071_txt-text INTO l_s_e071_txt-text SEPARATED BY space.
           ENDIF.
+
+        WHEN rs_c_tlogo-element.
+          " Get technical name for objects based on GUIDs
+          SELECT SINGLE compid INTO l_compid FROM rszcompdir
+            WHERE compuid = l_s_object-objnm AND objvers = l_objvers.
           IF sy-subrc = 0.
             l_s_e071_txt-name = l_compid.
           ELSE.
