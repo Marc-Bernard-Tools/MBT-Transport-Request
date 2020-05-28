@@ -97,7 +97,7 @@ FORM create_object_list
 
 *{   INSERT         M0NK900019                                        1
   LOG-POINT ID /mbtools/bc
-    SUBKEY /mbtools/cl_tools=>get_name( /mbtools/cl_cts_req_display=>c_title )
+    SUBKEY /mbtools/cl_cts_req_display=>c_title
     FIELDS sy-datum sy-uzeit sy-uname.
 
 * Read texts of object list headings

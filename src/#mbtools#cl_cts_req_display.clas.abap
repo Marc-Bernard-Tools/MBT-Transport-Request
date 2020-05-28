@@ -25,6 +25,8 @@ CLASS /mbtools/cl_cts_req_display DEFINITION
 
   PRIVATE SECTION.
 
+    DATA: mr_tool TYPE REF TO /mbtools/cl_tools.
+
     ALIASES apack_manifest
       FOR if_apack_manifest~descriptor .
     ALIASES mbt_manifest
@@ -38,7 +40,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISPLAY IMPLEMENTATION.
 
 
   METHOD constructor.
-    apack_manifest = /mbtools/cl_tools=>build_apack_manifest( me ).
-    mbt_manifest = /mbtools/cl_tools=>build_mbt_manifest( me ).
+    CREATE OBJECT mr_tool EXPORTING i_tool = me.
+
+    apack_manifest = mr_tool->apack_manifest.
+    mbt_manifest   = mr_tool->mbt_manifest.
   ENDMETHOD.
 ENDCLASS.
