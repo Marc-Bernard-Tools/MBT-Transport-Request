@@ -25,18 +25,6 @@
      <LANGU>E</LANGU>
      <DESCRIPT>Object List</DESCRIPT>
     </SEOCOMPOTX>
-    <SEOCOMPOTX>
-     <CLSNAME>/MBTOOLS/CL_CTS_REQ_DISP_BW</CLSNAME>
-     <CMPNAME>P_R_REPOSITORY</CMPNAME>
-     <LANGU>E</LANGU>
-     <DESCRIPT>BW Metadata Repository</DESCRIPT>
-    </SEOCOMPOTX>
-    <SEOCOMPOTX>
-     <CLSNAME>/MBTOOLS/CL_CTS_REQ_DISP_BW</CLSNAME>
-     <CMPNAME>P_TH_TLOGOPROP</CMPNAME>
-     <LANGU>E</LANGU>
-     <DESCRIPT>Table using Tlogo Objects and Properties</DESCRIPT>
-    </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
  </asx:abap>
