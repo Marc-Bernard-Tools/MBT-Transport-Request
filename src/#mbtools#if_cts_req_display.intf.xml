@@ -5,7 +5,7 @@
    <VSEOINTERF>
     <CLSNAME>/MBTOOLS/IF_CTS_REQ_DISPLAY</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>MBT Request Display - Interface</DESCRIPT>
+    <DESCRIPT>MBT Transport Request - Interface</DESCRIPT>
     <EXPOSURE>2</EXPOSURE>
     <STATE>1</STATE>
     <UNICODE>X</UNICODE>

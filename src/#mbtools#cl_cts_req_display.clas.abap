@@ -4,31 +4,30 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-CLASS /mbtools/cl_cts_req_display DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+class /MBTOOLS/CL_CTS_REQ_DISPLAY definition
+  public
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    INTERFACES if_apack_manifest .
-    INTERFACES /mbtools/if_manifest .
+  interfaces ZIF_APACK_MANIFEST .
+  interfaces /MBTOOLS/IF_MANIFEST .
 
-    CONSTANTS c_version TYPE string VALUE '1.0.0' ##NO_TEXT.
-    CONSTANTS c_title TYPE string VALUE 'MBT Transport Request' ##NO_TEXT.
-    CONSTANTS c_description TYPE string VALUE 'The Ultimate Enhancement for Displaying Transport Requests in SAP GUI' ##NO_TEXT.
-    CONSTANTS c_download_id TYPE i VALUE 4411.
+  constants C_VERSION type STRING value '1.0.0' ##NO_TEXT.
+  constants C_TITLE type STRING value 'MBT Transport Request' ##NO_TEXT.
+  constants C_DESCRIPTION type STRING value 'The Ultimate Enhancement for Displaying Transport Requests in SAP GUI' ##NO_TEXT.
+  constants C_DOWNLOAD_ID type I value 4411 ##NO_TEXT.
 
-    METHODS constructor .
-
+  methods CONSTRUCTOR .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
 
-    DATA: mr_tool TYPE REF TO /mbtools/cl_tools.
+    DATA: mo_tool TYPE REF TO /mbtools/cl_tools.
 
     ALIASES apack_manifest
-      FOR if_apack_manifest~descriptor .
+      FOR zif_apack_manifest~descriptor .
     ALIASES mbt_manifest
       FOR /mbtools/if_manifest~descriptor .
 
@@ -40,9 +39,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISPLAY IMPLEMENTATION.
 
 
   METHOD constructor.
-    CREATE OBJECT mr_tool EXPORTING i_tool = me.
+    CREATE OBJECT mo_tool EXPORTING io_tool = me.
 
-    apack_manifest = mr_tool->apack_manifest.
-    mbt_manifest   = mr_tool->mbt_manifest.
+    apack_manifest = mo_tool->apack_manifest.
+    mbt_manifest   = mo_tool->mbt_manifest.
   ENDMETHOD.
 ENDCLASS.

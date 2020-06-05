@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <TOOL>HOOK_IMPL</TOOL>
-   <SHORTTEXT>MBT Request Display - Object List</SHORTTEXT>
+   <SHORTTEXT>MBT Transport Request - Object List</SHORTTEXT>
    <ORIGINAL_OBJECT>
     <PGMID>R3TR</PGMID>
     <ORG_OBJ_TYPE>FUGR</ORG_OBJ_TYPE>

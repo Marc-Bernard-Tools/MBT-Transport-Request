@@ -4,23 +4,24 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-INTERFACE /mbtools/if_cts_req_display
-  PUBLIC .
+interface /MBTOOLS/IF_CTS_REQ_DISPLAY
+  public .
 
-  INTERFACES if_badi_interface .
+  type-pools ICON .
 
-  CLASS-METHODS get_object_descriptions
-    IMPORTING
-      !it_e071      TYPE trwbo_t_e071
-      !it_e071k     TYPE trwbo_t_e071k OPTIONAL
-      !it_e071k_str TYPE trwbo_t_e071k_str OPTIONAL
-    CHANGING
-      !ct_e071_txt  TYPE /mbtools/trwbo_t_e071_txt .
-  CLASS-METHODS get_object_icon
-    IMPORTING
-      VALUE(i_object) TYPE trobjtype
-      VALUE(i_icon)   TYPE icon_d OPTIONAL
-    CHANGING
-      VALUE(r_icon)   TYPE icon_d .
+  interfaces IF_BADI_INTERFACE .
 
-ENDINTERFACE.
+  class-methods GET_OBJECT_DESCRIPTIONS
+    importing
+      !IT_E071 type TRWBO_T_E071
+      !IT_E071K type TRWBO_T_E071K optional
+      !IT_E071K_STR type TRWBO_T_E071K_STR optional
+    changing
+      !CT_E071_TXT type /MBTOOLS/TRWBO_T_E071_TXT .
+  class-methods GET_OBJECT_ICON
+    importing
+      value(IV_OBJECT) type TROBJTYPE
+      value(IV_ICON) type ICON_D optional
+    changing
+      value(RV_ICON) type ICON_D .
+endinterface.

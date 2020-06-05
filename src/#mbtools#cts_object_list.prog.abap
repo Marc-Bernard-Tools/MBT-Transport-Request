@@ -1,11 +1,10 @@
 ************************************************************************
 * /MBTOOLS/BC_CTS_OBJECT_LIST
-* MBT Request Display
+* MBT Transport Request
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-
-REPORT /mbtools/bc_cts_object_list.
+REPORT /mbtools/cts_object_list.
 
 TYPE-POOLS: icon.
 
@@ -59,6 +58,10 @@ CONSTANTS:
   gc_node_attrvalue  TYPE tv_node_type  VALUE 'AVAL'.
 
 DATA gt_object_texts LIKE ko100 OCCURS 10.
+
+START-OF-SELECTION.
+
+  MESSAGE 'This program includes an enhancement. Nothing to run here.' TYPE 'S'.
 
 *&---------------------------------------------------------------------*
 *&      Form  CREATE_OBJECT_LIST (LSTRHF01)

@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>/MBTOOLS/CL_CTS_REQ_DISP_CTS</CLSNAME>
     <LANGU>E</LANGU>
-    <DESCRIPT>MBT Request Display - Change &amp; Transport System</DESCRIPT>
+    <DESCRIPT>MBT Transport Request - Change &amp; Transport System</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>
@@ -18,12 +18,6 @@
      <CMPNAME>CLASS_CONSTRUCTOR</CMPNAME>
      <LANGU>E</LANGU>
      <DESCRIPT>Initialization</DESCRIPT>
-    </SEOCOMPOTX>
-    <SEOCOMPOTX>
-     <CLSNAME>/MBTOOLS/CL_CTS_REQ_DISP_CTS</CLSNAME>
-     <CMPNAME>NT_OBJECT_LIST</CMPNAME>
-     <LANGU>E</LANGU>
-     <DESCRIPT>Object List</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>

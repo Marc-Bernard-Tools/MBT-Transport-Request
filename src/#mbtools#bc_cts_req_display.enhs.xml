@@ -3,14 +3,14 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <TOOL>BADI_DEF</TOOL>
-   <SHORTTEXT>MBT Request Display - Enhancement Spot</SHORTTEXT>
+   <SHORTTEXT>MBT Transport Request - Enhancement Spot</SHORTTEXT>
    <BADI_DATA>
     <ENH_BADI_DATA>
      <BADI_NAME>/MBTOOLS/BC_CTS_REQ_DISPLAY</BADI_NAME>
      <INTERFACE_NAME>/MBTOOLS/IF_CTS_REQ_DISPLAY</INTERFACE_NAME>
      <CONTEXT_MODE>N</CONTEXT_MODE>
-     <BADI_SHORTTEXT>MBT Request Display - Definition</BADI_SHORTTEXT>
-     <BADI_SHORTTEXT_ID>000D3A5598F91EDA8CADD8EC65E71A02</BADI_SHORTTEXT_ID>
+     <BADI_SHORTTEXT>MBT Transport Request - Definition</BADI_SHORTTEXT>
+     <BADI_SHORTTEXT_ID>000D3A8FA0651EEAA9B0B17DA805883B</BADI_SHORTTEXT_ID>
     </ENH_BADI_DATA>
    </BADI_DATA>
   </asx:values>

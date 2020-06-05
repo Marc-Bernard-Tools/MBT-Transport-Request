@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <TOOL>BADI_IMPL</TOOL>
-   <SHORTTEXT>MBT Request Display - Business Document Services</SHORTTEXT>
+   <SHORTTEXT>MBT Transport Request - Business Document Services</SHORTTEXT>
    <SPOT_NAME>/MBTOOLS/BC_CTS_REQ_DISPLAY</SPOT_NAME>
    <IMPL>
     <ENH_BADI_IMPL_DATA>
@@ -12,8 +12,8 @@
      <IMPL_NAME>/MBTOOLS/BC_CTS_REQ_DISP_BDS</IMPL_NAME>
      <IMPL_CLASS>/MBTOOLS/CL_CTS_REQ_DISP_BDS</IMPL_CLASS>
      <ACTIVE>X</ACTIVE>
-     <IMPL_SHORTTEXT>MBT Request Display - Business Document Services</IMPL_SHORTTEXT>
-     <IMPL_SHORTTEXT_ID>000D3A5598F91EDA88E8788C71FA551A</IMPL_SHORTTEXT_ID>
+     <IMPL_SHORTTEXT>MBT Transport Request - Business Document Services</IMPL_SHORTTEXT>
+     <IMPL_SHORTTEXT_ID>000D3A8FA0651EEAA9B0A7FC90F2283B</IMPL_SHORTTEXT_ID>
     </ENH_BADI_IMPL_DATA>
    </IMPL>
   </asx:values>

@@ -4,33 +4,32 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+class /MBTOOLS/CL_CTS_REQ_DISP_BW definition
+  public
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
+  type-pools RSD .
+  type-pools SBIW .
 
-    TYPE-POOLS: icon, rsd.
+  interfaces IF_BADI_INTERFACE .
+  interfaces /MBTOOLS/IF_CTS_REQ_DISPLAY .
 
-    INTERFACES if_badi_interface .
-    INTERFACES /mbtools/if_cts_req_display .
+  aliases GET_OBJECT_DESCRIPTIONS
+    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_DESCRIPTIONS .
+  aliases GET_OBJECT_ICON
+    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_ICON .
 
-    ALIASES get_object_descriptions
-      FOR /mbtools/if_cts_req_display~get_object_descriptions .
-    ALIASES get_object_icon
-      FOR /mbtools/if_cts_req_display~get_object_icon .
+  class-data:
+    mt_object_list TYPE RANGE OF e071-object read-only .
 
-    CLASS-DATA:
-      nt_object_list TYPE RANGE OF e071-object READ-ONLY .
-
-    CLASS-METHODS class_constructor .
-
+  class-methods CLASS_CONSTRUCTOR .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
 
-    CLASS-DATA mr_repository TYPE REF TO cl_rso_repository .
+    CLASS-DATA mo_repository TYPE REF TO cl_rso_repository .
     CLASS-DATA mt_tlogoprop TYPE rso_th_tlogoprop .
 
 ENDCLASS.
@@ -42,178 +41,178 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
 
-    FIELD-SYMBOLS:
-      <ls_e071>     TYPE e071.
-
     DATA:
-      l_s_e071_txt  TYPE /mbtools/trwbo_s_e071_txt,
-      l_s_object    TYPE rso_s_tlogo,
-      l_s_tlogoprop TYPE rstlogoprop,
-      l_tlogo       TYPE rstlogo,
-      l_objvers     TYPE rsobjvers,
-      l_txtlg       TYPE rstxtlg,
-      l_icon        TYPE icon_d,
-      l_iobjtp      TYPE rsiobjtp,
-      l_compid      TYPE rszcompid,
-      l_deftp       TYPE rszdeftp,
-      l_element     TYPE string,
-      l_text        TYPE string.
+      ls_e071_txt  TYPE /mbtools/trwbo_s_e071_txt,
+      ls_object    TYPE rso_s_tlogo,
+      ls_tlogoprop TYPE rstlogoprop,
+      lv_tlogo     TYPE rstlogo,
+      lv_objvers   TYPE rsobjvers,
+      lv_txtlg     TYPE rstxtlg,
+      lv_icon      TYPE icon_d,
+      lv_iobjtp    TYPE rsiobjtp,
+      lv_compid    TYPE rszcompid,
+      lv_deftp     TYPE rszdeftp,
+      lv_element   TYPE string,
+      lv_text      TYPE string.
 
-    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN nt_object_list.
-      CLEAR: l_icon, l_txtlg.
+    FIELD-SYMBOLS:
+      <ls_e071> TYPE e071.
 
-      CLEAR l_s_object.
-      l_s_object-tlogo = <ls_e071>-object.
-      l_s_object-objnm = <ls_e071>-obj_name.
+    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+      CLEAR: lv_icon, lv_txtlg.
 
-*     Check if content object
-      READ TABLE mt_tlogoprop INTO l_s_tlogoprop
-        WITH KEY tlogo_d = l_s_object-tlogo.
+      CLEAR ls_object.
+      ls_object-tlogo = <ls_e071>-object.
+      ls_object-objnm = <ls_e071>-obj_name.
+
+      " Check if content object
+      READ TABLE mt_tlogoprop INTO ls_tlogoprop
+        WITH KEY tlogo_d = ls_object-tlogo.
       IF sy-subrc = 0.
-        l_objvers = rs_c_objvers-delivery.
-        l_s_object-tlogo = l_s_tlogoprop-tlogo.
+        lv_objvers = rs_c_objvers-delivery.
+        ls_object-tlogo = ls_tlogoprop-tlogo.
       ELSE.
-        l_objvers = rs_c_objvers-active.
+        lv_objvers = rs_c_objvers-active.
       ENDIF.
 
-*     Source system objects
-      CASE l_s_object-tlogo.
+      " Source system objects
+      CASE ls_object-tlogo.
         WHEN 'DSAA'. " Application component hierarchy
           CALL METHOD get_object_icon
             EXPORTING
-              i_object = l_s_object-tlogo
+              iv_object = ls_object-tlogo
             CHANGING
-              r_icon   = l_icon.
+              rv_icon   = lv_icon.
 
-          SELECT SINGLE txtlg INTO l_txtlg FROM rodsapplt
-            WHERE hier = l_s_object-objnm AND applnm = '000001' AND objvers = l_objvers AND langu = sy-langu.
+          SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
+            WHERE hier = 'APCO' AND applnm = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
           IF sy-subrc <> 0.
-            SELECT SINGLE txtlg INTO l_txtlg FROM rodsapplt
-              WHERE hier = l_s_object-objnm AND applnm = '000001' AND objvers = l_objvers.
+            SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
+              WHERE hier = 'APCO' AND applnm = ls_object-objnm AND objvers = lv_objvers.
           ENDIF.
           IF sy-subrc <> 0.
-            l_icon = icon_delete.
+            lv_icon = icon_delete.
           ENDIF.
 
-        WHEN 'OSOA'. " DataSource
+        WHEN 'OSOA'. " OLTP DataSource
           CALL METHOD get_object_icon
             EXPORTING
-              i_object = l_s_object-tlogo
+              iv_object = ls_object-tlogo
             CHANGING
-              r_icon   = l_icon.
+              rv_icon   = lv_icon.
 
-          SELECT SINGLE txtlg INTO l_txtlg FROM roosourcet
-            WHERE oltpsource = l_s_object-objnm AND objvers = l_objvers AND langu = sy-langu.
+          SELECT SINGLE txtlg INTO lv_txtlg FROM roosourcet
+            WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
           IF sy-subrc <> 0.
-            SELECT SINGLE txtlg INTO l_txtlg FROM roosourcet
-              WHERE oltpsource = l_s_object-objnm AND objvers = l_objvers.
+            SELECT SINGLE txtlg INTO lv_txtlg FROM roosourcet
+              WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers.
           ENDIF.
           IF sy-subrc <> 0.
-            l_icon = icon_delete.
+            lv_icon = icon_delete.
           ENDIF.
 
         WHEN OTHERS.
-*         Get description and icon from BW repository
-          CALL METHOD mr_repository->get_properties_of_object
+          " Get description and icon from BW repository
+          CALL METHOD mo_repository->get_properties_of_object
             EXPORTING
-              i_objvers            = l_objvers
-              i_s_object           = l_s_object
+              i_objvers            = lv_objvers
+              i_s_object           = ls_object
             IMPORTING
-              e_txtlg              = l_txtlg
-              e_icon               = l_icon
-              e_query_element_type = l_deftp
-              e_iobjtp             = l_iobjtp
+              e_txtlg              = lv_txtlg
+              e_icon               = lv_icon
+              e_query_element_type = lv_deftp
+              e_iobjtp             = lv_iobjtp
             EXCEPTIONS
               object_not_found     = 1
               OTHERS               = 2.
           IF sy-subrc = 0.
             CALL METHOD get_object_icon
               EXPORTING
-                i_object = l_s_object-tlogo
-                i_icon   = l_icon
+                iv_object = ls_object-tlogo
+                iv_icon   = lv_icon
               CHANGING
-                r_icon   = l_icon.
+                rv_icon   = lv_icon.
           ELSE.
-            l_icon = icon_delete.
+            lv_icon = icon_delete.
           ENDIF.
       ENDCASE.
 
-*     Fill return table
-      CLEAR l_s_e071_txt.
-      MOVE-CORRESPONDING <ls_e071> TO l_s_e071_txt.
-      l_s_e071_txt-icon = l_icon.
-      l_s_e071_txt-text = l_txtlg.
+      " Fill return table
+      CLEAR ls_e071_txt.
+      MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
+      ls_e071_txt-icon = lv_icon.
+      ls_e071_txt-text = lv_txtlg.
 
-      CASE l_s_object-tlogo.
+      CASE ls_object-tlogo.
         WHEN rs_c_tlogo-infoobject.
-          CASE l_iobjtp.
+          CASE lv_iobjtp.
             WHEN rsd_c_objtp-charact.
-              l_txtlg = 'Characteristic'.
+              lv_txtlg = 'Characteristic'.
             WHEN rsd_c_objtp-keyfigure.
-              l_txtlg = 'Key Figure'.
+              lv_txtlg = 'Key Figure'.
             WHEN rsd_c_objtp-time.
-              l_txtlg = 'Time Characteristic'.
+              lv_txtlg = 'Time Characteristic'.
             WHEN rsd_c_objtp-package.
-              l_txtlg = 'Data Packet Characteristic'.
+              lv_txtlg = 'Data Packet Characteristic'.
             WHEN rsd_c_objtp-unit.
-              l_txtlg = 'Unit of Measurement'.
+              lv_txtlg = 'Unit of Measurement'.
             WHEN rsd_c_objtp-xxl.
-              l_txtlg = 'XXL InfoObject'.
+              lv_txtlg = 'XXL InfoObject'.
             WHEN OTHERS.
-              l_txtlg = 'Unknown InfoObject Type'.
+              lv_txtlg = 'Unknown InfoObject Type'.
           ENDCASE.
-          l_s_e071_txt-text = |{ l_txtlg }: { l_s_e071_txt-text }|.
+          ls_e071_txt-text = |{ lv_txtlg }: { ls_e071_txt-text }|.
 
         WHEN rs_c_tlogo-element.
           " Get technical name for objects based on GUIDs
-          SELECT SINGLE compid INTO l_compid FROM rszcompdir
-            WHERE compuid = l_s_object-objnm AND objvers = l_objvers.
+          SELECT SINGLE compid INTO lv_compid FROM rszcompdir
+            WHERE compuid = ls_object-objnm AND objvers = lv_objvers.
           IF sy-subrc = 0.
-            l_s_e071_txt-name = l_compid.
+            ls_e071_txt-name = lv_compid.
           ELSE.
-            l_s_e071_txt-name = l_s_object-objnm.
+            ls_e071_txt-name = ls_object-objnm.
           ENDIF.
 
-          CASE l_deftp.
+          CASE lv_deftp.
             WHEN rzd1_c_deftp-report.
-              l_element = 'Query'.
+              lv_element = 'Query'.
             WHEN rzd1_c_deftp-structure.
-              l_element = 'Structure'.
+              lv_element = 'Structure'.
             WHEN rzd1_c_deftp-selection.
-              l_element = 'Selection'.
+              lv_element = 'Selection'.
             WHEN rzd1_c_deftp-calkeyfig.
-              l_element = 'Calc. Key Figure'.
+              lv_element = 'Calc. Key Figure'.
             WHEN rzd1_c_deftp-restkeyfig.
-              l_element = 'Rest. Key Figure'.
+              lv_element = 'Rest. Key Figure'.
             WHEN rzd1_c_deftp-characteristic.
-              l_element = 'Characteristic'.
+              lv_element = 'Characteristic'.
             WHEN rzd1_c_deftp-formula.
-              l_element = 'Formula'.
+              lv_element = 'Formula'.
             WHEN rzd1_c_deftp-variable.
-              l_element = 'Variable'.
+              lv_element = 'Variable'.
             WHEN rzd1_c_deftp-sel_object.
-              l_element = 'Filter'.
+              lv_element = 'Filter'.
             WHEN rzd1_c_deftp-sheet.
-              l_element = 'Sheet'.
+              lv_element = 'Sheet'.
             WHEN rzd1_c_deftp-str_mem OR rzd1_c_deftp-str_mem_inv.
-              l_element = 'Structure Member'.
+              lv_element = 'Structure Member'.
             WHEN rzd1_c_deftp-cell OR rzd1_c_deftp-cell_inv.
-              l_element = 'Cell'.
+              lv_element = 'Cell'.
             WHEN rzd1_c_deftp-cell.
-              l_element = 'Cell'.
+              lv_element = 'Cell'.
             WHEN rzd1_c_deftp-exception.
-              l_element = 'Exception'.
+              lv_element = 'Exception'.
             WHEN rzd1_c_deftp-condition.
-              l_element = 'Condition'.
+              lv_element = 'Condition'.
             WHEN OTHERS.
-              l_element = 'Unkown Element Type'.
+              lv_element = 'Unkown Element Type'.
           ENDCASE.
-          l_s_e071_txt-text = |{ l_element }: { l_s_e071_txt-text }|.
+          ls_e071_txt-text = |{ lv_element }: { ls_e071_txt-text }|.
         WHEN OTHERS.
-          l_s_e071_txt-name = l_s_object-objnm.
+          ls_e071_txt-name = ls_object-objnm.
       ENDCASE.
 
-      INSERT l_s_e071_txt INTO TABLE ct_e071_txt.
+      INSERT ls_e071_txt INTO TABLE ct_e071_txt.
     ENDLOOP.
 
   ENDMETHOD.
@@ -221,16 +220,17 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
   METHOD /mbtools/if_cts_req_display~get_object_icon.
 
-    DATA: l_tlogo TYPE rstlogo.
+    DATA:
+      lv_tlogo TYPE rstlogo.
 
-    l_tlogo = i_object.
+    lv_tlogo = iv_object.
 
     CALL METHOD /mbtools/cl_tlogo=>get_tlogo_icon
       EXPORTING
-        i_tlogo = l_tlogo
-        i_icon  = i_icon
+        iv_tlogo = lv_tlogo
+        iv_icon  = iv_icon
       RECEIVING
-        r_icon  = r_icon.
+        rv_icon  = rv_icon.
 
   ENDMETHOD.
 
@@ -238,45 +238,45 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
   METHOD class_constructor.
 
     DATA:
-      l_s_tlogoprop   TYPE rstlogoprop,
-      l_s_object_list LIKE LINE OF nt_object_list.
+      ls_tlogoprop   TYPE rstlogoprop,
+      ls_object_list LIKE LINE OF mt_object_list.
 
-*   Instanciate repository
-    IF mr_repository IS INITIAL.
+    " Instanciate repository
+    IF mo_repository IS INITIAL.
       CALL METHOD cl_rso_repository=>get_repository
         RECEIVING
-          r_r_repository = mr_repository.
+          r_r_repository = mo_repository.
     ENDIF.
 
-*   Get all TLOGO properties
+    " Get all TLOGO properties
     IF mt_tlogoprop IS INITIAL.
       SELECT * FROM rstlogoprop INTO TABLE mt_tlogoprop.
 
-*     Enhancements and DDLs are handled in /MBTOOLS/CL_CTS_REQ_DISP_WB
+      " Enhancements and DDLs are handled in /MBTOOLS/CL_CTS_REQ_DISP_WB
       DELETE mt_tlogoprop WHERE tlogo = 'ENHO' OR tlogo = 'DDLS'.
 
-*     Add Application Component Hierarchty and DataSource
-      l_s_tlogoprop-tlogo   = 'DSAA'.
-      l_s_tlogoprop-tlogo_d = 'DSAD'.
-      INSERT l_s_tlogoprop INTO TABLE mt_tlogoprop.
-      l_s_tlogoprop-tlogo   = 'OSOA'.
-      l_s_tlogoprop-tlogo_d = 'OSOD'.
-      INSERT l_s_tlogoprop INTO TABLE mt_tlogoprop.
+      " Add Application Component Hierarchty and DataSource
+      ls_tlogoprop-tlogo   = 'DSAA'.
+      ls_tlogoprop-tlogo_d = 'DSAD'.
+      INSERT ls_tlogoprop INTO TABLE mt_tlogoprop.
+      ls_tlogoprop-tlogo   = 'OSOA'.
+      ls_tlogoprop-tlogo_d = 'OSOD'.
+      INSERT ls_tlogoprop INTO TABLE mt_tlogoprop.
     ENDIF.
 
-    l_s_object_list-sign   = 'I'.
-    l_s_object_list-option = 'EQ'.
+    ls_object_list-sign   = 'I'.
+    ls_object_list-option = 'EQ'.
 
-    LOOP AT mt_tlogoprop INTO l_s_tlogoprop.
-      l_s_object_list-low = l_s_tlogoprop-tlogo.
-      APPEND l_s_object_list TO nt_object_list.
-      l_s_object_list-low = l_s_tlogoprop-tlogo_d.
-      APPEND l_s_object_list TO nt_object_list.
+    LOOP AT mt_tlogoprop INTO ls_tlogoprop.
+      ls_object_list-low = ls_tlogoprop-tlogo.
+      APPEND ls_object_list TO mt_object_list.
+      ls_object_list-low = ls_tlogoprop-tlogo_d.
+      APPEND ls_object_list TO mt_object_list.
     ENDLOOP.
 
-    DELETE nt_object_list WHERE low IS INITIAL.
-    SORT nt_object_list.
-    DELETE ADJACENT DUPLICATES FROM nt_object_list.
+    DELETE mt_object_list WHERE low IS INITIAL.
+    SORT mt_object_list.
+    DELETE ADJACENT DUPLICATES FROM mt_object_list.
 
   ENDMETHOD.
 ENDCLASS.
