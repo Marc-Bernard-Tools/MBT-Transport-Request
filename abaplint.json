@@ -210,7 +210,7 @@
         "FUGR",
         "DEVC",
         "TRAN",
-        "EHNO",
+        "ENHO",
         "ENHS",
         "W3MI"
       ]
@@ -262,9 +262,7 @@
     "exit_or_check": false,
     "exporting": true,
     "form_tables_obsolete": false,
-    "functional_writing": {
-      "ignoreExceptions": true
-    },
+    "functional_writing": false,
     "global_class": true,
     "identical_form_names": true,
     "if_in_if": true,
@@ -375,7 +373,7 @@
     "remove_descriptions": false,
     "rfc_error_handling": false,
     "sequential_blank": {
-      "lines": 2
+      "lines": 4
     },
     "short_case": {
       "length": 1,
