@@ -4,25 +4,25 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-class /MBTOOLS/CL_CTS_REQ_DISP_BASIS definition
-  public
-  final
-  create public .
+CLASS /mbtools/cl_cts_req_disp_basis DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces IF_BADI_INTERFACE .
-  interfaces /MBTOOLS/IF_CTS_REQ_DISPLAY .
+    INTERFACES if_badi_interface .
+    INTERFACES /mbtools/if_cts_req_display .
 
-  aliases GET_OBJECT_DESCRIPTIONS
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_DESCRIPTIONS .
-  aliases GET_OBJECT_ICON
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_ICON .
+    ALIASES get_object_descriptions
+      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+    ALIASES get_object_icon
+      FOR /mbtools/if_cts_req_display~get_object_icon .
 
-  class-data:
-    mt_object_list TYPE RANGE OF e071-object read-only .
+    CLASS-DATA:
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
-  class-methods CLASS_CONSTRUCTOR .
+    CLASS-METHODS class_constructor .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -49,7 +49,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     FIELD-SYMBOLS:
       <ls_e071> TYPE trwbo_s_e071.
 
-    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
@@ -230,49 +230,49 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
   METHOD class_constructor.
 
     DATA:
-      ls_object_list LIKE LINE OF mt_object_list.
+      ls_object_list LIKE LINE OF gt_object_list.
 
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
 
     ls_object_list-low = 'SICF'. " ICF Service
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TOBJ'. " Transport object
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DOCU'. " Documentation
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DOCT'. " General Text
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DOCV'. " Documentation (Independent)
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'NSPC'. " Namespace
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CDAT'. " View Cluster Maintenance: Data
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TDAT'. " Customizing: Table Contents
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'STCS'. " Task List
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BMFR'. " Application component
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AOBJ'. " Archiving object
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AVAS'. " Classification
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFBF'. " Switch Framework
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFBS'. " Switch Framework
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFSW'. " Switch Framework
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WGRP'. " Object Type Group
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CUS0'. " IMG Activity
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CUS1'. " Customizing Activity
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CUS2'. " Customizing Attributes
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.
 ENDCLASS.

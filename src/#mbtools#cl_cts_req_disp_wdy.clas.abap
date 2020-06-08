@@ -4,25 +4,25 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-class /MBTOOLS/CL_CTS_REQ_DISP_WDY definition
-  public
-  final
-  create public .
+CLASS /mbtools/cl_cts_req_disp_wdy DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces IF_BADI_INTERFACE .
-  interfaces /MBTOOLS/IF_CTS_REQ_DISPLAY .
+    INTERFACES if_badi_interface .
+    INTERFACES /mbtools/if_cts_req_display .
 
-  aliases GET_OBJECT_DESCRIPTIONS
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_DESCRIPTIONS .
-  aliases GET_OBJECT_ICON
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_ICON .
+    ALIASES get_object_descriptions
+      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+    ALIASES get_object_icon
+      FOR /mbtools/if_cts_req_display~get_object_icon .
 
-  class-data:
-    mt_object_list TYPE RANGE OF e071-object read-only .
+    CLASS-DATA:
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
-  class-methods CLASS_CONSTRUCTOR .
+    CLASS-METHODS class_constructor .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -42,7 +42,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
     DATA:
       l_s_e071_txt TYPE /mbtools/trwbo_s_e071_txt.
 
-    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR l_s_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO l_s_e071_txt.
 
@@ -69,9 +69,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
               AND text_id          = <ls_e071>-obj_name+40(6)
               AND langu            = sy-langu.
         WHEN 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
-           l_s_e071_txt-text = '' ##TODO.
+          l_s_e071_txt-text = '' ##TODO.
         WHEN 'WDRP'. " Web Dynpro Recording Plug-In
-           l_s_e071_txt-text = '' ##TODO.
+          l_s_e071_txt-text = '' ##TODO.
         WHEN 'WDYA'. " Web Dynpro Application
           SELECT SINGLE description FROM wdy_applicationt INTO l_s_e071_txt-text
             WHERE application_name = <ls_e071>-obj_name
@@ -142,39 +142,39 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
   METHOD class_constructor.
 
     DATA:
-      ls_object_list LIKE LINE OF mt_object_list.
+      ls_object_list LIKE LINE OF gt_object_list.
 
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
 
     ls_object_list-low = 'WDCA'. " Web Dynpro Application Configuration
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDCC'. " Web Dynpro Component Configuration
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDRP'. " Web Dynpro Recording Plug-In
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDYA'. " Web Dynpro Application
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDYC'. " Web Dynpro Definitions
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDYD'. " Web Dynpro Definitions
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDYL'. " Web Dynpro UI Element Library
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDYN'. " Web Dynpro Definitions
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDYV'. " Web Dynpro Definitions
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SOTL'. " Web Dynpro Online Text Repository (OTR)
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SOTS'. " Web Dynpro Online Text Repository (OTR)
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SOTT'. " Web Dynpro Online Text Repository (OTR)
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SOTU'. " Web Dynpro Online Text Repository (OTR)
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.
 ENDCLASS.

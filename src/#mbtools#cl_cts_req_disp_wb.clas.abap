@@ -4,27 +4,27 @@
 *
 * (c) MBT 2019 https://marcbernardtools.com/
 ************************************************************************
-class /MBTOOLS/CL_CTS_REQ_DISP_WB definition
-  public
-  final
-  create public .
+CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-  type-pools SWBM .
+  PUBLIC SECTION.
+    TYPE-POOLS swbm .
 
-  interfaces IF_BADI_INTERFACE .
-  interfaces /MBTOOLS/IF_CTS_REQ_DISPLAY .
+    INTERFACES if_badi_interface .
+    INTERFACES /mbtools/if_cts_req_display .
 
-  aliases GET_OBJECT_DESCRIPTIONS
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_DESCRIPTIONS .
-  aliases GET_OBJECT_ICON
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_ICON .
+    ALIASES get_object_descriptions
+      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+    ALIASES get_object_icon
+      FOR /mbtools/if_cts_req_display~get_object_icon .
 
-  constants C_AS4POS type DDPOSITION value '999999' ##NO_TEXT.
-  class-data:
-    mt_object_list TYPE RANGE OF e071-object read-only .
+    CONSTANTS c_as4pos TYPE ddposition VALUE '999999' ##NO_TEXT.
+    CLASS-DATA:
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
-  class-methods CLASS_CONSTRUCTOR .
+    CLASS-METHODS class_constructor .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -61,7 +61,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       <ls_e071k>     TYPE trwbo_s_e071k,
       <ls_e071k_str> TYPE trwbo_s_e071k_str.
 
-    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR ls_object.
 
       CALL METHOD split_object
@@ -89,7 +89,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         TABLES
           obj_tab      = lt_object.
 
-      LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+      LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
         CALL METHOD split_object
           EXPORTING
             iv_pgmid    = <ls_e071>-pgmid
@@ -127,7 +127,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     IF it_e071k IS SUPPLIED.
       CLEAR lt_object.
 
-      LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN mt_object_list.
+      LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN gt_object_list.
         CLEAR ls_object.
 
         lv_obj_name = <ls_e071k>-objname.
@@ -155,7 +155,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           TABLES
             obj_tab      = lt_object.
 
-        LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN mt_object_list.
+        LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN gt_object_list.
           lv_obj_name = <ls_e071k>-objname.
 
           CALL METHOD split_object
@@ -196,7 +196,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     IF it_e071k_str IS SUPPLIED.
       CLEAR lt_object.
 
-      LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN mt_object_list.
+      LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN gt_object_list.
         CLEAR ls_object.
 
         lv_obj_name = <ls_e071k_str>-objname.
@@ -224,7 +224,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           TABLES
             obj_tab      = lt_object.
 
-        LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN mt_object_list.
+        LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN gt_object_list.
           lv_obj_name = <ls_e071k_str>-objname.
 
           CALL METHOD split_object
@@ -449,400 +449,400 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 
   METHOD class_constructor.
 
-    DATA ls_object_list LIKE LINE OF mt_object_list.
+    DATA ls_object_list LIKE LINE OF gt_object_list.
 
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
 
     ls_object_list-low = 'APPL'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BMED'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_proc_function.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BMPC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_proc_process.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CLAS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_class.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHMA'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_shared_obj_area.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CINC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CLSD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CPRI'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CPRO'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CPUB'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CPAK'. "NEW: class parts
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MAPP'. "NEW: class parts
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'COCO'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_control_composite.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DEVC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DEVP'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_devclass.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DIAL'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_dialog.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DOMA'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DOMD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_domain.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DSEL'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DTEL'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DTED'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_dataelement.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DYNP'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_prg_dynpro.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ENQU'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ENQD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_enqueue.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'FUNC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_function.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'FUGR'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'FUGT'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_function_pool.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'GURL'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_url.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'IAMA'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_miniapp.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'IASP'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_service.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'IATU'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_w3_template.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'IAMU'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_w3_mime.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'IARP'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_w3_resource.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'INTF'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_interface.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MCOB'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MCOD'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_matchcode.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MCID'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MESS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_message.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'METH'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_cls_mtd_impl.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MSAG'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MSAD'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_message_id.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PARA'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_parameter_id.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PDAC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_wf_role.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PDTS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_wf_task.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PDWS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_wf_workflow.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PINF'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PIFA'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PIFH'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_package_interface.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PROG'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'REPS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_prg_source.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_prg_include.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'REPT'. "NEW: Report texts
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SCAT'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_testcase.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SOBJ'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_bor_objtype.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHI3'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'U'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHLP'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHLD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHLX'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_searchhelp.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SLDB'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_logical_database.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SMOD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CMOD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SUSO'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_auth_object.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SQLT'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SQLD'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SQTT'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_pool_cluster.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SXSD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_badi_def.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SXCI'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_badi_imp.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CUAD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_cua_status.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_cua_title.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TABL'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TABD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_db_table.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_structure.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_prg_table.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TABU'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VDAT'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TABT'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TRAN'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_transaction.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TTYP'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TTYD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TTYX'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_tabletype.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TYPE'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_typepool.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'UDMO'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_datamodel.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'UENO'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_entity.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VARI'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VIEW'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VIED'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VIET'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_view.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'XSLT'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_xslt_file.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WTAG'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_o2_taglibrary.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WTHM'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_o2_theme.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WAPA'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WAPD'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WAPP'. "LIMU mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_o2_application.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 *   See /MBTOOLS/CL_CTS_REQ_DISP_WDY
 *   ls_object_list-low = 'WDYN'.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
 *   ls_object_list-low = swbm_c_type_wdy_component.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
 *   ls_object_list-low = 'WDYA'.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
 *   ls_object_list-low = swbm_c_type_wdy_application.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WEBI'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_virt_interface.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ENHO'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_enhancement.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ENHC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_enh_composite.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ENHS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_enh_spot.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ENSC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_enh_spot_comp.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFPI'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_formobject_intf.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFPF'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_formobject_form.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 *   See /MBTOOLS/CL_CTS_REQ_DISP_WDY
 *   ls_object_list-low = 'WDCA'.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
 *   ls_object_list-low = swbm_c_type_wdy_appl_config.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
 *   ls_object_list-low = 'WDCC'.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
 *   ls_object_list-low = swbm_c_type_wdy_comp_config.
-*   APPEND ls_object_list TO mt_object_list.
+*   APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'COAS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_cool_aspect.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'COSM'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_cool_service_mod.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ACID'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_activation_id.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ECTC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ecatt_test_config.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ECTD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ecatt_test_data.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ECSD'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ecatt_system_data.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'ECSC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ecatt_test_script.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AUT'. "wb mapping
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AUTH'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SUSC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 *   Additional objects
     ls_object_list-low = 'LDBA'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'XPRA'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'INDX'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DDLS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DCLS'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_ddl_source.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PRAG'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SPRX'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SAMC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SAPC'.
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.
 
@@ -856,7 +856,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       lv_msag    TYPE i,
       lv_objlen  TYPE i.
 
-    INCLUDE ttypleng.
+    INCLUDE /mbtools/cts_req_typeleng.
 
 *   Same logic as function module TR_OBJECT_JUMP_TO_TOOL
     IF     iv_pgmid  = 'LIMU'  AND  iv_object  =  'REPO'.

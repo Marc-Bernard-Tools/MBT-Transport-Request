@@ -4,25 +4,25 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-class /MBTOOLS/CL_CTS_REQ_DISP_NOTE definition
-  public
-  final
-  create public .
+CLASS /mbtools/cl_cts_req_disp_note DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  interfaces IF_BADI_INTERFACE .
-  interfaces /MBTOOLS/IF_CTS_REQ_DISPLAY .
+    INTERFACES if_badi_interface .
+    INTERFACES /mbtools/if_cts_req_display .
 
-  aliases GET_OBJECT_DESCRIPTIONS
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_DESCRIPTIONS .
-  aliases GET_OBJECT_ICON
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_ICON .
+    ALIASES get_object_descriptions
+      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+    ALIASES get_object_icon
+      FOR /mbtools/if_cts_req_display~get_object_icon .
 
-  class-data:
-    mt_object_list TYPE RANGE OF e071-object read-only .
+    CLASS-DATA:
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
-  class-methods CLASS_CONSTRUCTOR .
+    CLASS-METHODS class_constructor .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -43,7 +43,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
     FIELD-SYMBOLS:
       <ls_e071> TYPE trwbo_s_e071.
 
-    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
@@ -116,15 +116,15 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
   METHOD class_constructor.
 
     DATA:
-      ls_object_list LIKE LINE OF mt_object_list.
+      ls_object_list LIKE LINE OF gt_object_list.
 
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
 
     ls_object_list-low = 'NOTE'. " SAP Note
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CINS'. " Correction Instruction
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.
 ENDCLASS.

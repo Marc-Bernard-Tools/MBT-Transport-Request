@@ -4,27 +4,27 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-class /MBTOOLS/CL_CTS_REQ_DISP_BW definition
-  public
-  final
-  create public .
+CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-  type-pools RSD .
-  type-pools SBIW .
+  PUBLIC SECTION.
+    TYPE-POOLS rsd .
+    TYPE-POOLS sbiw .
 
-  interfaces IF_BADI_INTERFACE .
-  interfaces /MBTOOLS/IF_CTS_REQ_DISPLAY .
+    INTERFACES if_badi_interface .
+    INTERFACES /mbtools/if_cts_req_display .
 
-  aliases GET_OBJECT_DESCRIPTIONS
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_DESCRIPTIONS .
-  aliases GET_OBJECT_ICON
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_ICON .
+    ALIASES get_object_descriptions
+      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+    ALIASES get_object_icon
+      FOR /mbtools/if_cts_req_display~get_object_icon .
 
-  class-data:
-    mt_object_list TYPE RANGE OF e071-object read-only .
+    CLASS-DATA:
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
-  class-methods CLASS_CONSTRUCTOR .
+    CLASS-METHODS class_constructor .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -58,7 +58,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
     FIELD-SYMBOLS:
       <ls_e071> TYPE e071.
 
-    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR: lv_icon, lv_txtlg.
 
       CLEAR ls_object.
@@ -239,7 +239,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
     DATA:
       ls_tlogoprop   TYPE rstlogoprop,
-      ls_object_list LIKE LINE OF mt_object_list.
+      ls_object_list LIKE LINE OF gt_object_list.
 
     " Instanciate repository
     IF mo_repository IS INITIAL.
@@ -269,14 +269,14 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
     LOOP AT mt_tlogoprop INTO ls_tlogoprop.
       ls_object_list-low = ls_tlogoprop-tlogo.
-      APPEND ls_object_list TO mt_object_list.
+      APPEND ls_object_list TO gt_object_list.
       ls_object_list-low = ls_tlogoprop-tlogo_d.
-      APPEND ls_object_list TO mt_object_list.
+      APPEND ls_object_list TO gt_object_list.
     ENDLOOP.
 
-    DELETE mt_object_list WHERE low IS INITIAL.
-    SORT mt_object_list.
-    DELETE ADJACENT DUPLICATES FROM mt_object_list.
+    DELETE gt_object_list WHERE low IS INITIAL.
+    SORT gt_object_list.
+    DELETE ADJACENT DUPLICATES FROM gt_object_list.
 
   ENDMETHOD.
 ENDCLASS.

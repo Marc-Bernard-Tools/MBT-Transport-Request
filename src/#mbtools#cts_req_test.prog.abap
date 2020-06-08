@@ -85,7 +85,7 @@ START-OF-SELECTION.
     CREATE OBJECT gr_class TYPE (gv_class).
 
     " Get list of supported objects
-    ASSIGN gr_class->('MT_OBJECT_LIST') TO <gr_object_list>.
+    ASSIGN gr_class->('GT_OBJECT_LIST') TO <gr_object_list>.
     CHECK sy-subrc = 0.
 
     gr_object_list = <gr_object_list>.

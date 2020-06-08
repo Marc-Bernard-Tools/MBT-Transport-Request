@@ -4,26 +4,26 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-class /MBTOOLS/CL_CTS_REQ_DISP_BDS definition
-  public
-  final
-  create public .
+CLASS /mbtools/cl_cts_req_disp_bds DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
-  type-pools SKWFC .
+  PUBLIC SECTION.
+    TYPE-POOLS skwfc .
 
-  interfaces IF_BADI_INTERFACE .
-  interfaces /MBTOOLS/IF_CTS_REQ_DISPLAY .
+    INTERFACES if_badi_interface .
+    INTERFACES /mbtools/if_cts_req_display .
 
-  aliases GET_OBJECT_DESCRIPTIONS
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_DESCRIPTIONS .
-  aliases GET_OBJECT_ICON
-    for /MBTOOLS/IF_CTS_REQ_DISPLAY~GET_OBJECT_ICON .
+    ALIASES get_object_descriptions
+      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+    ALIASES get_object_icon
+      FOR /mbtools/if_cts_req_display~get_object_icon .
 
-  class-data:
-    mt_object_list TYPE RANGE OF e071-object read-only .
+    CLASS-DATA:
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
 
-  class-methods CLASS_CONSTRUCTOR .
+    CLASS-METHODS class_constructor .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -52,7 +52,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
     FIELD-SYMBOLS:
       <ls_e071> TYPE trwbo_s_e071.
 
-    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN mt_object_list.
+    LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR ls_io.
       ls_io-objid = <ls_e071>-obj_name.
 
@@ -181,7 +181,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
   METHOD class_constructor.
 
     DATA:
-      ls_object_list LIKE LINE OF mt_object_list.
+      ls_object_list LIKE LINE OF gt_object_list.
 
     CREATE OBJECT mo_term.
 
@@ -189,25 +189,25 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
     ls_object_list-option = 'EQ'.
 
     ls_object_list-low = 'BLFO'. " BW: LOIO Class Folder
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BLMA'. " BW: LOIO Class Master Data
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BPMA'. " BW: PHIO Class Master Data
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BLTM'. " BW: LOIO Class Web Templates
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BPTM'. " BW: PHIO Class Web Templates
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SBEL'. " BW: LOIO Class Metadata
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SBEP'. " BW: PHIO Class Metadata
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SBGL'. " BW: LOIO Class Transaction Data
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SBGP'. " BW: PHIO Class Transaction Data
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SMIM'. " Other MIME objects
-    APPEND ls_object_list TO mt_object_list.
+    APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.
 ENDCLASS.
