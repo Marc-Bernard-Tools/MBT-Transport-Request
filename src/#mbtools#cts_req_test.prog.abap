@@ -480,11 +480,11 @@ FORM get_object_type_ext
       ev_obj_type = 'MSAG'.
     WHEN 'WAPD'.
       ev_obj_type = 'WAPA'.
-    WHEN 'WAPP'.
-*        TODO: Test if it works with or without this and implement workaround if necesssary (table O2PAGDIRT)
-*        ev_obj_type = 'WAPA'.
-*        ev_obj_name = iv_obj_name(30). "appl
-*        ev_encl_obj = iv_obj_name+30(*). "page
+    WHEN 'WAPP' ##TODO.
+*     Test if it works with or without this and implement workaround if necesssary (table O2PAGDIRT)
+*     ev_obj_type = 'WAPA'.
+*     ev_obj_name = iv_obj_name(30). "appl
+*     ev_encl_obj = iv_obj_name+30(*). "page
     WHEN 'SQLD' OR 'SQTT'.
       ev_obj_type = 'SQLT'.
   ENDCASE.

@@ -27,7 +27,7 @@
       <item/>
       <item>IF /mbtools/cl_tools=&gt;get_tool( /mbtools/cl_cts_req_display=&gt;c_title )-&gt;is_active( ).</item>
       <item/>
-      <item>PERFORM create_object_list IN PROGRAM /mbtools/bc_cts_object_list</item>
+      <item>PERFORM create_object_list IN PROGRAM /mbtools/cts_object_list</item>
       <item>USING    pv_parent_level</item>
       <item>pv_trkorr</item>
       <item>pv_with_keys</item>
@@ -56,7 +56,7 @@
       <item/>
       <item>IF /mbtools/cl_tools=&gt;get_tool( /mbtools/cl_cts_req_display=&gt;c_title )-&gt;is_active( ).</item>
       <item/>
-      <item>PERFORM create_key_list IN PROGRAM /mbtools/bc_cts_object_list</item>
+      <item>PERFORM create_key_list IN PROGRAM /mbtools/cts_object_list</item>
       <item>USING    pv_keep_nodes</item>
       <item>pv_object_level</item>
       <item>pv_as4pos</item>

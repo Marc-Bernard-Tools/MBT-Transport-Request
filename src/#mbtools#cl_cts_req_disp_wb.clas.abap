@@ -410,9 +410,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 *    WHEN 'WDCC' OR swbm_c_type_wdy_comp_config .
 *      rv_icon = icon_wd_component.
       WHEN 'COAS' OR swbm_c_type_cool_aspect.
-* TODO
+        rv_icon = icon_dummy ##TODO.
       WHEN 'COSM' OR swbm_c_type_cool_service_mod.
-* TODO
+        rv_icon = icon_dummy ##TODO.
       WHEN 'ACID' OR swbm_c_type_activation_id.
         rv_icon = icon_check.
       WHEN 'ECTC' OR swbm_c_type_ecatt_test_config.
@@ -1006,11 +1006,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ev_obj_type = 'MSAG'.
       WHEN 'WAPD'.
         ev_obj_type = 'WAPA'.
-      WHEN 'WAPP'.
-*        ##TODO: Test if it works with or without this and implement workaround if necesssary (table O2PAGDIRT)
-*        ev_obj_type = 'WAPA'.
-*        ev_obj_name = ev_obj_name(30). "appl
-*        ev_encl_obj = ev_obj_name+30(*). "page
+      WHEN 'WAPP' ##TODO.
+*       Test if it works with or without this and implement workaround if necesssary (table O2PAGDIRT)
+*       ev_obj_type = 'WAPA'.
+*       ev_obj_name = ev_obj_name(30). "appl
+*       ev_encl_obj = ev_obj_name+30(*). "page
       WHEN 'SQLD' OR 'SQTT'.
         ev_obj_type = 'SQLT'.
     ENDCASE.

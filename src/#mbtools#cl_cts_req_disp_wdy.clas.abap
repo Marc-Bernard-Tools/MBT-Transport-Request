@@ -69,9 +69,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
               AND text_id          = <ls_e071>-obj_name+40(6)
               AND langu            = sy-langu.
         WHEN 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
-* ##TODO
+           l_s_e071_txt-text = '' ##TODO.
         WHEN 'WDRP'. " Web Dynpro Recording Plug-In
-* ##TODO
+           l_s_e071_txt-text = '' ##TODO.
         WHEN 'WDYA'. " Web Dynpro Application
           SELECT SINGLE description FROM wdy_applicationt INTO l_s_e071_txt-text
             WHERE application_name = <ls_e071>-obj_name
