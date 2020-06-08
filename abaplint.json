@@ -259,7 +259,7 @@
       "do": true,
       "at": true
     },
-    "exit_or_check": true,
+    "exit_or_check": false,
     "exporting": true,
     "form_tables_obsolete": false,
     "functional_writing": {
@@ -372,12 +372,10 @@
       ]
     },
     "release_idoc": true,
-    "remove_descriptions": {
-      "ignoreExceptions": false
-    },
+    "remove_descriptions": false,
     "rfc_error_handling": false,
     "sequential_blank": {
-      "lines": 4
+      "lines": 2
     },
     "short_case": {
       "length": 1,
