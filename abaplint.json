@@ -14,7 +14,7 @@
   ],
   "syntax": {
     "version": "v702",
-    "errorNamespace": "^(Z|Y|LT?CL_|TY_|LIF_)",
+    "errorNamespace": "",
     "globalConstants": [
       "icon_led_red",
       "icon_led_yellow",
@@ -62,9 +62,7 @@
     "check_text_elements": true,
     "type_begin_single_include": true,
     "types_naming": false,
-    "7bit_ascii": {
-      "exclude": ["zcl_abapgit_utils.clas.testclasses.abap"]
-    },
+    "7bit_ascii": true,
     "abapdoc": false,
     "check_ddic": true,
     "check_include": true,
