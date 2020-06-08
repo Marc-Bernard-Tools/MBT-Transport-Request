@@ -33,6 +33,7 @@
       "icon_context_menu",
       "icon_database_table",
       "icon_database_table_ina",
+      "icon_delete",
       "icon_detail",
       "icon_display_text",
       "icon_display_tree",
@@ -98,6 +99,10 @@
       "icon_workflow_fork",
       "icon_workflow_process",
       "icon_xml_doc",
+      "rs_c_objvers",
+      "rs_c_tlogo",
+      "rsd_c_objtp",
+      "rzd1_c_deftp",
       "skwfc_obtype_folder",
       "skwfc_obtype_loio",
       "skwfc_obtype_phio",
@@ -218,7 +223,7 @@
     "ambiguous_statement": false,
     "avoid_use": {
       "define": true,
-      "endselect": true,
+      "endselect": false,
       "execSQL": true,
       "kernelCall": true,
       "communication": true,
@@ -306,7 +311,7 @@
     "max_one_statement": true,
     "message_exists": false,
     "method_length": {
-      "statements": 100,
+      "statements": 150,
       "ignoreTestClasses": false,
       "errorWhenEmpty": false
     },
