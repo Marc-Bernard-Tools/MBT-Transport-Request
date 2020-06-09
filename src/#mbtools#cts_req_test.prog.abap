@@ -33,9 +33,10 @@ TYPES:
   ty_list        TYPE RANGE OF trobjtype.
 
 DATA:
+  gv_abapgit     TYPE abap_bool,
+  gt_abapgit     TYPE TABLE OF seoclsname,
   gv_class       TYPE seoclsname,
   gt_classes     TYPE TABLE OF seoclsname,
-  gt_abapgit     TYPE TABLE OF seoclsname,
   gt_no_enh      TYPE TABLE OF seoclsname,
   gr_class       TYPE REF TO object,
   gv_len         TYPE i,
@@ -62,6 +63,25 @@ DATA:
 FIELD-SYMBOLS:
   <gr_object_list> TYPE ty_list.
 
+INITIALIZATION.
+
+  " All classes provided by abapGit
+  SELECT DISTINCT clsname FROM seoclass INTO TABLE gt_abapgit
+    WHERE clsname LIKE 'ZCL_ABAPGIT_OBJECT_%'
+    ORDER BY clsname.
+  IF sy-subrc = 0.
+    gv_abapgit = abap_true.
+  ENDIF.
+
+AT SELECTION-SCREEN OUTPUT.
+
+  LOOP AT SCREEN.
+    IF screen-name = 'P_GIT' AND gv_abapgit IS INITIAL.
+      screen-input = '0'.
+      MODIFY SCREEN.
+    ENDIF.
+  ENDLOOP.
+
 START-OF-SELECTION.
 
   gt_object_text = /mbtools/cl_sap=>get_object_texts( ).
@@ -69,11 +89,6 @@ START-OF-SELECTION.
   " All classes that implement the BAdI
   SELECT DISTINCT clsname FROM seometarel INTO TABLE gt_classes
     WHERE clsname IN s_class AND refclsname = '/MBTOOLS/IF_CTS_REQ_DISPLAY'
-    ORDER BY clsname.
-
-  " All classes provided by abapGit
-  SELECT DISTINCT clsname FROM seoclass INTO TABLE gt_abapgit
-    WHERE clsname LIKE 'ZCL_ABAPGIT_OBJECT_%'
     ORDER BY clsname.
 
   gt_no_enh = gt_abapgit.
@@ -209,7 +224,7 @@ START-OF-SELECTION.
 
           SKIP.
 
-          " Get one (random) test object
+          " Get some (random) test objects
           CLEAR sy-subrc.
 
           IF gv_pgmid = 'R3TR'.
