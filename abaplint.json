@@ -191,42 +191,9 @@
     "globalMacros": []
   },
   "rules": {
-    "downport": false,
-    "line_break_multiple_parameters": true,
-    "unknown_types": {
-      "exclude": ["#mbtools#cts_object_list.prog.abap"],    
-    },
-    "forbidden_void_type": {
-      "check": ["^stringtab$", "^char1$", "^int4$",
-        "^flag$", "^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
-    },
-    "forbidden_identifier": true,
-    "try_without_catch": false,
-    "unused_variables": false,
-    "prefix_is_current_class": {
-      "omitMeInstanceCalls": false
-    },
-    "allowed_object_naming": true,
-    "check_comments": false,
-    "fully_type_constants": true,
-    "keep_single_parameter_on_one_line": true,
-    "prefer_returning_to_exporting": true,
-    "selection_screen_naming": true,
-    "sicf_consistency": true,
-    "sql_escape_host_variables": true,
-    "xml_consistency": true,
-    "check_no_handler_pragma": true,
-    "newline_between_methods": false,
-    "chain_mainly_declarations": true,
-    "check_abstract": true,
-    "check_text_elements": true,
-    "type_begin_single_include": true,
-    "types_naming": false,
     "7bit_ascii": true,
     "abapdoc": false,
-    "check_ddic": true,
-    "check_include": true,
-    "form_no_dash": true,
+    "allowed_object_naming": true,
     "allowed_object_types": {
       "allowed": [
         "PROG",
@@ -256,6 +223,13 @@
       "statics": true
     },
     "begin_end_names": true,
+    "check_comments": false,
+    "check_abstract": true,
+    "check_ddic": true,
+    "check_include": true,
+    "chain_mainly_declarations": true,
+    "check_no_handler_pragma": true,
+    "check_text_elements": true,
     "check_transformation_exists": true,
     "check_syntax": true,
     "class_attribute_names": {
@@ -278,6 +252,7 @@
     },
     "description_empty": true,
     "double_space": false,
+    "downport": false,
     "empty_line_in_statement": {
       "allowChained": true
     },
@@ -293,7 +268,14 @@
     },
     "exit_or_check": false,
     "exporting": true,
+    "forbidden_identifier": true,
+    "forbidden_void_type": {
+      "check": ["^stringtab$", "^char1$", "^int4$",
+        "^flag$", "^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
+    },
+    "form_no_dash": true,
     "form_tables_obsolete": false,
+    "fully_type_constants": true,
     "functional_writing": false,
     "global_class": true,
     "identical_form_names": true,
@@ -308,6 +290,7 @@
       "ignoreGlobalInterface": false
     },
     "inline_data_old_versions": true,
+    "keep_single_parameter_on_one_line": true,
     "keyword_case": {
       "style": "upper",
       "ignoreExceptions": true,
@@ -317,6 +300,7 @@
       "ignoreKeywords": [],
       "ignoreFunctionModuleName": false
     },
+    "line_break_multiple_parameters": true,
     "line_length": {
       "length": 120
     },
@@ -361,6 +345,7 @@
     "nesting": {
       "depth": 5
     },
+    "newline_between_methods": false,
     "no_public_attributes": false,
     "object_naming": {
       "clas": "^/MBTOOLS/C(L|X)\\_",
@@ -394,6 +379,7 @@
       "occurs": true
     },
     "parser_error": {},
+    "prefer_returning_to_exporting": true,
     "preferred_compare_operator": {
       "badOperators": [
         "EQ",
@@ -405,9 +391,13 @@
         "LE"
       ]
     },
+    "prefix_is_current_class": {
+      "omitMeInstanceCalls": false
+    },
     "release_idoc": true,
     "remove_descriptions": false,
     "rfc_error_handling": false,
+    "selection_screen_naming": true,
     "sequential_blank": {
       "lines": 4
     },
@@ -418,19 +408,33 @@
         "sy"
       ]
     },
+    "sicf_consistency": true,
     "space_before_colon": true,
     "space_before_dot": {
-      "exclude": ["#mbtools#cts_object_list.prog.abap"],    
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ],    
       "ignoreGlobalDefinition": true,
       "ignoreExceptions": true
     },
+    "sql_escape_host_variables": true,
     "start_at_tab": true,
     "superclass_final": true,
     "tabl_enhancement_category": true,
+    "try_without_catch": false,
+    "type_begin_single_include": true,
     "type_form_parameters": true,
+    "types_naming": false,
+    "unknown_types": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ]
+    },
     "unreachable_code": true,
+    "unused_variables": false,
     "use_new": true,
     "when_others_last": true,
-    "whitespace_end": true
+    "whitespace_end": true,
+    "xml_consistency": true
   }
 }
