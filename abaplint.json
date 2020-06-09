@@ -235,11 +235,7 @@
     "chain_mainly_declarations": true,
     "check_no_handler_pragma": true,
     "check_syntax": true,
-    "check_text_elements": {
-      "exclude": [
-        "#mbtools#cts_object_list.prog.abap"
-      ]
-    },
+    "check_text_elements": true,
     "check_transformation_exists": true,
     "class_attribute_names": {
       "ignoreExceptions": true,
@@ -344,8 +340,7 @@
     "local_testclass_location": true,
     "local_variable_names": {
       "exclude": [
-        "#mbtools#cts_object_list.prog.abap",    
-        "#mbtools#cts_req_diff.prog.abap"
+        "#mbtools#cts_object_list.prog.abap"    
       ],
       "expectedData": "^L._.*$",
       "expectedConstant": "^LC_.*$",
