@@ -16,6 +16,7 @@
     "version": "v702",
     "errorNamespace": "^(/MBTOOLS/|LT?CL_|LIF_)",
     "globalConstants": [
+      "/mbtools/cl_sap",
       "apack_manifest",
       "icon_abap",
       "icon_abc",
@@ -192,7 +193,9 @@
   "rules": {
     "downport": false,
     "line_break_multiple_parameters": true,
-    "unknown_types": true,
+    "unknown_types": {
+      "exclude": ["#mbtools#cts_object_list.prog.abap"],    
+    },
     "forbidden_void_type": {
       "check": ["^stringtab$", "^char1$", "^int4$",
         "^flag$", "^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
@@ -239,6 +242,9 @@
     },
     "ambiguous_statement": false,
     "avoid_use": {
+      "exclude": [
+        "#mbtools#cts_req_diff.prog.abap"
+      ],
       "define": true,
       "endselect": false,
       "execSQL": true,
@@ -265,7 +271,11 @@
     "commented_code": true,
     "constructor_visibility_public": true,
     "contains_tab": true,
-    "definitions_top": true,
+    "definitions_top": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ]
+    },
     "description_empty": true,
     "double_space": false,
     "empty_line_in_statement": {
@@ -320,6 +330,10 @@
     },
     "local_testclass_location": true,
     "local_variable_names": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap",    
+        "#mbtools#cts_req_diff.prog.abap"
+      ],
       "expectedData": "^L._.*$",
       "expectedConstant": "^LC_.*$",
       "expectedFS": "^<L._.*>$"
@@ -406,6 +420,7 @@
     },
     "space_before_colon": true,
     "space_before_dot": {
+      "exclude": ["#mbtools#cts_object_list.prog.abap"],    
       "ignoreGlobalDefinition": true,
       "ignoreExceptions": true
     },
