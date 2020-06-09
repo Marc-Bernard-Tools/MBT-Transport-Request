@@ -229,9 +229,13 @@
     "check_include": true,
     "chain_mainly_declarations": true,
     "check_no_handler_pragma": true,
-    "check_text_elements": true,
-    "check_transformation_exists": true,
     "check_syntax": true,
+    "check_text_elements": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ]
+    },
+    "check_transformation_exists": true,
     "class_attribute_names": {
       "ignoreExceptions": true,
       "ignoreInterfaces": false,
@@ -292,6 +296,9 @@
     "inline_data_old_versions": true,
     "keep_single_parameter_on_one_line": true,
     "keyword_case": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ],
       "style": "upper",
       "ignoreExceptions": true,
       "ignoreLowerClassImplmentationStatement": true,
@@ -343,6 +350,9 @@
     "mix_returning": true,
     "msag_consistency": true,
     "nesting": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ],
       "depth": 5
     },
     "newline_between_methods": false,
@@ -367,6 +377,9 @@
       "xslt": "^/MBTOOLS/"
     },
     "obsolete_statement": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ],
       "refresh": true,
       "compute": true,
       "add": true,
@@ -381,6 +394,9 @@
     "parser_error": {},
     "prefer_returning_to_exporting": true,
     "preferred_compare_operator": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ],
       "badOperators": [
         "EQ",
         "><",
