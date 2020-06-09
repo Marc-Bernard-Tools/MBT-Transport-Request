@@ -29,8 +29,8 @@ CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
 
   PRIVATE SECTION.
 
-    CLASS-DATA mo_repository TYPE REF TO cl_rso_repository .
-    CLASS-DATA mt_tlogoprop TYPE rso_th_tlogoprop .
+    CLASS-DATA go_repository TYPE REF TO cl_rso_repository .
+    CLASS-DATA gt_tlogoprop TYPE rso_th_tlogoprop .
 
 ENDCLASS.
 
@@ -66,7 +66,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       ls_object-objnm = <ls_e071>-obj_name.
 
       " Check if content object
-      READ TABLE mt_tlogoprop INTO ls_tlogoprop
+      READ TABLE gt_tlogoprop INTO ls_tlogoprop
         WITH KEY tlogo_d = ls_object-tlogo.
       IF sy-subrc = 0.
         lv_objvers = rs_c_objvers-delivery.
@@ -113,7 +113,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
         WHEN OTHERS.
           " Get description and icon from BW repository
-          CALL METHOD mo_repository->get_properties_of_object
+          CALL METHOD go_repository->get_properties_of_object
             EXPORTING
               i_objvers            = lv_objvers
               i_s_object           = ls_object
@@ -242,32 +242,32 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       ls_object_list LIKE LINE OF gt_object_list.
 
     " Instanciate repository
-    IF mo_repository IS INITIAL.
+    IF go_repository IS INITIAL.
       CALL METHOD cl_rso_repository=>get_repository
         RECEIVING
-          r_r_repository = mo_repository.
+          r_r_repository = go_repository.
     ENDIF.
 
     " Get all TLOGO properties
-    IF mt_tlogoprop IS INITIAL.
-      SELECT * FROM rstlogoprop INTO TABLE mt_tlogoprop.
+    IF gt_tlogoprop IS INITIAL.
+      SELECT * FROM rstlogoprop INTO TABLE gt_tlogoprop.
 
       " Enhancements and DDLs are handled in /MBTOOLS/CL_CTS_REQ_DISP_WB
-      DELETE mt_tlogoprop WHERE tlogo = 'ENHO' OR tlogo = 'DDLS'.
+      DELETE gt_tlogoprop WHERE tlogo = 'ENHO' OR tlogo = 'DDLS'.
 
       " Add Application Component Hierarchty and DataSource
       ls_tlogoprop-tlogo   = 'DSAA'.
       ls_tlogoprop-tlogo_d = 'DSAD'.
-      INSERT ls_tlogoprop INTO TABLE mt_tlogoprop.
+      INSERT ls_tlogoprop INTO TABLE gt_tlogoprop.
       ls_tlogoprop-tlogo   = 'OSOA'.
       ls_tlogoprop-tlogo_d = 'OSOD'.
-      INSERT ls_tlogoprop INTO TABLE mt_tlogoprop.
+      INSERT ls_tlogoprop INTO TABLE gt_tlogoprop.
     ENDIF.
 
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
 
-    LOOP AT mt_tlogoprop INTO ls_tlogoprop.
+    LOOP AT gt_tlogoprop INTO ls_tlogoprop.
       ls_object_list-low = ls_tlogoprop-tlogo.
       APPEND ls_object_list TO gt_object_list.
       ls_object_list-low = ls_tlogoprop-tlogo_d.

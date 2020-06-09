@@ -361,7 +361,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         rv_icon = icon_wd_toolbar.
       WHEN swbm_c_type_cua_title.
         rv_icon = icon_wd_toolbar_caption.
-      WHEN 'TABL' OR 'TABD' OR swbm_c_type_ddic_db_table OR swbm_c_type_ddic_structure OR swbm_c_type_prg_table OR 'TABT' OR 'INDX'.
+      WHEN 'TABL' OR 'TABD' OR swbm_c_type_ddic_db_table OR swbm_c_type_ddic_structure
+        OR swbm_c_type_prg_table OR 'TABT' OR 'INDX'.
         rv_icon = icon_database_table.
       WHEN 'TRAN' OR swbm_c_type_transaction.
         rv_icon = icon_execute_object.
@@ -387,10 +388,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         rv_icon = icon_wd_application.
       WHEN 'WAPP' OR swbm_c_type_o2_page.
         rv_icon = icon_wd_view.
-*    WHEN 'WDYN' OR swbm_c_type_wdy_component.
-*      rv_icon = icon_wd_component.
-*    WHEN 'WDYA' OR swbm_c_type_wdy_application.
-*      rv_icon = icon_wd_application.
+        " 'WDYA' and swbm_c_type_wdy_application
+        " 'WDYN' and swbm_c_type_wdy_component
+        " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
       WHEN 'WEBI' OR swbm_c_type_virt_interface.
         rv_icon = icon_interface.
       WHEN 'ENHO' OR swbm_c_type_enhancement.
@@ -405,10 +405,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         rv_icon = icon_view_form.
       WHEN 'SFPF' OR swbm_c_type_formobject_form.
         rv_icon = icon_view_form.
-*    WHEN 'WDCA' OR swbm_c_type_wdy_appl_config  .
-*      rv_icon = icon_wd_application.
-*    WHEN 'WDCC' OR swbm_c_type_wdy_comp_config .
-*      rv_icon = icon_wd_component.
+        " 'WDCA' and swbm_c_type_wdy_appl_config
+        " 'WDCC' and swbm_c_type_wdy_comp_config
+        " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
       WHEN 'COAS' OR swbm_c_type_cool_aspect.
         rv_icon = icon_dummy ##TODO.
       WHEN 'COSM' OR swbm_c_type_cool_service_mod.
@@ -742,15 +741,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_o2_application.
     APPEND ls_object_list TO gt_object_list.
-*   See /MBTOOLS/CL_CTS_REQ_DISP_WDY
-*   ls_object_list-low = 'WDYN'.
-*   APPEND ls_object_list TO gt_object_list.
-*   ls_object_list-low = swbm_c_type_wdy_component.
-*   APPEND ls_object_list TO gt_object_list.
-*   ls_object_list-low = 'WDYA'.
-*   APPEND ls_object_list TO gt_object_list.
-*   ls_object_list-low = swbm_c_type_wdy_application.
-*   APPEND ls_object_list TO gt_object_list.
+    " 'WDYA' and swbm_c_type_wdy_application
+    " 'WDYN' and swbm_c_type_wdy_component
+    " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
     ls_object_list-low = 'WEBI'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_virt_interface.
@@ -779,15 +772,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_formobject_form.
     APPEND ls_object_list TO gt_object_list.
-*   See /MBTOOLS/CL_CTS_REQ_DISP_WDY
-*   ls_object_list-low = 'WDCA'.
-*   APPEND ls_object_list TO gt_object_list.
-*   ls_object_list-low = swbm_c_type_wdy_appl_config.
-*   APPEND ls_object_list TO gt_object_list.
-*   ls_object_list-low = 'WDCC'.
-*   APPEND ls_object_list TO gt_object_list.
-*   ls_object_list-low = swbm_c_type_wdy_comp_config.
-*   APPEND ls_object_list TO gt_object_list.
+    " 'WDCA' and swbm_c_type_wdy_appl_config
+    " 'WDCC' and swbm_c_type_wdy_comp_config
+    " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
     ls_object_list-low = 'COAS'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_cool_aspect.
@@ -877,7 +864,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ev_encl_obj = lv_name(gc_prog_old).
       ENDIF.
     ELSEIF iv_pgmid  = 'LIMU' AND (   iv_object = 'VARI'
-                                  OR iv_object = 'VARX' ) .
+                                  OR iv_object = 'VARX' ).
       ev_obj_type = 'VARI'.
       lv_length1  = gc_prog + gc_vari.      " new maximum length
       lv_name     = iv_obj_name(lv_length1)." skip comments
@@ -896,13 +883,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       lv_name     = iv_obj_name(lv_length1)." skip comments
       lv_objlen   = strlen( lv_name ).
       lv_msag     = lv_objlen - gc_mess.
-      IF lv_msag < 2.                " wrong syntax
-*         PERFORM get_object_description  USING    iv_pgmid
-*                                                  iv_object
-*                                         CHANGING lv_text.
-*         MESSAGE e197(tk)  WITH  lv_text iv_pgmid iv_object
-*                                 RAISING jump_not_possible.
-      ENDIF.
       ev_obj_name = lv_name+lv_msag(gc_mess).
       ev_encl_obj = lv_name(lv_msag).
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'METH'.
@@ -916,9 +896,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ev_encl_obj = iv_obj_name(gc_clas).
       ENDIF.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'INTD'.
-      ev_obj_type = 'INTF' .
-      ev_obj_name = iv_obj_name .
-      ev_encl_obj = ' ' .
+      ev_obj_type = 'INTF'.
+      ev_obj_name = iv_obj_name.
+      ev_encl_obj = space.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WDYC'.
       ev_obj_type = 'WDYC'.
       ev_obj_name = iv_obj_name+gc_wdyn(gc_wdyc).
@@ -931,9 +911,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       ev_obj_type = 'WAPP'.
       ev_obj_name = iv_obj_name+gc_wapa(gc_wapp).
       ev_encl_obj = iv_obj_name(gc_wapa).
-*    ELSEIF iv_pgmid = 'R3TR'  AND  iv_object = 'TABU'.
-*      ev_obj_type = 'DT'.
-*      ev_obj_name = iv_obj_name.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'ADIR'.
       ev_obj_type = iv_obj_name+4(4).
       ev_obj_name = iv_obj_name+8.

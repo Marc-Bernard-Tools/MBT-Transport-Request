@@ -36,70 +36,70 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
 
-    FIELD-SYMBOLS:
-      <ls_e071>    TYPE trwbo_s_e071.
-
     DATA:
-      l_s_e071_txt TYPE /mbtools/trwbo_s_e071_txt.
+      ls_e071_txt TYPE /mbtools/trwbo_s_e071_txt.
+
+    FIELD-SYMBOLS:
+      <ls_e071> TYPE trwbo_s_e071.
 
     LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
-      CLEAR l_s_e071_txt.
-      MOVE-CORRESPONDING <ls_e071> TO l_s_e071_txt.
+      CLEAR ls_e071_txt.
+      MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
       CALL METHOD get_object_icon
         EXPORTING
           iv_object = <ls_e071>-object
         CHANGING
-          rv_icon   = l_s_e071_txt-icon.
+          rv_icon   = ls_e071_txt-icon.
 
-      l_s_e071_txt-name = <ls_e071>-obj_name.
+      ls_e071_txt-name = <ls_e071>-obj_name.
 
       CASE <ls_e071>-object.
         WHEN 'WDCA'. " Web Dynpro Application Configuration
-          SELECT SINGLE description FROM wdy_config_appt INTO l_s_e071_txt-text
+          SELECT SINGLE description FROM wdy_config_appt INTO ls_e071_txt-text
             WHERE config_id        = <ls_e071>-obj_name(32)
               AND config_type      = <ls_e071>-obj_name+32(2)
               AND config_var       = <ls_e071>-obj_name+34(6)
               AND langu            = sy-langu.
         WHEN 'WDCC'. " Web Dynpro Component Configuration
-          SELECT SINGLE description FROM wdy_config_compt INTO l_s_e071_txt-text
+          SELECT SINGLE description FROM wdy_config_compt INTO ls_e071_txt-text
             WHERE config_id        = <ls_e071>-obj_name(32)
               AND config_type      = <ls_e071>-obj_name+32(2)
               AND config_var       = <ls_e071>-obj_name+34(6)
               AND text_id          = <ls_e071>-obj_name+40(6)
               AND langu            = sy-langu.
         WHEN 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
-          l_s_e071_txt-text = '' ##TODO.
+          ls_e071_txt-text = '' ##TODO.
         WHEN 'WDRP'. " Web Dynpro Recording Plug-In
-          l_s_e071_txt-text = '' ##TODO.
+          ls_e071_txt-text = '' ##TODO.
         WHEN 'WDYA'. " Web Dynpro Application
-          SELECT SINGLE description FROM wdy_applicationt INTO l_s_e071_txt-text
+          SELECT SINGLE description FROM wdy_applicationt INTO ls_e071_txt-text
             WHERE application_name = <ls_e071>-obj_name
               AND langu            = sy-langu.
         WHEN 'WDYC' OR 'WDYD'. " Web Dynpro Controller
-          SELECT SINGLE description FROM wdy_controllert INTO l_s_e071_txt-text
+          SELECT SINGLE description FROM wdy_controllert INTO ls_e071_txt-text
             WHERE component_name  = <ls_e071>-obj_name(30)
               AND controller_name = <ls_e071>-obj_name+30(30)
               AND langu           = sy-langu.
         WHEN 'WDYL'. " Web Dynpro UI-Element Library
-          SELECT SINGLE display_name FROM wdy_ui_library INTO l_s_e071_txt-text
+          SELECT SINGLE display_name FROM wdy_ui_library INTO ls_e071_txt-text
             WHERE library_name = <ls_e071>-obj_name.
         WHEN 'WDYN'. " Web Dynpro Component
-          SELECT SINGLE description FROM wdy_componentt INTO l_s_e071_txt-text
+          SELECT SINGLE description FROM wdy_componentt INTO ls_e071_txt-text
             WHERE component_name = <ls_e071>-obj_name
               AND langu          = sy-langu.
         WHEN 'WDYV'. " Web Dynpro View
-          SELECT SINGLE description FROM wdy_viewt INTO l_s_e071_txt-text
+          SELECT SINGLE description FROM wdy_viewt INTO ls_e071_txt-text
             WHERE component_name = <ls_e071>-obj_name(30)
               AND view_name      = <ls_e071>-obj_name+30(30)
               AND langu          = sy-langu.
         WHEN 'SOTL' OR 'SOTS' OR 'SOTT' OR 'SOTU'. " OTR Short/Long Text
-          SELECT SINGLE text FROM sotr_text INTO l_s_e071_txt-text
+          SELECT SINGLE text FROM sotr_text INTO ls_e071_txt-text
             WHERE concept = <ls_e071>-obj_name+30(32)
               AND langu   = sy-langu.
       ENDCASE.
 
-      INSERT l_s_e071_txt INTO TABLE ct_e071_txt.
+      INSERT ls_e071_txt INTO TABLE ct_e071_txt.
     ENDLOOP.
 
   ENDMETHOD.

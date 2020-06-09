@@ -29,7 +29,7 @@ CLASS /mbtools/cl_cts_req_disp_bds DEFINITION
   PRIVATE SECTION.
 
     CLASS-DATA:
-      mo_term TYPE REF TO cl_kwui_terminology .
+      go_term TYPE REF TO cl_kwui_terminology .
 
 ENDCLASS.
 
@@ -169,7 +169,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
         ENDIF.
     ENDCASE.
 
-    rv_icon = mo_term->get_icon_for_io( p_io = ls_io ).
+    rv_icon = go_term->get_icon_for_io( p_io = ls_io ).
 
     IF rv_icon IS INITIAL.
       rv_icon = icon_dummy.
@@ -183,7 +183,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
     DATA:
       ls_object_list LIKE LINE OF gt_object_list.
 
-    CREATE OBJECT mo_term.
+    CREATE OBJECT go_term.
 
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
