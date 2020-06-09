@@ -38,10 +38,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
 
     DATA:
       lv_len        TYPE i,
+      lv_tabname    TYPE tabname,
+      lv_subrc      TYPE sy-subrc,
       lv_objectname TYPE objh-objectname,
       lv_objecttype TYPE objh-objecttype,
       ls_objt       TYPE objt,
-      lv_objt       TYPE c,
+      lv_objt       TYPE c LENGTH 1,
       lv_obj_type   TYPE trobjtype,
       lv_obj_name   TYPE sobj_name,
       ls_e071_txt   TYPE /mbtools/trwbo_s_e071_txt.
@@ -176,7 +178,23 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
             WHERE object = <ls_e071>-obj_name
               AND langu  = sy-langu.
         WHEN 'JOBD'. " Job Definition
+          lv_tabname = 'STJR_JOBD_ROOT'.
 
+          CALL FUNCTION 'DB_EXISTS_TABLE'
+            EXPORTING
+              tabname = lv_tabname
+            IMPORTING
+              subrc   = lv_subrc.
+
+          IF lv_subrc = 0.
+            SELECT SINGLE btcjob_name FROM (lv_tabname) INTO ls_e071_txt-text
+              WHERE name = <ls_e071>-obj_name.
+          ENDIF.
+        WHEN 'WAPP'. " BSP Page
+          SELECT SINGLE descript FROM o2pagdirt INTO ls_e071_txt-text
+            WHERE applname = <ls_e071>-obj_name(30)
+              AND pagekey  = <ls_e071>-obj_name+30(*)
+              AND langu    = sy-langu.
         WHEN OTHERS.
           ASSERT 0 = 1. " Check class constructor
       ENDCASE.
@@ -232,6 +250,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         cv_icon = icon_change_number.
       WHEN 'JOBD'. " Job Definition
         cv_icon = icon_background_job.
+      WHEN 'WAPP'. " BSP Page
+        cv_icon = icon_wd_view.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -288,6 +308,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     ls_object_list-low = 'NROB'. " Number Range
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'JOBD'. " Job Definition
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'WAPP'. " BSP Page (LIMU)
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.

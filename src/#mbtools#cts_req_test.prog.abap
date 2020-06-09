@@ -414,8 +414,6 @@ FORM get_object_type
     cv_obj_type = 'WDYC'.
   ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'WDYV'.
     cv_obj_type = 'WDYV'.
-  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'WAPP'.
-    cv_obj_type = 'WAPP'.
   ELSEIF iv_pgmid = 'R3TR' AND iv_object = 'TABU'.
     cv_obj_type = 'DT'.
   ENDIF.
@@ -477,11 +475,6 @@ FORM get_object_type_ext
       ev_obj_type = 'MSAG'.
     WHEN 'WAPD'.
       ev_obj_type = 'WAPA'.
-    WHEN 'WAPP' ##TODO.
-*     Test if it works with or without this and implement workaround if necesssary (table O2PAGDIRT)
-*     ev_obj_type = 'WAPA'.
-*     ev_obj_name = iv_obj_name(30). "appl
-*     ev_encl_obj = iv_obj_name+30(*). "page
     WHEN 'SQLD' OR 'SQTT'.
       ev_obj_type = 'SQLT'.
   ENDCASE.

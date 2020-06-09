@@ -395,8 +395,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         cv_icon = icon_htt.
       WHEN 'WAPA' OR swbm_c_type_o2_application OR 'WAPD'.
         cv_icon = icon_wd_application.
-      WHEN 'WAPP' OR swbm_c_type_o2_page.
-        cv_icon = icon_wd_view.
         " 'WDYA' and swbm_c_type_wdy_application
         " 'WDYN' and swbm_c_type_wdy_component
         " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
@@ -746,8 +744,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WAPD'. "LIMU mapping
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'WAPP'. "LIMU mapping
-    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_o2_application.
     APPEND ls_object_list TO gt_object_list.
     " 'WDYA' and swbm_c_type_wdy_application
@@ -919,10 +915,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       ev_obj_type = 'INTF'.
       ev_obj_name = iv_obj_name.
       ev_encl_obj = space.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WAPP'.
-      ev_obj_type = 'WAPP'.
-      ev_obj_name = iv_obj_name+lc_wapa(lc_wapp).
-      ev_encl_obj = iv_obj_name(lc_wapa).
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'ADIR'.
       ev_obj_type = iv_obj_name+4(4).
       ev_obj_name = iv_obj_name+8.
@@ -995,11 +987,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ev_obj_type = 'MSAG'.
       WHEN 'WAPD'.
         ev_obj_type = 'WAPA'.
-      WHEN 'WAPP' ##TODO.
-*       Test if it works with or without this and implement workaround if necesssary (table O2PAGDIRT)
-*       ev_obj_type = 'WAPA'.
-*       ev_obj_name = ev_obj_name(30). "appl
-*       ev_encl_obj = ev_obj_name+30(*). "page
       WHEN 'SQLD' OR 'SQTT'.
         ev_obj_type = 'SQLT'.
     ENDCASE.
