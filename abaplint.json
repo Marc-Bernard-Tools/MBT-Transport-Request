@@ -313,7 +313,7 @@
       "ignoreLowerClassImplmentationStatement": true,
       "ignoreGlobalClassDefinition": false,
       "ignoreGlobalInterface": false,
-      "ignoreFunctionModuleName": false
+      "ignoreFunctionModuleName": false,
       "ignoreKeywords": [
         "COL_BACKGROUND",
         "COL_GROUP", 
@@ -323,7 +323,7 @@
         "COL_NORMAL", 
         "COL_POSITIVE", 
         "COL_TOTAL"
-      ],
+      ]
     },
     "line_break_multiple_parameters": true,
     "line_length": {
