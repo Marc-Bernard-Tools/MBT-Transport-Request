@@ -17,6 +17,7 @@
     "errorNamespace": "^(/MBTOOLS/|LT?CL_|LIF_)",
     "globalConstants": [
       "/mbtools/cl_sap",
+      "/mbtools/cl_tools",
       "apack_manifest",
       "icon_abap",
       "icon_abc",
@@ -196,14 +197,16 @@
     "allowed_object_naming": true,
     "allowed_object_types": {
       "allowed": [
-        "PROG",
         "CLAS",
-        "INTF",
-        "FUGR",
         "DEVC",
-        "TRAN",
         "ENHO",
         "ENHS",
+        "FUGR",
+        "INTF",
+        "PROG",
+        "TABL",
+        "TRAN",
+        "TTYP",
         "W3MI"
       ]
     },
@@ -284,7 +287,11 @@
     "global_class": true,
     "identical_form_names": true,
     "if_in_if": true,
-    "implement_methods": true,
+    "implement_methods": {
+      "exclude": [
+        "#mbtools#cl_cts_req_display.clas.abap"
+      ]
+    },
     "in_statement_indentation": false,
     "indentation": {
       "ignoreExceptions": true,
@@ -333,7 +340,10 @@
     "max_one_statement": true,
     "message_exists": false,
     "method_length": {
-      "statements": 150,
+      "exclude": [
+        "#mbtools#cl_cts_req_disp_wb.clas.abap"
+      ],
+      "statements": 100,
       "ignoreTestClasses": false,
       "errorWhenEmpty": false
     },
