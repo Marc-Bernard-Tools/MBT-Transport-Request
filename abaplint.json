@@ -16,8 +16,6 @@
     "version": "v702",
     "errorNamespace": "^(/MBTOOLS/|LT?CL_|LIF_)",
     "globalConstants": [
-      "/mbtools/cl_sap",
-      "/mbtools/cl_tools",
       "apack_manifest",
       "icon_abap",
       "icon_abc",
@@ -192,7 +190,11 @@
     "globalMacros": []
   },
   "rules": {
-    "7bit_ascii": true,
+    "7bit_ascii": {
+      "exclude": [
+        "#mbtools#if_cts_req_display.intf.abap"
+      ]
+    },
     "abapdoc": false,
     "allowed_object_naming": true,
     "allowed_object_types": {
@@ -249,7 +251,11 @@
     },
     "cloud_types": true,
     "colon_missing_space": true,
-    "commented_code": true,
+    "commented_code": {
+      "exclude": [
+        "#mbtools#cts_object_list.prog.abap"
+      ]
+    },
     "constructor_visibility_public": true,
     "contains_tab": true,
     "definitions_top": {
@@ -341,6 +347,7 @@
     "message_exists": false,
     "method_length": {
       "exclude": [
+        "#mbtools#cl_cts_req_disp_bw.clas.abap",
         "#mbtools#cl_cts_req_disp_wb.clas.abap"
       ],
       "statements": 100,
