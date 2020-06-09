@@ -46,7 +46,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-      ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
+      get_object_icon(
+        EXPORTING
+          iv_object = <ls_e071>-object
+        CHANGING
+          cv_icon   = ls_e071_txt-icon ).
+
       ls_e071_txt-name = <ls_e071>-obj_name.
 
       CASE <ls_e071>-object.
@@ -104,31 +109,31 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
 
     CASE iv_object.
       WHEN 'WDCA'. " Web Dynpro Application Configuration
-        rv_icon = icon_configuration.
+        cv_icon = icon_configuration.
       WHEN 'WDCC'. " Web Dynpro Component Configuration
-        rv_icon = icon_configuration.
+        cv_icon = icon_configuration.
       WHEN 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
-        rv_icon = icon_system_start_recording.
+        cv_icon = icon_system_start_recording.
       WHEN 'WDRP'. " Web Dynpro Recording Plug-In
-        rv_icon = icon_system_play.
+        cv_icon = icon_system_play.
       WHEN 'WDYA'. " Web Dynpro Application
-        rv_icon = icon_wd_application.
+        cv_icon = icon_wd_application.
       WHEN 'WDYC'. " Web Dynpro Controller
-        rv_icon = icon_wd_custom_controller.
+        cv_icon = icon_wd_custom_controller.
       WHEN 'WDYD'. " Web Dynpro Definition
-        rv_icon = icon_wd_component.
+        cv_icon = icon_wd_component.
       WHEN 'WDYL'. " Web Dynpro UI-Element Library
-        rv_icon = icon_view_thumbnails.
+        cv_icon = icon_view_thumbnails.
       WHEN 'WDYN'. " Web Dynpro Component
-        rv_icon = icon_wd_component.
+        cv_icon = icon_wd_component.
       WHEN 'WDYV'. " Web Dynpro View
-        rv_icon = icon_wd_view.
+        cv_icon = icon_wd_view.
       WHEN 'SOTS' OR 'SOTT'. " OTR Short Text
-        rv_icon = icon_change_text.
+        cv_icon = icon_change_text.
       WHEN 'SOTL' OR 'SOTU'. " OTR Long Text
-        rv_icon = icon_annotation.
+        cv_icon = icon_annotation.
       WHEN OTHERS.
-        rv_icon = icon_dummy.
+        cv_icon = icon_dummy.
     ENDCASE.
 
   ENDMETHOD.

@@ -11,6 +11,12 @@ INTERFACE /mbtools/if_cts_req_display
 
   INTERFACES if_badi_interface .
 
+* Ellipsis character
+  CONSTANTS: c_ellipsis TYPE c VALUE '…'.
+
+* Position for ellipsis = Length of data element SEU_TEXT - 2
+  CONSTANTS: c_pos_ellipsis TYPE i VALUE 73.
+
   CLASS-METHODS get_object_descriptions
     IMPORTING
       !it_e071      TYPE trwbo_t_e071
@@ -22,6 +28,6 @@ INTERFACE /mbtools/if_cts_req_display
     IMPORTING
       VALUE(iv_object) TYPE trobjtype
       VALUE(iv_icon)   TYPE icon_d OPTIONAL
-    RETURNING
-      VALUE(rv_icon)   TYPE icon_d .
+    CHANGING
+      VALUE(cv_icon)   TYPE icon_d .
 ENDINTERFACE.

@@ -109,7 +109,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           CLEAR ls_e071_txt.
           MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-          ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
+          get_object_icon(
+            EXPORTING
+              iv_object = <ls_e071>-object
+            CHANGING
+              cv_icon   = ls_e071_txt-icon ).
+
           ls_e071_txt-text = ls_object-stext.
           ls_e071_txt-name = <ls_e071>-obj_name.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
@@ -175,7 +180,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             CLEAR ls_e071_txt.
             MOVE-CORRESPONDING <ls_e071k> TO ls_e071_txt.
 
-            ls_e071_txt-icon   = get_object_icon( <ls_e071k>-object ).
+            get_object_icon(
+              EXPORTING
+                iv_object = <ls_e071k>-object
+              CHANGING
+                cv_icon   = ls_e071_txt-icon ).
+
             ls_e071_txt-text   = ls_object-stext.
             ls_e071_txt-name   = ls_e071_txt-obj_name = <ls_e071k>-objname.
             ls_e071_txt-as4pos = c_as4pos.
@@ -243,7 +253,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             CLEAR ls_e071_txt.
             MOVE-CORRESPONDING <ls_e071k_str> TO ls_e071_txt.
 
-            ls_e071_txt-icon   = get_object_icon( <ls_e071k_str>-object ).
+            get_object_icon(
+              EXPORTING
+                iv_object = <ls_e071k_str>-object
+              CHANGING
+                cv_icon   = ls_e071_txt-icon ).
+
             ls_e071_txt-text   = ls_object-stext.
             ls_e071_txt-name   = ls_e071_txt-obj_name = <ls_e071k_str>-objname.
             ls_e071_txt-as4pos = c_as4pos.
@@ -263,178 +278,178 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 *   See function RS_SHORTTEXT_GET
     CASE iv_object.
       WHEN 'APPL'.
-        rv_icon = icon_package_application.
+        cv_icon = icon_package_application.
       WHEN 'BMED' OR swbm_c_type_proc_function.
-        rv_icon = icon_workflow_activity.
+        cv_icon = icon_workflow_activity.
       WHEN 'BMPC' OR swbm_c_type_proc_process.
-        rv_icon = icon_workflow_process.
+        cv_icon = icon_workflow_process.
       WHEN 'CLAS' OR swbm_c_type_class OR 'SHMA' OR swbm_c_type_shared_obj_area
         OR 'CINC' OR 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK' OR 'MAPP'.
-        rv_icon = icon_oo_class.
+        cv_icon = icon_oo_class.
       WHEN 'COCO' OR swbm_c_type_control_composite.
-        rv_icon = icon_layout_control.
+        cv_icon = icon_layout_control.
       WHEN 'DEVC' OR swbm_c_type_devclass OR 'DEVP'.
-        rv_icon = icon_package_standard.
+        cv_icon = icon_package_standard.
       WHEN 'DIAL' OR swbm_c_type_dialog.
-        rv_icon = icon_wd_view.
+        cv_icon = icon_wd_view.
       WHEN 'DOMA' OR 'DOMD' OR swbm_c_type_ddic_domain.
-        rv_icon = icon_database_table_ina.
+        cv_icon = icon_database_table_ina.
       WHEN 'DSEL'.
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'DTEL' OR 'DTED' OR swbm_c_type_ddic_dataelement.
-        rv_icon = icon_database_table_ina.
+        cv_icon = icon_database_table_ina.
       WHEN 'DYNP' OR swbm_c_type_prg_dynpro.
-        rv_icon = icon_wd_view.
+        cv_icon = icon_wd_view.
       WHEN 'ENQU' OR 'ENQD' OR swbm_c_type_ddic_enqueue.
-        rv_icon = icon_locked.
+        cv_icon = icon_locked.
       WHEN 'FUNC' OR swbm_c_type_function.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'FUGR' OR 'FUGT' OR swbm_c_type_function_pool.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'GURL' OR swbm_c_type_url.
-        rv_icon = icon_url.
+        cv_icon = icon_url.
       WHEN 'IAMA' OR swbm_c_type_miniapp.
-        rv_icon = icon_htm.
+        cv_icon = icon_htm.
       WHEN 'IASP' OR swbm_c_type_service.
-        rv_icon = icon_htm.
+        cv_icon = icon_htm.
       WHEN 'IATU' OR swbm_c_type_w3_template.
-        rv_icon = icon_htm.
+        cv_icon = icon_htm.
       WHEN 'IAMU' OR swbm_c_type_w3_mime.
-        rv_icon = icon_bmp.
+        cv_icon = icon_bmp.
       WHEN 'IARP' OR swbm_c_type_w3_resource.
-        rv_icon = icon_htm.
+        cv_icon = icon_htm.
       WHEN 'INTF' OR swbm_c_type_interface.
-        rv_icon = icon_oo_interface.
+        cv_icon = icon_oo_interface.
       WHEN 'MCOB' OR swbm_c_type_ddic_matchcode OR 'MCOD'.
-        rv_icon = icon_value_help.
+        cv_icon = icon_value_help.
       WHEN 'MCID'.
-        rv_icon = icon_value_help.
+        cv_icon = icon_value_help.
       WHEN 'MESS' OR swbm_c_type_message.
-        rv_icon = icon_message_type.
+        cv_icon = icon_message_type.
       WHEN 'METH' OR swbm_c_type_cls_mtd_impl.
-        rv_icon = icon_oo_class_method.
+        cv_icon = icon_oo_class_method.
       WHEN 'MSAG' OR swbm_c_type_message_id OR 'MSAD'.
-        rv_icon = icon_message_type.
+        cv_icon = icon_message_type.
       WHEN 'PARA' OR swbm_c_type_parameter_id.
-        rv_icon = icon_parameter.
+        cv_icon = icon_parameter.
       WHEN 'PDAC' OR swbm_c_type_wf_role.
-        rv_icon = icon_role.
+        cv_icon = icon_role.
       WHEN 'PDTS' OR swbm_c_type_wf_task.
-        rv_icon = icon_workflow_activity.
+        cv_icon = icon_workflow_activity.
       WHEN 'PDWS' OR swbm_c_type_wf_workflow.
-        rv_icon = icon_workflow.
+        cv_icon = icon_workflow.
       WHEN 'PINF' OR swbm_c_type_package_interface OR 'PIFA' OR 'PIFH'.
-        rv_icon = icon_package_dynamic.
+        cv_icon = icon_package_dynamic.
       WHEN 'PROG' OR 'REPS' OR swbm_c_type_prg_source OR swbm_c_type_prg_include.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'REPT'.
-        rv_icon = icon_text_ina.
+        cv_icon = icon_text_ina.
       WHEN 'SCAT' OR swbm_c_type_testcase.
-        rv_icon = icon_test.
+        cv_icon = icon_test.
       WHEN 'SOBJ' OR swbm_c_type_bor_objtype.
-        rv_icon = icon_businav_objects.
+        cv_icon = icon_businav_objects.
       WHEN 'SHI3' OR 'U'.
-        rv_icon = icon_context_menu.
+        cv_icon = icon_context_menu.
       WHEN 'SHLP' OR 'SHLD' OR swbm_c_type_ddic_searchhelp OR 'SHLX'.
-        rv_icon = icon_value_help.
+        cv_icon = icon_value_help.
       WHEN 'SLDB' OR swbm_c_type_logical_database.
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'SMOD'.
-        rv_icon = icon_modification_overview.
+        cv_icon = icon_modification_overview.
       WHEN 'CMOD'.
-        rv_icon = icon_modification_create.
+        cv_icon = icon_modification_create.
       WHEN 'SUSO' OR swbm_c_type_auth_object.
-        rv_icon = icon_locked.
+        cv_icon = icon_locked.
       WHEN 'SQLT' OR swbm_c_type_ddic_pool_cluster OR 'SQLD' OR 'SQTT'.
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'SXSD' OR swbm_c_type_badi_def.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'SXCI' OR swbm_c_type_badi_imp.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'CUAD' OR swbm_c_type_cua_status.
-        rv_icon = icon_wd_toolbar.
+        cv_icon = icon_wd_toolbar.
       WHEN swbm_c_type_cua_title.
-        rv_icon = icon_wd_toolbar_caption.
+        cv_icon = icon_wd_toolbar_caption.
       WHEN 'TABL' OR 'TABD' OR swbm_c_type_ddic_db_table OR swbm_c_type_ddic_structure
         OR swbm_c_type_prg_table OR 'TABT' OR 'INDX'.
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'TRAN' OR swbm_c_type_transaction.
-        rv_icon = icon_execute_object.
+        cv_icon = icon_execute_object.
       WHEN 'TTYP' OR 'TTYD' OR swbm_c_type_ddic_tabletype OR 'TTYX'.
-        rv_icon = icon_view_table.
+        cv_icon = icon_view_table.
       WHEN 'TYPE' OR swbm_c_type_ddic_typepool.
-        rv_icon = icon_database_table_ina.
+        cv_icon = icon_database_table_ina.
       WHEN 'UDMO' OR swbm_c_type_datamodel.
-        rv_icon = icon_businav_datamodel.
+        cv_icon = icon_businav_datamodel.
       WHEN 'UENO' OR swbm_c_type_entity.
-        rv_icon = icon_businav_entity.
+        cv_icon = icon_businav_entity.
       WHEN 'VARI'.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'VIEW' OR 'VIED' OR swbm_c_type_ddic_view OR 'VDAT' OR 'VIET'.
-        rv_icon = icon_database_table_ina.
+        cv_icon = icon_database_table_ina.
       WHEN 'XSLT' OR swbm_c_type_xslt_file.
-        rv_icon = icon_xml_doc.
+        cv_icon = icon_xml_doc.
       WHEN 'WTAG' OR swbm_c_type_o2_taglibrary.
-        rv_icon = icon_htt.
+        cv_icon = icon_htt.
       WHEN 'WTHM' OR swbm_c_type_o2_theme.
-        rv_icon = icon_htt.
+        cv_icon = icon_htt.
       WHEN 'WAPA' OR swbm_c_type_o2_application OR 'WAPD'.
-        rv_icon = icon_wd_application.
+        cv_icon = icon_wd_application.
       WHEN 'WAPP' OR swbm_c_type_o2_page.
-        rv_icon = icon_wd_view.
+        cv_icon = icon_wd_view.
         " 'WDYA' and swbm_c_type_wdy_application
         " 'WDYN' and swbm_c_type_wdy_component
         " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
       WHEN 'WEBI' OR swbm_c_type_virt_interface.
-        rv_icon = icon_interface.
+        cv_icon = icon_interface.
       WHEN 'ENHO' OR swbm_c_type_enhancement.
-        rv_icon = icon_activity_group.
+        cv_icon = icon_activity_group.
       WHEN 'ENHC' OR swbm_c_type_enh_composite.
-        rv_icon = icon_wd_tree_node.
+        cv_icon = icon_wd_tree_node.
       WHEN 'ENHS' OR swbm_c_type_enh_spot.
-        rv_icon = icon_mc_contentindicator.
+        cv_icon = icon_mc_contentindicator.
       WHEN 'ENSC' OR swbm_c_type_enh_spot_comp.
-        rv_icon = icon_wd_controller.
+        cv_icon = icon_wd_controller.
       WHEN 'SFPI' OR swbm_c_type_formobject_intf.
-        rv_icon = icon_view_form.
+        cv_icon = icon_view_form.
       WHEN 'SFPF' OR swbm_c_type_formobject_form.
-        rv_icon = icon_view_form.
+        cv_icon = icon_view_form.
         " 'WDCA' and swbm_c_type_wdy_appl_config
         " 'WDCC' and swbm_c_type_wdy_comp_config
         " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
       WHEN 'COAS' OR swbm_c_type_cool_aspect.
-        rv_icon = icon_dummy ##TODO.
+        cv_icon = icon_dummy ##TODO.
       WHEN 'COSM' OR swbm_c_type_cool_service_mod.
-        rv_icon = icon_dummy ##TODO.
+        cv_icon = icon_dummy ##TODO.
       WHEN 'ACID' OR swbm_c_type_activation_id.
-        rv_icon = icon_check.
+        cv_icon = icon_check.
       WHEN 'ECTC' OR swbm_c_type_ecatt_test_config.
-        rv_icon = icon_test.
+        cv_icon = icon_test.
       WHEN 'ECTD' OR swbm_c_type_ecatt_test_data.
-        rv_icon = icon_test.
+        cv_icon = icon_test.
       WHEN 'ECSD' OR swbm_c_type_ecatt_system_data.
-        rv_icon = icon_test.
+        cv_icon = icon_test.
       WHEN 'ECSC' OR swbm_c_type_ecatt_test_script.
-        rv_icon = icon_test.
+        cv_icon = icon_test.
       WHEN 'AUTH' OR 'SUSC'.
-        rv_icon = icon_locked.
+        cv_icon = icon_locked.
 *     Additional objects
       WHEN 'XPRA' OR 'PRAG'.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'LDBA' OR swbm_c_type_logical_database.
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'DDLS' OR swbm_c_type_ddic_ddl_source.
-        rv_icon = icon_abap.
+        cv_icon = icon_abap.
       WHEN 'DCLS' OR 'Q0R'.
-        rv_icon = icon_locked.
+        cv_icon = icon_locked.
       WHEN 'SAMC' OR 'SAPC'.
-        rv_icon = icon_short_message.
+        cv_icon = icon_short_message.
       WHEN 'TABU'.
-        rv_icon = icon_list.
+        cv_icon = icon_list.
       WHEN 'SPRX'.
-        rv_icon = icon_url.
+        cv_icon = icon_url.
       WHEN OTHERS.
-        rv_icon = icon_dummy.
+        cv_icon = icon_dummy.
     ENDCASE.
 
   ENDMETHOD.

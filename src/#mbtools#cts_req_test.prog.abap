@@ -397,31 +397,29 @@ FORM get_object_type
 
     ENDIF.
 
-  ELSE.
-    IF     iv_pgmid  = 'LIMU'  AND  iv_object  =  'REPO'.
-      cv_obj_type = 'PROG'.
-    ELSEIF iv_pgmid  = 'LIMU'  AND  iv_object  =  'DYNP'.
-      cv_obj_type = 'DYNP'.
-    ELSEIF iv_pgmid  = 'LIMU' AND (   iv_object = 'VARI'
-                                   OR iv_object = 'VARX' ).
-      cv_obj_type = 'PV'.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'MESS'.
-      cv_obj_type = 'MESS'.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'METH'.
-      cv_obj_type = 'METH'.
-*& 'INTD' Object use same Edititor like 'INTF' .
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'INTD'.
-      cv_obj_type = 'INTF'.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WDYC'.
-      cv_obj_type = 'WDYC'.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WDYV'.
-      cv_obj_type = 'WDYV'.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WAPP'.
-      cv_obj_type = 'WAPP'.
-    ELSEIF iv_pgmid = 'R3TR'  AND  iv_object = 'TABU'.
-      cv_obj_type = 'DT'.
-    ENDIF.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'REPO'.
+    cv_obj_type = 'PROG'.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'DYNP'.
+    cv_obj_type = 'DYNP'.
+  ELSEIF iv_pgmid = 'LIMU' AND ( iv_object = 'VARI' OR iv_object = 'VARX' ).
+    cv_obj_type = 'PV'.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'MESS'.
+    cv_obj_type = 'MESS'.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'METH'.
+    cv_obj_type = 'METH'.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'INTD'.
+    " INTD uses same editor as INTF
+    cv_obj_type = 'INTF'.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'WDYC'.
+    cv_obj_type = 'WDYC'.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'WDYV'.
+    cv_obj_type = 'WDYV'.
+  ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'WAPP'.
+    cv_obj_type = 'WAPP'.
+  ELSEIF iv_pgmid = 'R3TR' AND iv_object = 'TABU'.
+    cv_obj_type = 'DT'.
   ENDIF.
+
 ENDFORM.
 
 FORM get_object_type_ext
@@ -432,7 +430,7 @@ FORM get_object_type_ext
 
   ev_obj_type = iv_object.
 
-* Map some object types
+  " Map some object types
   CASE iv_object.
     WHEN 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK' OR 'MAPP'.
       ev_obj_type = 'CLAS'.

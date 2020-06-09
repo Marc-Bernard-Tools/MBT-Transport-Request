@@ -52,7 +52,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-      ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
+      get_object_icon(
+        EXPORTING
+          iv_object = <ls_e071>-object
+        CHANGING
+          cv_icon   = ls_e071_txt-icon ).
 
       CASE <ls_e071>-object.
         WHEN 'MERG' OR 'RELE' OR 'COMM'.
@@ -90,17 +94,17 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
 
     CASE iv_object.
       WHEN 'MERG'. " Comment: Object List Included
-        rv_icon = icon_include_objects.
+        cv_icon = icon_include_objects.
       WHEN 'PERF'. " Perforce Changelist
-        rv_icon = icon_modified_object.
+        cv_icon = icon_modified_object.
       WHEN 'RELE'. " Comment Entry: Released
-        rv_icon = icon_release.
+        cv_icon = icon_release.
       WHEN 'ADIR'. " Object Directory Entry
-        rv_icon = icon_detail.
+        cv_icon = icon_detail.
       WHEN 'COMM'. " Object List of Request or Piece List
-        rv_icon = icon_document.
+        cv_icon = icon_document.
       WHEN OTHERS.
-        rv_icon = icon_dummy.
+        cv_icon = icon_dummy.
     ENDCASE.
 
   ENDMETHOD.

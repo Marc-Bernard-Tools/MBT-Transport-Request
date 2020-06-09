@@ -8,9 +8,6 @@ REPORT /mbtools/cts_object_list.
 
 TYPE-POOLS: icon.
 
-* Position for ellipsis = Length of data element SEU_TEXT - 2
-CONSTANTS: c_pos_ellipsis TYPE i VALUE 73.
-
 *&---------------------------------------------------------------------*
 *&      Global Types and Data (LSTRHTOP)
 *&---------------------------------------------------------------------*
@@ -574,9 +571,7 @@ FORM format_tabkeys
       SELECT intlen FROM dd03l INTO TABLE lt_len
         WHERE tabname = <ls_e071k>-objname AND keyflag = abap_true
         ORDER BY position.
-      IF sy-subrc <> 0.
-        BREAK-POINT.
-      ENDIF.
+      ASSERT sy-subrc = 0. " something wrong with DDIC
     ENDAT.
     CLEAR: l_pos, l_tabkey.
     LOOP AT lt_len ASSIGNING <l_len>.
@@ -597,9 +592,7 @@ FORM format_tabkeys
       SELECT intlen FROM dd03l INTO TABLE lt_len
         WHERE tabname = <ls_e071k_str>-objname AND keyflag = abap_true
         ORDER BY position.
-      IF sy-subrc <> 0.
-        BREAK-POINT.
-      ENDIF.
+      ASSERT sy-subrc = 0. " something wrong with DDIC
     ENDAT.
     CLEAR: l_pos, l_tabkey_str.
     LOOP AT lt_len ASSIGNING <l_len>.
@@ -717,7 +710,8 @@ FORM get_object_and_display_name
   " End texts that are too long with ellipsis
   lv_more = strlen( rv_obj_name ).
   IF lv_more > 75.
-    CONCATENATE rv_obj_name(c_pos_ellipsis) '…' INTO rv_obj_name.
+    CONCATENATE rv_obj_name(/mbtools/if_cts_req_display=>c_pos_ellipsis)
+      /mbtools/if_cts_req_display=>c_ellipsis INTO rv_obj_name.
   ENDIF.
 
   " Return display name
@@ -725,7 +719,8 @@ FORM get_object_and_display_name
 
   lv_more = strlen( rv_disp_name ).
   IF lv_more > 75.
-    CONCATENATE rv_disp_name(c_pos_ellipsis) '…]' INTO rv_disp_name.
+    CONCATENATE rv_disp_name(/mbtools/if_cts_req_display=>c_pos_ellipsis)
+      /mbtools/if_cts_req_display=>c_ellipsis ']' INTO rv_disp_name.
   ENDIF.
 
 ENDFORM.                               " GET_OBJECT_AND_DISPLAY_NAME

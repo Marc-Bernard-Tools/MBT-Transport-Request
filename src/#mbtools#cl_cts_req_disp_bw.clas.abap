@@ -49,6 +49,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       lv_objvers   TYPE rsobjvers,
       lv_txtlg     TYPE rstxtlg,
       lv_icon      TYPE icon_d,
+      lv_icon_2    TYPE icon_d,
       lv_iobjtp    TYPE rsiobjtp,
       lv_compid    TYPE rszcompid,
       lv_deftp     TYPE rszdeftp,
@@ -78,7 +79,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       " Source system objects
       CASE ls_object-tlogo.
         WHEN 'DSAA'. " Application component hierarchy
-          lv_icon = get_object_icon( ls_object-tlogo ).
+          get_object_icon(
+            EXPORTING
+              iv_object = ls_object-tlogo
+            CHANGING
+              cv_icon   = lv_icon ).
 
           SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
             WHERE hier = 'APCO' AND applnm = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
@@ -91,7 +96,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
           ENDIF.
 
         WHEN 'OSOA'. " OLTP DataSource
-          lv_icon = get_object_icon( ls_object-tlogo ).
+          get_object_icon(
+            EXPORTING
+              iv_object = ls_object-tlogo
+            CHANGING
+              cv_icon   = lv_icon ).
 
           SELECT SINGLE txtlg INTO lv_txtlg FROM roosourcet
             WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
@@ -118,8 +127,14 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
               object_not_found     = 1
               OTHERS               = 2 ).
           IF sy-subrc = 0.
-            lv_icon = get_object_icon( iv_object = ls_object-tlogo
-                                       iv_icon   = lv_icon ).
+            lv_icon_2 = lv_icon.
+
+            get_object_icon(
+              EXPORTING
+                iv_object = ls_object-tlogo
+                iv_icon   = lv_icon_2
+              CHANGING
+                cv_icon   = lv_icon ).
           ELSE.
             lv_icon = icon_delete.
           ENDIF.
@@ -213,7 +228,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
     lv_tlogo = iv_object.
 
-    rv_icon = /mbtools/cl_tlogo=>get_tlogo_icon( iv_tlogo = lv_tlogo
+    cv_icon = /mbtools/cl_tlogo=>get_tlogo_icon( iv_tlogo = lv_tlogo
                                                  iv_icon  = iv_icon ).
 
   ENDMETHOD.

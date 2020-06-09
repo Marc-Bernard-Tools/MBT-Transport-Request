@@ -53,7 +53,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-      ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
+      get_object_icon(
+        EXPORTING
+          iv_object = <ls_e071>-object
+        CHANGING
+          cv_icon   = ls_e071_txt-icon ).
 
       ls_e071_txt-name = <ls_e071>-obj_name.
 
@@ -179,45 +183,45 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
 
     CASE iv_object.
       WHEN 'SICF'. " ICF Service
-        rv_icon = icon_wf_reserve_workitem.
+        cv_icon = icon_wf_reserve_workitem.
       WHEN 'TOBJ'. " Transport object
-        rv_icon = icon_transport.
+        cv_icon = icon_transport.
       WHEN 'DOCU'. " Documentation
-        rv_icon = icon_document.
+        cv_icon = icon_document.
       WHEN 'DOCT'. " General Text
-        rv_icon = icon_display_text.
+        cv_icon = icon_display_text.
       WHEN 'DOCV'. " Documentation (Independent)
-        rv_icon = icon_document.
+        cv_icon = icon_document.
       WHEN 'NSPC'. " Namespace
-        rv_icon = icon_abc.
+        cv_icon = icon_abc.
       WHEN 'CDAT'. " View Cluster Maintenance: Data
-        rv_icon = icon_database_table_ina.
+        cv_icon = icon_database_table_ina.
       WHEN 'TDAT'. " Customizing: Table Contents
-        rv_icon = icon_table_settings.
+        cv_icon = icon_table_settings.
       WHEN 'STCS'. " Task List
-        rv_icon = icon_view_list.
+        cv_icon = icon_view_list.
       WHEN 'BMFR'. " Application component
-        rv_icon = icon_display_tree.
+        cv_icon = icon_display_tree.
       WHEN 'AOBJ'. " Archiving object
-        rv_icon = icon_viewer_optical_archive.
+        cv_icon = icon_viewer_optical_archive.
       WHEN 'AVAS'. " Classification
-        rv_icon = icon_class_connection_space.
+        cv_icon = icon_class_connection_space.
       WHEN 'SFBF'. " Business Function
-        rv_icon = icon_activity_group.
+        cv_icon = icon_activity_group.
       WHEN 'SFBS'. " Business Set
-        rv_icon = icon_composite_activitygroup.
+        cv_icon = icon_composite_activitygroup.
       WHEN 'SFSW'. " Switch
-        rv_icon = icon_business_area.
+        cv_icon = icon_business_area.
       WHEN 'WGRP'. " Object Type Group
-        rv_icon = icon_object_list.
+        cv_icon = icon_object_list.
       WHEN 'CUS0'. " IMG Activity
-        rv_icon = icon_display_text.
+        cv_icon = icon_display_text.
       WHEN 'CUS1'. " Customizing Activity
-        rv_icon = icon_display_text.
+        cv_icon = icon_display_text.
       WHEN 'CUS2'. " Customizing Attributes
-        rv_icon = icon_display_text.
+        cv_icon = icon_display_text.
       WHEN OTHERS.
-        rv_icon = icon_dummy.
+        cv_icon = icon_dummy.
     ENDCASE.
 
   ENDMETHOD.

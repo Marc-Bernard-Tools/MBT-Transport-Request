@@ -46,7 +46,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_GW IMPLEMENTATION.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-      ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
+      get_object_icon(
+        EXPORTING
+          iv_object = <ls_e071>-object
+        CHANGING
+          cv_icon   = ls_e071_txt-icon ).
+
       ls_e071_txt-name = <ls_e071>-obj_name.
 
       CASE <ls_e071>-object.
@@ -108,27 +113,27 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_GW IMPLEMENTATION.
 
     CASE iv_object.
       WHEN 'G4BA'. " SAP Gateway OData V4 Backend Service Group & Assigments
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'G4BG'. " SAP Gateway OData V4 Backend Service Group & Assigments (obsolete)
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'G4BS'. " SAP Gateway OData V4 Backend Service
-        rv_icon = icon_database_table.
+        cv_icon = icon_database_table.
       WHEN 'IWMO'. " SAP Gateway Business Suite Enablement - Model
-        rv_icon = icon_model.
+        cv_icon = icon_model.
       WHEN 'IWOM'. " SAP Gateway: Model Metadata
-        rv_icon = icon_model.
+        cv_icon = icon_model.
       WHEN 'IWPR'. " SAP Gateway BSE - Service Builder Project
-        rv_icon = icon_project.
+        cv_icon = icon_project.
       WHEN 'IWSG'. " SAP Gateway: Service Groups Metadata
-        rv_icon = icon_controlling_area.
+        cv_icon = icon_controlling_area.
       WHEN 'IWSV'. " SAP Gateway Business Suite Enablement - Service
-        rv_icon = icon_controlling_area.
+        cv_icon = icon_controlling_area.
       WHEN 'IWVB'. " SAP Gateway Business Suite Enablement - Vocabulary Annotation
-        rv_icon = icon_annotation.
+        cv_icon = icon_annotation.
       WHEN 'IWVO'. " SAP Gateway Business Suite Enablement - Vocabulary
-        rv_icon = icon_abc.
+        cv_icon = icon_abc.
       WHEN OTHERS.
-        rv_icon = icon_dummy.
+        cv_icon = icon_dummy.
     ENDCASE.
 
   ENDMETHOD.

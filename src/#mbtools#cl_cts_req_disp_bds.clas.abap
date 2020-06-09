@@ -120,8 +120,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
         MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
         lv_icon = ls_dspname-objtype.
 
-        ls_e071_txt-icon = get_object_icon( iv_object = ls_e071_txt-object
-                                            iv_icon   = lv_icon ).
+        get_object_icon(
+          EXPORTING
+            iv_object = <ls_e071>-object
+          CHANGING
+            cv_icon   = ls_e071_txt-icon ).
 
         ls_e071_txt-text = ls_dspname-descript.
         ls_e071_txt-name = ls_dspname-name.
@@ -165,10 +168,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
         ENDIF.
     ENDCASE.
 
-    rv_icon = go_term->get_icon_for_io( p_io = ls_io ).
+    cv_icon = go_term->get_icon_for_io( p_io = ls_io ).
 
-    IF rv_icon IS INITIAL.
-      rv_icon = icon_dummy.
+    IF cv_icon IS INITIAL.
+      cv_icon = icon_dummy.
     ENDIF.
 
   ENDMETHOD.

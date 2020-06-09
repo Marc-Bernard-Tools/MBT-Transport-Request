@@ -47,7 +47,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-      ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
+      get_object_icon(
+        EXPORTING
+          iv_object = <ls_e071>-object
+        CHANGING
+          cv_icon   = ls_e071_txt-icon ).
 
       CASE <ls_e071>-object.
         WHEN 'NOTE'. " SAP Note
@@ -99,11 +103,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
 
     CASE iv_object.
       WHEN 'NOTE'. " SAP Note
-        rv_icon = icon_object_list.
+        cv_icon = icon_object_list.
       WHEN 'CINS'. " Correction Instruction
-        rv_icon = icon_object_list.
+        cv_icon = icon_object_list.
       WHEN OTHERS.
-        rv_icon = icon_dummy.
+        cv_icon = icon_dummy.
     ENDCASE.
 
   ENDMETHOD.
