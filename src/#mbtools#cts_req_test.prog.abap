@@ -148,8 +148,8 @@ START-OF-SELECTION.
           " Check for icon
           IF gv_icon IS INITIAL OR gv_icon = icon_dummy.
             WRITE: 'Missing icon'(003) COLOR COL_NEGATIVE.
-            ADD 1 TO gv_error.
-            ADD 1 TO gv_count.
+            gv_error = gv_error + 1.
+            gv_count = gv_count + 1.
           ENDIF.
 
           " Check for text
@@ -157,12 +157,12 @@ START-OF-SELECTION.
           IF gv_text IS INITIAL.
             IF gv_len < 4.
               WRITE: 'Missing text'(004) COLOR COL_NORMAL INTENSIFIED OFF.
-              ADD 1 TO gv_warn.
+              gv_warn = gv_warn + 1.
             ELSE.
               WRITE: 'Missing text'(004) COLOR COL_NEGATIVE.
-              ADD 1 TO gv_error.
+              gv_error = gv_error + 1.
             ENDIF.
-            ADD 1 TO gv_count.
+            gv_count = gv_count + 1.
           ENDIF.
 
           " Check for duplicates
@@ -170,14 +170,14 @@ START-OF-SELECTION.
             WITH KEY table_line = gv_object.
           IF sy-subrc = 0.
             WRITE: 'Already defined above'(005) COLOR COL_NEGATIVE.
-            ADD 1 TO gv_error.
-            ADD 1 TO gv_count.
+            gv_error = gv_error + 1.
+            gv_count = gv_count + 1.
           ELSE.
             INSERT gv_object INTO TABLE gt_objects.
           ENDIF.
 
           IF gv_count = 0.
-            ADD 1 TO gv_ok.
+            gv_ok = gv_ok + 1.
           ENDIF.
 
         WHEN p_objs.
@@ -265,10 +265,10 @@ START-OF-SELECTION.
                 IF gs_e071_txt-text IS INITIAL.
                   gs_e071_txt-text = '(' && 'Text not found'(020) && ')'.
                   WRITE: gs_e071_txt-text COLOR COL_NEGATIVE.
-                  ADD 1 TO gv_error.
+                  gv_error = gv_error + 1.
                 ELSE.
                   WRITE: gs_e071_txt-text COLOR COL_POSITIVE.
-                  ADD 1 TO gv_ok.
+                  gv_ok = gv_ok + 1.
                 ENDIF.
                 IF gs_e071-obj_name = gs_e071_txt-obj_name.
                   gs_e071_txt-obj_name = '[' && gs_e071_txt-obj_name && ']'.
@@ -281,13 +281,13 @@ START-OF-SELECTION.
                 ENDIF.
               ELSE.
                 WRITE: gv_icon AS ICON, 'No text found'(009) COLOR COL_NEGATIVE.
-                ADD 1 TO gv_warn.
+                gv_warn = gv_warn + 1.
               ENDIF.
               SKIP.
             ENDLOOP.
           ELSE.
             WRITE: gv_icon AS ICON, 'No test object found'(010) COLOR COL_TOTAL.
-            ADD 1 TO gv_warn.
+            gv_warn = gv_warn + 1.
           ENDIF.
 
           SKIP.
@@ -302,16 +302,14 @@ START-OF-SELECTION.
             WITH TABLE KEY table_line = gv_class.
           IF sy-subrc = 0.
             WRITE: 'Yes'(011) COLOR COL_POSITIVE.
-            ADD 1 TO gv_ok.
+            gv_ok = gv_ok + 1.
             DELETE gt_no_enh WHERE table_line = gv_class.
+          ELSEIF gv_pgmid = 'R3TR'.
+            WRITE: 'No'(012) COLOR COL_TOTAL.
+            gv_warn = gv_warn + 1.
           ELSE.
-            IF gv_pgmid = 'R3TR'.
-              WRITE: 'No'(012) COLOR COL_TOTAL.
-              ADD 1 TO gv_warn.
-            ELSE.
-              WRITE: '---' COLOR COL_NORMAL.
-              ADD 1 TO gv_ok.
-            ENDIF.
+            WRITE: '---' COLOR COL_NORMAL.
+            gv_ok = gv_ok + 1.
           ENDIF.
 
       ENDCASE.
@@ -364,36 +362,37 @@ FORM get_object_type
   CHANGING
     cv_obj_type TYPE tadir-object.
 
-  IF    iv_object NE 'REPO' AND iv_object NE 'DYNP'
-    AND iv_object NE 'VARI' AND iv_object NE 'VARX'
-    AND iv_object NE 'MESS' AND iv_object NE 'METH'
-    AND iv_object NE 'WAPP' AND iv_object NE 'TABU'
-    AND iv_object NE 'INTD' AND iv_object NE 'WDYC'
-    AND iv_object NE 'WDYV' AND iv_object NE 'ADIR'.
+  DATA: lv_global_type TYPE wbobjtype.
+  DATA: lv_wb_type TYPE seu_objtyp.
+
+  IF    iv_object <> 'REPO' AND iv_object <> 'DYNP'
+    AND iv_object <> 'VARI' AND iv_object <> 'VARX'
+    AND iv_object <> 'MESS' AND iv_object <> 'METH'
+    AND iv_object <> 'WAPP' AND iv_object <> 'TABU'
+    AND iv_object <> 'INTD' AND iv_object <> 'WDYC'
+    AND iv_object <> 'WDYV' AND iv_object <> 'ADIR'.
 
     SELECT SINGLE id FROM euobjv INTO cv_obj_type
                                  WHERE id EQ iv_object.
 
     IF sy-subrc <> 0.
-      DATA: l_global_type TYPE wbobjtype.
-      DATA: l_wb_type TYPE seu_objtyp.
-      CLEAR l_global_type.
+      CLEAR lv_global_type.
       CLEAR cv_obj_type.
       cl_wb_object_type=>get_global_from_transport_type(
         EXPORTING
           p_transport_type  = iv_object
         IMPORTING
-          p_global_type     = l_global_type
+          p_global_type     = lv_global_type
         EXCEPTIONS
           no_unique_mapping = 1
           OTHERS            = 2 ).
-      IF sy-subrc = 0 AND l_global_type IS NOT INITIAL.
+      IF sy-subrc = 0 AND lv_global_type IS NOT INITIAL.
         cl_wb_object_type=>get_internal_from_global_type(
           EXPORTING
-            p_global_type   = l_global_type
+            p_global_type   = lv_global_type
           IMPORTING
-            p_internal_type = l_wb_type ).
-        cv_obj_type = l_wb_type.
+            p_internal_type = lv_wb_type ).
+        cv_obj_type = lv_wb_type.
       ENDIF.
 
     ENDIF.
@@ -404,7 +403,7 @@ FORM get_object_type
     ELSEIF iv_pgmid  = 'LIMU'  AND  iv_object  =  'DYNP'.
       cv_obj_type = 'DYNP'.
     ELSEIF iv_pgmid  = 'LIMU' AND (   iv_object = 'VARI'
-                                   OR iv_object = 'VARX' ) .
+                                   OR iv_object = 'VARX' ).
       cv_obj_type = 'PV'.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'MESS'.
       cv_obj_type = 'MESS'.
@@ -412,7 +411,7 @@ FORM get_object_type
       cv_obj_type = 'METH'.
 *& 'INTD' Object use same Edititor like 'INTF' .
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'INTD'.
-      cv_obj_type = 'INTF' .
+      cv_obj_type = 'INTF'.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WDYC'.
       cv_obj_type = 'WDYC'.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WDYV'.
