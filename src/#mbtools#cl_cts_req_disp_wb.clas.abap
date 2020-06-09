@@ -418,9 +418,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         " 'WDCC' and swbm_c_type_wdy_comp_config
         " see /MBTOOLS/CL_CTS_REQ_DISP_WDY
       WHEN 'COAS' OR swbm_c_type_cool_aspect.
-        cv_icon = icon_dummy ##TODO.
+        cv_icon = icon_oo_class.
       WHEN 'COSM' OR swbm_c_type_cool_service_mod.
-        cv_icon = icon_dummy ##TODO.
+        cv_icon = icon_oo_interface.
       WHEN 'ACID' OR swbm_c_type_activation_id.
         cv_icon = icon_check.
       WHEN 'ECTC' OR swbm_c_type_ecatt_test_config.

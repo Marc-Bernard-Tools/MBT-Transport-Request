@@ -171,6 +171,14 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
           SELECT SINGLE text FROM cus_atrt INTO ls_e071_txt-text
             WHERE spras   = sy-langu
               AND attr_id = <ls_e071>-obj_name.
+        WHEN 'NROB'. " Number Range
+          SELECT SINGLE txt FROM tnrot INTO ls_e071_txt-text
+            WHERE object = <ls_e071>-obj_name
+              AND langu  = sy-langu.
+        WHEN 'JOBD'. " Job Definition
+
+        WHEN OTHERS.
+          ASSERT 0 = 1. " Check class constructor
       ENDCASE.
 
       INSERT ls_e071_txt INTO TABLE ct_e071_txt.
@@ -220,6 +228,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         cv_icon = icon_display_text.
       WHEN 'CUS2'. " Customizing Attributes
         cv_icon = icon_display_text.
+      WHEN 'NROB'. " Number Range
+        cv_icon = icon_change_number.
+      WHEN 'JOBD'. " Job Definition
+        cv_icon = icon_background_job.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -272,6 +284,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     ls_object_list-low = 'CUS1'. " Customizing Activity
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CUS2'. " Customizing Attributes
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'NROB'. " Number Range
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'JOBD'. " Job Definition
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.

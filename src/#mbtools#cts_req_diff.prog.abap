@@ -13,7 +13,7 @@ CONSTANTS:
   c_max      TYPE i VALUE 200,
   c_lstrhtop TYPE progname VALUE 'LSTRHTOP',
   c_lstrhf01 TYPE progname VALUE 'LSTRHF01',
-  c_mbtools  TYPE progname VALUE '/MBTOOLS/BC_CTS_OBJECT_LIST'.
+  c_mbtools  TYPE progname VALUE '/MBTOOLS/CTS_OBJECT_LIST'.
 
 DATA:
   gv_line         TYPE i,

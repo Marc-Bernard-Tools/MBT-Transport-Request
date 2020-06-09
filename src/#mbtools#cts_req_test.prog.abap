@@ -82,6 +82,8 @@ START-OF-SELECTION.
     WRITE: / 'Class:'(001), AT 15 gv_class.
     SKIP.
 
+    CLEAR: gv_ok, gv_warn, gv_error, gv_count.
+
     CREATE OBJECT gr_class TYPE (gv_class).
 
     " Get list of supported objects
@@ -115,7 +117,7 @@ START-OF-SELECTION.
         EXPORTING
           iv_object = gv_object
         CHANGING
-          rv_icon   = gv_icon.
+          cv_icon   = gv_icon.
 
       WRITE: AT 30 gv_icon AS ICON, space.
 
