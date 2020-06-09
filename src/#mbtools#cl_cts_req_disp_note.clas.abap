@@ -47,11 +47,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
       CLEAR ls_e071_txt.
       MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-      CALL METHOD get_object_icon
-        EXPORTING
-          iv_object = <ls_e071>-object
-        CHANGING
-          rv_icon   = ls_e071_txt-icon.
+      ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
 
       CASE <ls_e071>-object.
         WHEN 'NOTE'. " SAP Note

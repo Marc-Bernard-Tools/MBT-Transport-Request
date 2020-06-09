@@ -87,13 +87,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
         WHEN 'SMIM'. " Other MIME objects
           lv_guid = <ls_e071>-obj_name.
 
-          CALL METHOD cl_wb_mr_services=>mr_loio_existence_check
+          cl_wb_mr_services=>mr_loio_existence_check(
             EXPORTING
               i_loio_id = lv_guid
             IMPORTING
               e_io      = ls_io
             EXCEPTIONS
-              not_found = 1.
+              not_found = 1 ).
           IF sy-subrc <> 0.
             CONTINUE.
           ENDIF.
@@ -104,12 +104,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
 
     CHECK NOT lt_io IS INITIAL.
 
-    CALL METHOD cl_skwf_display_util=>ios_displayname_get
+    cl_skwf_display_util=>ios_displayname_get(
       EXPORTING
         ios           = lt_io
         x_description = abap_true
       IMPORTING
-        disp_names    = lt_dspname.
+        disp_names    = lt_dspname ).
 
     LOOP AT it_e071 ASSIGNING <ls_e071>.
       READ TABLE lt_dspname INTO ls_dspname
@@ -120,12 +120,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
         MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
         lv_icon = ls_dspname-objtype.
 
-        CALL METHOD get_object_icon
-          EXPORTING
-            iv_object = ls_e071_txt-object
-            iv_icon   = lv_icon
-          CHANGING
-            rv_icon   = ls_e071_txt-icon.
+        ls_e071_txt-icon = get_object_icon( iv_object = ls_e071_txt-object
+                                            iv_icon   = lv_icon ).
 
         ls_e071_txt-text = ls_dspname-descript.
         ls_e071_txt-name = ls_dspname-name.

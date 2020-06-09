@@ -64,7 +64,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR ls_object.
 
-      CALL METHOD split_object
+      split_object(
         EXPORTING
           iv_pgmid    = <ls_e071>-pgmid
           iv_object   = <ls_e071>-object
@@ -72,7 +72,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         IMPORTING
           ev_obj_type = ls_object-object
           ev_obj_name = ls_object-obj_name
-          ev_encl_obj = ls_object-encl_obj.
+          ev_encl_obj = ls_object-encl_obj ).
 
       COLLECT ls_object INTO lt_object.
     ENDLOOP.
@@ -90,7 +90,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           obj_tab      = lt_object.
 
       LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
-        CALL METHOD split_object
+
+        split_object(
           EXPORTING
             iv_pgmid    = <ls_e071>-pgmid
             iv_object   = <ls_e071>-object
@@ -98,7 +99,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           IMPORTING
             ev_obj_type = ls_object-object
             ev_obj_name = ls_object-obj_name
-            ev_encl_obj = ls_object-encl_obj.
+            ev_encl_obj = ls_object-encl_obj ).
 
         READ TABLE lt_object INTO ls_object
           WITH KEY object   = ls_object-object
@@ -108,12 +109,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           CLEAR ls_e071_txt.
           MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
 
-          CALL METHOD get_object_icon
-            EXPORTING
-              iv_object = <ls_e071>-object
-            CHANGING
-              rv_icon   = ls_e071_txt-icon.
-
+          ls_e071_txt-icon = get_object_icon( <ls_e071>-object ).
           ls_e071_txt-text = ls_object-stext.
           ls_e071_txt-name = <ls_e071>-obj_name.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
@@ -128,11 +124,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       CLEAR lt_object.
 
       LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN gt_object_list.
+
         CLEAR ls_object.
 
         lv_obj_name = <ls_e071k>-objname.
 
-        CALL METHOD split_object
+        split_object(
           EXPORTING
             iv_pgmid    = <ls_e071k>-pgmid
             iv_object   = <ls_e071k>-object
@@ -140,9 +137,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           IMPORTING
             ev_obj_type = ls_object-object
             ev_obj_name = ls_object-obj_name
-            ev_encl_obj = ls_object-encl_obj.
+            ev_encl_obj = ls_object-encl_obj ).
 
         COLLECT ls_object INTO lt_object.
+
       ENDLOOP.
 
       IF NOT lt_object IS INITIAL.
@@ -156,9 +154,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             obj_tab      = lt_object.
 
         LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN gt_object_list.
+
           lv_obj_name = <ls_e071k>-objname.
 
-          CALL METHOD split_object
+          split_object(
             EXPORTING
               iv_pgmid    = <ls_e071k>-pgmid
               iv_object   = <ls_e071k>-object
@@ -166,7 +165,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             IMPORTING
               ev_obj_type = ls_object-object
               ev_obj_name = ls_object-obj_name
-              ev_encl_obj = ls_object-encl_obj.
+              ev_encl_obj = ls_object-encl_obj ).
 
           READ TABLE lt_object INTO ls_object
             WITH KEY object   = ls_object-object
@@ -176,17 +175,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             CLEAR ls_e071_txt.
             MOVE-CORRESPONDING <ls_e071k> TO ls_e071_txt.
 
-            CALL METHOD get_object_icon
-              EXPORTING
-                iv_object = <ls_e071k>-object
-              CHANGING
-                rv_icon   = ls_e071_txt-icon.
-
+            ls_e071_txt-icon   = get_object_icon( <ls_e071k>-object ).
             ls_e071_txt-text   = ls_object-stext.
             ls_e071_txt-name   = ls_e071_txt-obj_name = <ls_e071k>-objname.
             ls_e071_txt-as4pos = c_as4pos.
             COLLECT ls_e071_txt INTO ct_e071_txt.
           ENDIF.
+
         ENDLOOP.
 
       ENDIF.
@@ -197,11 +192,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       CLEAR lt_object.
 
       LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN gt_object_list.
+
         CLEAR ls_object.
 
         lv_obj_name = <ls_e071k_str>-objname.
 
-        CALL METHOD split_object
+        split_object(
           EXPORTING
             iv_pgmid    = <ls_e071k_str>-pgmid
             iv_object   = <ls_e071k_str>-object
@@ -209,9 +205,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
           IMPORTING
             ev_obj_type = ls_object-object
             ev_obj_name = ls_object-obj_name
-            ev_encl_obj = ls_object-encl_obj.
+            ev_encl_obj = ls_object-encl_obj ).
 
         COLLECT ls_object INTO lt_object.
+
       ENDLOOP.
 
       IF NOT lt_object IS INITIAL.
@@ -225,9 +222,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             obj_tab      = lt_object.
 
         LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN gt_object_list.
+
           lv_obj_name = <ls_e071k_str>-objname.
 
-          CALL METHOD split_object
+          split_object(
             EXPORTING
               iv_pgmid    = <ls_e071k_str>-pgmid
               iv_object   = <ls_e071k_str>-object
@@ -235,7 +233,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             IMPORTING
               ev_obj_type = ls_object-object
               ev_obj_name = ls_object-obj_name
-              ev_encl_obj = ls_object-encl_obj.
+              ev_encl_obj = ls_object-encl_obj ).
 
           READ TABLE lt_object INTO ls_object
             WITH KEY object   = ls_object-object
@@ -245,17 +243,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
             CLEAR ls_e071_txt.
             MOVE-CORRESPONDING <ls_e071k_str> TO ls_e071_txt.
 
-            CALL METHOD get_object_icon
-              EXPORTING
-                iv_object = <ls_e071k_str>-object
-              CHANGING
-                rv_icon   = ls_e071_txt-icon.
-
+            ls_e071_txt-icon   = get_object_icon( <ls_e071k_str>-object ).
             ls_e071_txt-text   = ls_object-stext.
             ls_e071_txt-name   = ls_e071_txt-obj_name = <ls_e071k_str>-objname.
             ls_e071_txt-as4pos = c_as4pos.
             COLLECT ls_e071_txt INTO ct_e071_txt.
           ENDIF.
+
         ENDLOOP.
 
       ENDIF.
@@ -843,74 +837,77 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       lv_msag    TYPE i,
       lv_objlen  TYPE i.
 
-    INCLUDE /mbtools/cts_req_typeleng.
+    " From INCLUDE TTYPLENG
+    CONSTANTS:
+      lc_prog     TYPE i VALUE 40,
+      lc_vari     TYPE i VALUE 14,
+      lc_dynp     TYPE i VALUE 4,
+      lc_msag     TYPE i VALUE 20,
+      lc_mess     TYPE i VALUE 3,
+      lc_clas     TYPE i VALUE 30,
+      lc_meth     TYPE i VALUE 61,
+      lc_wapa     TYPE i VALUE 30,
+      lc_wapp     TYPE i VALUE 70,
+      lc_prog_old TYPE i VALUE 8.
 
-*   Same logic as function module TR_OBJECT_JUMP_TO_TOOL
+    " Same logic as function module TR_OBJECT_JUMP_TO_TOOL
     IF     iv_pgmid  = 'LIMU'  AND  iv_object  =  'REPO'.
       ev_obj_type = 'PROG'.
       ev_obj_name = iv_obj_name.
       ev_encl_obj = space.
     ELSEIF iv_pgmid  = 'LIMU'  AND  iv_object  =  'DYNP'.
       ev_obj_type = 'DYNP'.
-      lv_length1  = gc_prog + gc_dynp.      " new maximal length
+      lv_length1  = lc_prog + lc_dynp.      " new maximal length
       lv_name     = iv_obj_name(lv_length1)." skip comments
       lv_objlen   = strlen( lv_name ).
-      lv_length2  = gc_prog_old + gc_dynp.  " former maximal length
+      lv_length2  = lc_prog_old + lc_dynp.  " former maximal length
       IF lv_objlen > lv_length2.     " new syntax
-        ev_obj_name = lv_name+gc_prog(gc_dynp).
-        ev_encl_obj = lv_name(gc_prog).
+        ev_obj_name = lv_name+lc_prog(lc_dynp).
+        ev_encl_obj = lv_name(lc_prog).
       ELSE.                          " old syntax
-        ev_obj_name = lv_name+gc_prog_old(gc_dynp).
-        ev_encl_obj = lv_name(gc_prog_old).
+        ev_obj_name = lv_name+lc_prog_old(lc_dynp).
+        ev_encl_obj = lv_name(lc_prog_old).
       ENDIF.
-    ELSEIF iv_pgmid  = 'LIMU' AND (   iv_object = 'VARI'
+    ELSEIF iv_pgmid  = 'LIMU' AND (  iv_object = 'VARI'
                                   OR iv_object = 'VARX' ).
       ev_obj_type = 'VARI'.
-      lv_length1  = gc_prog + gc_vari.      " new maximum length
+      lv_length1  = lc_prog + lc_vari.      " new maximum length
       lv_name     = iv_obj_name(lv_length1)." skip comments
       lv_objlen   = strlen( lv_name ).
-      lv_length2  = gc_prog_old + gc_vari.  " former maximum length
+      lv_length2  = lc_prog_old + lc_vari.  " former maximum length
       IF lv_objlen > lv_length2.     " new syntax
-        ev_obj_name = lv_name+gc_prog(gc_vari).
-        ev_encl_obj = lv_name(gc_prog).
+        ev_obj_name = lv_name+lc_prog(lc_vari).
+        ev_encl_obj = lv_name(lc_prog).
       ELSE.                          " old syntax
-        ev_obj_name = lv_name+gc_prog_old(gc_vari).
-        ev_encl_obj = lv_name(gc_prog_old).
+        ev_obj_name = lv_name+lc_prog_old(lc_vari).
+        ev_encl_obj = lv_name(lc_prog_old).
       ENDIF.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'MESS'.
       ev_obj_type = 'MESS'.
-      lv_length1  = gc_msag + gc_mess.      " maximum length
+      lv_length1  = lc_msag + lc_mess.      " maximum length
       lv_name     = iv_obj_name(lv_length1)." skip comments
       lv_objlen   = strlen( lv_name ).
-      lv_msag     = lv_objlen - gc_mess.
-      ev_obj_name = lv_name+lv_msag(gc_mess).
+      lv_msag     = lv_objlen - lc_mess.
+      ev_obj_name = lv_name+lv_msag(lc_mess).
       ev_encl_obj = lv_name(lv_msag).
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'METH'.
       ev_obj_type = 'METH'.
-      lv_name = iv_obj_name+gc_clas(gc_meth).
+      lv_name = iv_obj_name+lc_clas(lc_meth).
 *     Inherited methods?
       IF lv_name CS '~'.
         SPLIT lv_name AT '~' INTO ev_encl_obj ev_obj_name.
       ELSE.
         ev_obj_name = lv_name.
-        ev_encl_obj = iv_obj_name(gc_clas).
+        ev_encl_obj = iv_obj_name(lc_clas).
       ENDIF.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'INTD'.
       ev_obj_type = 'INTF'.
       ev_obj_name = iv_obj_name.
       ev_encl_obj = space.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WDYC'.
-      ev_obj_type = 'WDYC'.
-      ev_obj_name = iv_obj_name+gc_wdyn(gc_wdyc).
-      ev_encl_obj = iv_obj_name(gc_wdyn).
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WDYV'.
-      ev_obj_type = 'WDYV'.
-      ev_obj_name = iv_obj_name+gc_wdyn(gc_wdyv).
-      ev_encl_obj = iv_obj_name(gc_wdyn).
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'WAPP'.
       ev_obj_type = 'WAPP'.
-      ev_obj_name = iv_obj_name+gc_wapa(gc_wapp).
-      ev_encl_obj = iv_obj_name(gc_wapa).
+      ev_obj_name = iv_obj_name+lc_wapa(lc_wapp).
+      ev_encl_obj = iv_obj_name(lc_wapa).
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'ADIR'.
       ev_obj_type = iv_obj_name+4(4).
       ev_obj_name = iv_obj_name+8.
@@ -920,7 +917,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       ev_encl_obj = space.
     ENDIF.
 
-*   Map some object types
+    " Map some object types
     CASE iv_object.
       WHEN 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK' OR 'MAPP'.
         ev_obj_type = 'CLAS'.

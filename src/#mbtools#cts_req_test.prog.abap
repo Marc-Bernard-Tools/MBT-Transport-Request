@@ -373,7 +373,7 @@ FORM get_object_type
     AND iv_object <> 'WDYV' AND iv_object <> 'ADIR'.
 
     SELECT SINGLE id FROM euobjv INTO cv_obj_type
-                                 WHERE id EQ iv_object.
+                                 WHERE id = iv_object.
 
     IF sy-subrc <> 0.
       CLEAR lv_global_type.

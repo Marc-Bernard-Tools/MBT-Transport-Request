@@ -78,11 +78,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       " Source system objects
       CASE ls_object-tlogo.
         WHEN 'DSAA'. " Application component hierarchy
-          CALL METHOD get_object_icon
-            EXPORTING
-              iv_object = ls_object-tlogo
-            CHANGING
-              rv_icon   = lv_icon.
+          lv_icon = get_object_icon( ls_object-tlogo ).
 
           SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
             WHERE hier = 'APCO' AND applnm = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
@@ -95,11 +91,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
           ENDIF.
 
         WHEN 'OSOA'. " OLTP DataSource
-          CALL METHOD get_object_icon
-            EXPORTING
-              iv_object = ls_object-tlogo
-            CHANGING
-              rv_icon   = lv_icon.
+          lv_icon = get_object_icon( ls_object-tlogo ).
 
           SELECT SINGLE txtlg INTO lv_txtlg FROM roosourcet
             WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
@@ -113,7 +105,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
         WHEN OTHERS.
           " Get description and icon from BW repository
-          CALL METHOD go_repository->get_properties_of_object
+          go_repository->get_properties_of_object(
             EXPORTING
               i_objvers            = lv_objvers
               i_s_object           = ls_object
@@ -124,14 +116,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
               e_iobjtp             = lv_iobjtp
             EXCEPTIONS
               object_not_found     = 1
-              OTHERS               = 2.
+              OTHERS               = 2 ).
           IF sy-subrc = 0.
-            CALL METHOD get_object_icon
-              EXPORTING
-                iv_object = ls_object-tlogo
-                iv_icon   = lv_icon
-              CHANGING
-                rv_icon   = lv_icon.
+            lv_icon = get_object_icon( iv_object = ls_object-tlogo
+                                       iv_icon   = lv_icon ).
           ELSE.
             lv_icon = icon_delete.
           ENDIF.
@@ -225,12 +213,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
     lv_tlogo = iv_object.
 
-    CALL METHOD /mbtools/cl_tlogo=>get_tlogo_icon
-      EXPORTING
-        iv_tlogo = lv_tlogo
-        iv_icon  = iv_icon
-      RECEIVING
-        rv_icon  = rv_icon.
+    rv_icon = /mbtools/cl_tlogo=>get_tlogo_icon( iv_tlogo = lv_tlogo
+                                                 iv_icon  = iv_icon ).
 
   ENDMETHOD.
 
@@ -243,9 +227,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
     " Instanciate repository
     IF go_repository IS INITIAL.
-      CALL METHOD cl_rso_repository=>get_repository
-        RECEIVING
-          r_r_repository = go_repository.
+      go_repository = cl_rso_repository=>get_repository( ).
     ENDIF.
 
     " Get all TLOGO properties
