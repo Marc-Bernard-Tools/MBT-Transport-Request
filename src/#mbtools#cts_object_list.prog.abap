@@ -574,7 +574,7 @@ FORM format_tabkeys
       ASSERT sy-subrc = 0. " something wrong with DDIC
     ENDAT.
     CLEAR: l_pos, l_tabkey.
-    LOOP AT lt_len ASSIGNING <l_len>.
+    LOOP AT lt_len ASSIGNING <l_len> WHERE table_line > 0.
       IF NOT l_tabkey IS INITIAL.
         l_tabkey = l_tabkey && ','.
       ENDIF.
@@ -595,7 +595,7 @@ FORM format_tabkeys
       ASSERT sy-subrc = 0. " something wrong with DDIC
     ENDAT.
     CLEAR: l_pos, l_tabkey_str.
-    LOOP AT lt_len ASSIGNING <l_len>.
+    LOOP AT lt_len ASSIGNING <l_len> WHERE table_line > 0.
       IF NOT l_tabkey_str IS INITIAL.
         l_tabkey_str = l_tabkey_str && ','.
       ENDIF.

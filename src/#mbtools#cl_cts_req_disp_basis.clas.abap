@@ -195,6 +195,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
             WHERE applname = <ls_e071>-obj_name(30)
               AND pagekey  = <ls_e071>-obj_name+30(*)
               AND langu    = sy-langu.
+        WHEN 'VCLS'. " View Cluster
+          SELECT SINGLE text FROM vcldirt INTO ls_e071_txt-text
+            WHERE vclname = <ls_e071>-obj_name
+              AND spras   = sy-langu.
         WHEN OTHERS.
           ASSERT 0 = 1. " Check class constructor
       ENDCASE.
@@ -252,6 +256,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         cv_icon = icon_background_job.
       WHEN 'WAPP'. " BSP Page
         cv_icon = icon_wd_view.
+      WHEN 'VCLS'. " View Cluster
+        cv_icon = icon_bw_apd_db.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -310,6 +316,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     ls_object_list-low = 'JOBD'. " Job Definition
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WAPP'. " BSP Page (LIMU)
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'VCLS'. " View Cluster
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.

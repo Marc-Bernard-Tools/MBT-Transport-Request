@@ -62,13 +62,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
           ENDSELECT.
           IF sy-subrc <> 0.
             SELECT * FROM cwbntstxt INTO ls_note
-              WHERE numm = <ls_e071>-obj_name AND langu = 'EN'
+              WHERE numm = <ls_e071>-obj_name AND langu = 'E'
               ORDER BY versno DESCENDING.
               EXIT.
             ENDSELECT.
             IF sy-subrc <> 0.
               SELECT * FROM cwbntstxt INTO ls_note
-                WHERE numm = <ls_e071>-obj_name AND langu = 'DE'
+                WHERE numm = <ls_e071>-obj_name AND langu = 'D'
                 ORDER BY versno DESCENDING.
                 EXIT.
               ENDSELECT.
