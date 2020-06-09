@@ -14,7 +14,7 @@
   ],
   "syntax": {
     "version": "v702",
-    "errorNamespace": "^(/MBTOOLS/|LT?CL_|LIF_)",
+    "errorNamespace": "^(/MBTOOLS/(?!CL_SAP|CL_TOOLS|CL_TLOGO|IF_CTS)|LT?CL_|LIF_)",
     "globalConstants": [
       "apack_manifest",
       "icon_abap",
@@ -317,8 +317,17 @@
       "ignoreLowerClassImplmentationStatement": true,
       "ignoreGlobalClassDefinition": false,
       "ignoreGlobalInterface": false,
-      "ignoreKeywords": [],
       "ignoreFunctionModuleName": false
+      "ignoreKeywords": [
+        "COL_BACKGROUND",
+        "COL_GROUP", 
+        "COL_HEADING",
+        "COL_KEY", 
+        "COL_NEGATIVE", 
+        "COL_NORMAL", 
+        "COL_POSITIVE", 
+        "COL_TOTAL"
+      ],
     },
     "line_break_multiple_parameters": true,
     "line_length": {
