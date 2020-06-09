@@ -277,13 +277,13 @@
     "exporting": true,
     "forbidden_identifier": true,
     "forbidden_void_type": {
-      "check": ["^stringtab$", "^char1$", "^int4$",
+      "check": ["^stringtab$", "^char1$", "^int4$", "^rs_c_true$", "^rs_c_false$",
         "^flag$", "^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
     },
     "form_no_dash": true,
     "form_tables_obsolete": false,
     "fully_type_constants": true,
-    "functional_writing": false,
+    "functional_writing": true,
     "global_class": true,
     "identical_form_names": true,
     "if_in_if": true,
