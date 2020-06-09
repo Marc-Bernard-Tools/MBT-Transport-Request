@@ -232,13 +232,13 @@ START-OF-SELECTION.
                 UP TO p_count ROWS
                 WHERE pgmid = gv_pgmid AND object = gv_object
                   AND objfunc = '' ##TOO_MANY_ITAB_FIELDS.
-              IF sy-subrc <> 0.
-                SELECT DISTINCT pgmid object obj_name FROM e071
-                  INTO CORRESPONDING FIELDS OF TABLE gt_e071
-                  UP TO p_count ROWS
-                  WHERE pgmid = gv_pgmid
-                    AND object = gv_object ##TOO_MANY_ITAB_FIELDS.
-              ENDIF.
+            ENDIF.
+            IF sy-subrc <> 0.
+              SELECT DISTINCT pgmid object obj_name FROM e071
+                INTO CORRESPONDING FIELDS OF TABLE gt_e071
+                UP TO p_count ROWS
+                WHERE pgmid = gv_pgmid
+                  AND object = gv_object ##TOO_MANY_ITAB_FIELDS.
             ENDIF.
           ENDIF.
 
@@ -372,8 +372,7 @@ FORM get_object_type
     AND iv_object <> 'INTD' AND iv_object <> 'WDYC'
     AND iv_object <> 'WDYV' AND iv_object <> 'ADIR'.
 
-    SELECT SINGLE id FROM euobjv INTO cv_obj_type
-                                 WHERE id = iv_object.
+    SELECT SINGLE id FROM euobjv INTO cv_obj_type WHERE id = iv_object.
 
     IF sy-subrc <> 0.
       CLEAR lv_global_type.
@@ -394,7 +393,6 @@ FORM get_object_type
             p_internal_type = lv_wb_type ).
         cv_obj_type = lv_wb_type.
       ENDIF.
-
     ENDIF.
 
   ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'REPO'.
