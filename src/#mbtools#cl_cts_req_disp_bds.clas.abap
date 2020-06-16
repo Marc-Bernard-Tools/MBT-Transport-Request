@@ -120,14 +120,22 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
         MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
         lv_icon = ls_dspname-objtype.
 
-        get_object_icon(
-          EXPORTING
-            iv_object = <ls_e071>-object
-          CHANGING
-            cv_icon   = ls_e071_txt-icon ).
+        IF ls_dspname-name = '<Deleted>'.
+          ls_e071_txt-icon = icon_delete.
+        ELSE.
+          get_object_icon(
+            EXPORTING
+              iv_object = <ls_e071>-object
+            CHANGING
+              cv_icon   = ls_e071_txt-icon ).
+        ENDIF.
 
-        ls_e071_txt-text = ls_dspname-descript.
         ls_e071_txt-name = ls_dspname-name.
+        IF ls_dspname-descript IS INITIAL.
+          ls_e071_txt-text = ls_dspname-name.
+        ELSE.
+          ls_e071_txt-text = ls_dspname-descript.
+        ENDIF.
 
         INSERT ls_e071_txt INTO TABLE ct_e071_txt.
       ENDIF.

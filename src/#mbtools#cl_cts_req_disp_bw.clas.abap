@@ -50,6 +50,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       lv_txtlg     TYPE rstxtlg,
       lv_icon      TYPE icon_d,
       lv_icon_2    TYPE icon_d,
+      lv_applnm    TYPE rsapplnm,
+      lv_type      TYPE roostype,
       lv_iobjtp    TYPE rsiobjtp,
       lv_compid    TYPE rszcompid,
       lv_deftp     TYPE rszdeftp,
@@ -79,6 +81,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       " Source system objects
       CASE ls_object-tlogo.
         WHEN 'DSAA'. " Application component hierarchy
+          SELECT SINGLE applnm INTO lv_applnm FROM rodsappl
+            WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers.
+          IF sy-subrc <> 0.
+            lv_icon = icon_delete.
+          ENDIF.
+
           get_object_icon(
             EXPORTING
               iv_object = ls_object-tlogo
@@ -86,30 +94,31 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
               cv_icon   = lv_icon ).
 
           SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
-            WHERE hier = 'APCO' AND applnm = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
+            WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
           IF sy-subrc <> 0.
             SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
-              WHERE hier = 'APCO' AND applnm = ls_object-objnm AND objvers = lv_objvers.
+              WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers.
           ENDIF.
+
+        WHEN 'OSOA'. " OLTP DataSource
+          SELECT SINGLE type INTO lv_type FROM roosource
+            WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers.
           IF sy-subrc <> 0.
             lv_icon = icon_delete.
           ENDIF.
 
-        WHEN 'OSOA'. " OLTP DataSource
           get_object_icon(
             EXPORTING
-              iv_object = ls_object-tlogo
+              iv_object   = ls_object-tlogo
+              iv_obj_type = lv_type
             CHANGING
-              cv_icon   = lv_icon ).
+              cv_icon     = lv_icon ).
 
           SELECT SINGLE txtlg INTO lv_txtlg FROM roosourcet
             WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
           IF sy-subrc <> 0.
             SELECT SINGLE txtlg INTO lv_txtlg FROM roosourcet
               WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers.
-          ENDIF.
-          IF sy-subrc <> 0.
-            lv_icon = icon_delete.
           ENDIF.
 
         WHEN OTHERS.
@@ -228,8 +237,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
     lv_tlogo = iv_object.
 
-    cv_icon = /mbtools/cl_tlogo=>get_tlogo_icon( iv_tlogo = lv_tlogo
-                                                 iv_icon  = iv_icon ).
+    cv_icon = /mbtools/cl_tlogo=>get_tlogo_icon( iv_tlogo     = lv_tlogo
+                                                 iv_tlogo_sub = iv_obj_type
+                                                 iv_icon      = iv_icon ).
 
   ENDMETHOD.
 
@@ -239,6 +249,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
     DATA:
       ls_tlogoprop   TYPE rstlogoprop,
       ls_object_list LIKE LINE OF gt_object_list.
+
+    FIELD-SYMBOLS:
+      <ls_tlogoprop> TYPE rstlogoprop.
 
     " Instanciate repository
     IF go_repository IS INITIAL.
@@ -264,11 +277,16 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
 
-    LOOP AT gt_tlogoprop INTO ls_tlogoprop.
-      ls_object_list-low = ls_tlogoprop-tlogo.
+    LOOP AT gt_tlogoprop ASSIGNING <ls_tlogoprop>.
+      ls_object_list-low = <ls_tlogoprop>-tlogo.
       APPEND ls_object_list TO gt_object_list.
-      ls_object_list-low = ls_tlogoprop-tlogo_d.
-      APPEND ls_object_list TO gt_object_list.
+
+      IF <ls_tlogoprop>-tlogo_d = <ls_tlogoprop>-tlogo.
+        CLEAR <ls_tlogoprop>-tlogo_d.
+      ELSE.
+        ls_object_list-low = <ls_tlogoprop>-tlogo_d.
+        APPEND ls_object_list TO gt_object_list.
+      ENDIF.
     ENDLOOP.
 
     DELETE gt_object_list WHERE low IS INITIAL.

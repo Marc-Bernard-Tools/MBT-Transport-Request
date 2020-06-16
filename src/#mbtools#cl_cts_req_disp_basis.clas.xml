@@ -19,6 +19,12 @@
      <LANGU>E</LANGU>
      <DESCRIPT>Initialization</DESCRIPT>
     </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CLSNAME>/MBTOOLS/CL_CTS_REQ_DISP_BASIS</CLSNAME>
+     <CMPNAME>GET_VARIANT_TEXT</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Get variant</DESCRIPT>
+    </SEOCOMPOTX>
    </DESCRIPTIONS>
   </asx:values>
  </asx:abap>

@@ -37,6 +37,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
 
     DATA:
+      lv_len      TYPE i,
       ls_e071_txt TYPE /mbtools/trwbo_s_e071_txt.
 
     FIELD-SYMBOLS:
@@ -62,21 +63,28 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
               AND config_var       = <ls_e071>-obj_name+34(6)
               AND langu            = sy-langu.
         WHEN 'WDCC'. " Web Dynpro Component Configuration
-          SELECT SINGLE description FROM wdy_config_compt INTO ls_e071_txt-text
+          SELECT SINGLE description FROM wdy_config_datt INTO ls_e071_txt-text
             WHERE config_id        = <ls_e071>-obj_name(32)
               AND config_type      = <ls_e071>-obj_name+32(2)
               AND config_var       = <ls_e071>-obj_name+34(6)
-              AND text_id          = <ls_e071>-obj_name+40(6)
+              AND langu            = sy-langu.
+        WHEN 'WDCP'. " Web Dynpro Component CHIP
+          SELECT SINGLE description FROM wdy_chip_deft INTO ls_e071_txt-text
+            WHERE chip_name        = <ls_e071>-obj_name
               AND langu            = sy-langu.
         WHEN 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
-          ls_e071_txt-text = '' ##TODO.
+          SELECT SINGLE description FROM wdr_rec_plg_cndt INTO ls_e071_txt-text
+            WHERE rec_plugin_cond  = <ls_e071>-obj_name
+              AND langu            = sy-langu.
         WHEN 'WDRP'. " Web Dynpro Recording Plug-In
-          ls_e071_txt-text = '' ##TODO.
+          SELECT SINGLE description FROM wdr_rec_plugint INTO ls_e071_txt-text
+            WHERE rec_plugin       = <ls_e071>-obj_name
+              AND langu            = sy-langu.
         WHEN 'WDYA'. " Web Dynpro Application
           SELECT SINGLE description FROM wdy_applicationt INTO ls_e071_txt-text
             WHERE application_name = <ls_e071>-obj_name
               AND langu            = sy-langu.
-        WHEN 'WDYC' OR 'WDYD'. " Web Dynpro Controller
+        WHEN 'WDYC'. " Web Dynpro Controller
           SELECT SINGLE description FROM wdy_controllert INTO ls_e071_txt-text
             WHERE component_name  = <ls_e071>-obj_name(30)
               AND controller_name = <ls_e071>-obj_name+30(30)
@@ -84,7 +92,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
         WHEN 'WDYL'. " Web Dynpro UI-Element Library
           SELECT SINGLE display_name FROM wdy_ui_library INTO ls_e071_txt-text
             WHERE library_name = <ls_e071>-obj_name.
-        WHEN 'WDYN'. " Web Dynpro Component
+        WHEN 'WDYN' OR 'WDYD'. " Web Dynpro Component
           SELECT SINGLE description FROM wdy_componentt INTO ls_e071_txt-text
             WHERE component_name = <ls_e071>-obj_name
               AND langu          = sy-langu.
@@ -93,10 +101,24 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
             WHERE component_name = <ls_e071>-obj_name(30)
               AND view_name      = <ls_e071>-obj_name+30(30)
               AND langu          = sy-langu.
-        WHEN 'SOTL' OR 'SOTS' OR 'SOTT' OR 'SOTU'. " OTR Short/Long Text
-          SELECT SINGLE text FROM sotr_text INTO ls_e071_txt-text
-            WHERE concept = <ls_e071>-obj_name+30(32)
-              AND langu   = sy-langu.
+        WHEN 'SOTR' OR 'SOTS'. " OTR Short/Long Text (per package)
+          SELECT SINGLE ctext FROM tdevct INTO ls_e071_txt-text
+            WHERE devclass = <ls_e071>-obj_name
+              AND spras    = sy-langu.
+        WHEN 'SOTT'. " OTR Short Text
+          lv_len = strlen( <ls_e071>-obj_name ) - 32.
+          IF lv_len >= 0.
+            SELECT SINGLE text FROM sotr_text INTO ls_e071_txt-text
+              WHERE concept = <ls_e071>-obj_name+lv_len(*)
+                AND langu   = sy-langu.
+          ENDIF.
+        WHEN 'SOTU'. " OTR Long Text
+          lv_len = strlen( <ls_e071>-obj_name ) - 32.
+          IF lv_len >= 0.
+            SELECT SINGLE text FROM sotr_textu INTO ls_e071_txt-text
+              WHERE concept = <ls_e071>-obj_name+lv_len(*)
+                AND langu   = sy-langu.
+          ENDIF.
       ENDCASE.
 
       INSERT ls_e071_txt INTO TABLE ct_e071_txt.
@@ -111,6 +133,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
       WHEN 'WDCA'. " Web Dynpro Application Configuration
         cv_icon = icon_configuration.
       WHEN 'WDCC'. " Web Dynpro Component Configuration
+        cv_icon = icon_configuration.
+      WHEN 'WDCP'. " Web Dynpro Component CHIP
         cv_icon = icon_configuration.
       WHEN 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
         cv_icon = icon_system_start_recording.
@@ -128,9 +152,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
         cv_icon = icon_wd_component.
       WHEN 'WDYV'. " Web Dynpro View
         cv_icon = icon_wd_view.
-      WHEN 'SOTS' OR 'SOTT'. " OTR Short Text
+      WHEN 'SOTR' OR 'SOTT'. " OTR Short Text
         cv_icon = icon_change_text.
-      WHEN 'SOTL' OR 'SOTU'. " OTR Long Text
+      WHEN 'SOTS' OR 'SOTU'. " OTR Long Text
         cv_icon = icon_annotation.
       WHEN OTHERS.
         cv_icon = icon_dummy.
@@ -151,6 +175,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDCC'. " Web Dynpro Component Configuration
     APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'WDCP'. " Web Dynpro Component CHIP
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDRC'. " Web Dynpro Condition for a Recording Plug-In
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDRP'. " Web Dynpro Recording Plug-In
@@ -167,13 +193,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'WDYV'. " Web Dynpro Definitions
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'SOTL'. " Web Dynpro Online Text Repository (OTR)
+    ls_object_list-low = 'SOTR'. " Web Dynpro Online Text Repository (Short Text)
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'SOTS'. " Web Dynpro Online Text Repository (OTR)
+    ls_object_list-low = 'SOTS'. " Web Dynpro Online Text Repository (Long Text)
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'SOTT'. " Web Dynpro Online Text Repository (OTR)
+    ls_object_list-low = 'SOTT'. " Web Dynpro Online Text Repository (Short Text)
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'SOTU'. " Web Dynpro Online Text Repository (OTR)
+    ls_object_list-low = 'SOTU'. " Web Dynpro Online Text Repository (Long Text)
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.

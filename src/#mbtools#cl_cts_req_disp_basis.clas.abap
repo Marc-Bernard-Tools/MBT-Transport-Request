@@ -27,6 +27,11 @@ CLASS /mbtools/cl_cts_req_disp_basis DEFINITION
 
   PRIVATE SECTION.
 
+    CLASS-METHODS get_variant_text
+      IMPORTING
+        !iv_obj_name     TYPE csequence
+      RETURNING
+        VALUE(rv_result) TYPE ddtext .
 ENDCLASS.
 
 
@@ -199,6 +204,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
           SELECT SINGLE text FROM vcldirt INTO ls_e071_txt-text
             WHERE vclname = <ls_e071>-obj_name
               AND spras   = sy-langu.
+        WHEN 'VARI' OR 'VARX'. " Variants
+          ls_e071_txt-text = get_variant_text( <ls_e071>-obj_name ).
+        WHEN 'SUSC'. " Authorization object class
+          SELECT SINGLE ctext FROM tobct INTO ls_e071_txt-text
+            WHERE oclss = <ls_e071>-obj_name
+              AND langu = sy-langu.
+
         WHEN OTHERS.
           ASSERT 0 = 1. " Check class constructor
       ENDCASE.
@@ -258,6 +270,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         cv_icon = icon_wd_view.
       WHEN 'VCLS'. " View Cluster
         cv_icon = icon_bw_apd_db.
+      WHEN 'VARI' OR 'VARX'. " Variant
+        cv_icon = icon_abap.
+      WHEN 'SUSC'. " Authorization object class
+        cv_icon = icon_locked.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -319,6 +335,59 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VCLS'. " View Cluster
     APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'VARI'. " Variants
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'VARX'. " Variants
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'SUSC'. " Authorization object class
+    APPEND ls_object_list TO gt_object_list.
+
+  ENDMETHOD.
+
+
+  METHOD get_variant_text.
+
+    " From INCLUDE TTYPLENG
+    CONSTANTS:
+      lc_prog     TYPE i VALUE 40,
+      lc_vari     TYPE i VALUE 14,
+      lc_prog_old TYPE i VALUE 8.
+
+    DATA:
+      lv_name         TYPE e071-obj_name,
+      lv_length1      TYPE i,
+      lv_length2      TYPE i,
+      lv_objlen       TYPE i,
+      lv_report       TYPE rsvar-report,
+      lv_variant      TYPE rsvar-variant,
+      lv_variant_text TYPE rsvar-vtext.
+
+    " See TR_OBJECT_JUMP_TO_TOOL
+    lv_length1  = lc_prog + lc_vari.      " new maximum length
+    lv_name     = iv_obj_name(lv_length1)." skip comments
+    lv_objlen   = strlen( lv_name ).
+    lv_length2  = lc_prog_old + lc_vari.  " former maximum length
+    IF lv_objlen > lv_length2.     " new syntax
+      lv_variant = lv_name+lc_prog(lc_vari).
+      lv_report  = lv_name(lc_prog).
+    ELSE.                          " old syntax
+      lv_variant = lv_name+lc_prog_old(lc_vari).
+      lv_report  = lv_name(lc_prog_old).
+    ENDIF.
+
+    CALL FUNCTION 'RS_VARIANT_TEXT'
+      EXPORTING
+        curr_report = lv_report
+        langu       = sy-langu
+        variant     = lv_variant
+      IMPORTING
+        v_text      = lv_variant_text
+      EXCEPTIONS
+        no_text     = 1
+        OTHERS      = 2.
+    IF sy-subrc = 0.
+      rv_result = lv_variant_text.
+    ENDIF.
 
   ENDMETHOD.
 ENDCLASS.

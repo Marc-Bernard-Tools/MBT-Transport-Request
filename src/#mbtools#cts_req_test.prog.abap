@@ -194,6 +194,7 @@ START-OF-SELECTION.
           ENDIF.
 
           IF gv_count = 0.
+            WRITE: 'Test successful'(022) COLOR COL_POSITIVE.
             gv_ok = gv_ok + 1.
           ENDIF.
 

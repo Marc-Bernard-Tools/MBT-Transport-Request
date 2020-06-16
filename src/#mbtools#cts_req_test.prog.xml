@@ -16,127 +16,133 @@
      <ID>I</ID>
      <KEY>001</KEY>
      <ENTRY>Class:</ENTRY>
-     <LENGTH>16</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>002</KEY>
      <ENTRY>Object:</ENTRY>
-     <LENGTH>17</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>003</KEY>
      <ENTRY>Missing icon</ENTRY>
-     <LENGTH>22</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>004</KEY>
      <ENTRY>Missing text</ENTRY>
-     <LENGTH>22</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>005</KEY>
      <ENTRY>Already defined above</ENTRY>
-     <LENGTH>42</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>006</KEY>
      <ENTRY>MBT Mapping:</ENTRY>
-     <LENGTH>22</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>007</KEY>
      <ENTRY>Same</ENTRY>
-     <LENGTH>14</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>008</KEY>
      <ENTRY>Diff</ENTRY>
-     <LENGTH>14</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>009</KEY>
      <ENTRY>No text found</ENTRY>
-     <LENGTH>23</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>010</KEY>
      <ENTRY>No test object found</ENTRY>
-     <LENGTH>40</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>011</KEY>
      <ENTRY>Yes</ENTRY>
-     <LENGTH>13</LENGTH>
+     <LENGTH>10</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>012</KEY>
      <ENTRY>No</ENTRY>
-     <LENGTH>12</LENGTH>
+     <LENGTH>10</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>013</KEY>
      <ENTRY>OK:</ENTRY>
-     <LENGTH>13</LENGTH>
+     <LENGTH>15</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>014</KEY>
      <ENTRY>Warnings:</ENTRY>
-     <LENGTH>19</LENGTH>
+     <LENGTH>15</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>015</KEY>
      <ENTRY>Errors:</ENTRY>
-     <LENGTH>17</LENGTH>
+     <LENGTH>15</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>016</KEY>
      <ENTRY>Objects supported by abapGit but not by MBT Transport Request</ENTRY>
-     <LENGTH>122</LENGTH>
+     <LENGTH>80</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>017</KEY>
      <ENTRY>Object:</ENTRY>
-     <LENGTH>17</LENGTH>
+     <LENGTH>20</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>018</KEY>
      <ENTRY>Not a transport object</ENTRY>
-     <LENGTH>44</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>019</KEY>
      <ENTRY>None</ENTRY>
-     <LENGTH>14</LENGTH>
+     <LENGTH>15</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>020</KEY>
      <ENTRY>Text not found</ENTRY>
-     <LENGTH>24</LENGTH>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>021</KEY>
      <ENTRY>WB Mapping:</ENTRY>
-     <LENGTH>21</LENGTH>
+     <LENGTH>30</LENGTH>
+    </item>
+    <item>
+     <ID>I</ID>
+     <KEY>022</KEY>
+     <ENTRY>Test successful</ENTRY>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>R</ID>

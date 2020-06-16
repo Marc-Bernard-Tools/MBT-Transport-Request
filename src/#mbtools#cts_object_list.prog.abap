@@ -58,7 +58,7 @@ DATA gt_object_texts LIKE ko100 OCCURS 10.
 
 START-OF-SELECTION.
 
-  MESSAGE 'This program includes an enhancement. Nothing to run here.' TYPE 'S'.
+  MESSAGE s003(/mbtools/bc).
 
 *&---------------------------------------------------------------------*
 *&      Form  CREATE_OBJECT_LIST (LSTRHF01)

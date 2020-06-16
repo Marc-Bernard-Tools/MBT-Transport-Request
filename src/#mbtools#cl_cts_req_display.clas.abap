@@ -17,7 +17,8 @@ CLASS /mbtools/cl_cts_req_display DEFINITION
     CONSTANTS:
       c_version     TYPE string VALUE '1.0.0' ##NO_TEXT,
       c_title       TYPE string VALUE 'MBT Transport Request' ##NO_TEXT,
-      c_description TYPE string VALUE 'The Ultimate Enhancement for Displaying Transport Requests in SAP GUI' ##NO_TEXT,
+      c_description TYPE string
+                    VALUE 'The Ultimate Enhancement for Displaying Transport Requests in SAP GUI' ##NO_TEXT,
       c_bundle_id   TYPE i VALUE 1,
       c_download_id TYPE i VALUE 4411.
 

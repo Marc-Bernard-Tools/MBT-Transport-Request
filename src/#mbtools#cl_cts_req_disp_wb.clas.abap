@@ -383,8 +383,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         cv_icon = icon_businav_datamodel.
       WHEN 'UENO' OR swbm_c_type_entity.
         cv_icon = icon_businav_entity.
-      WHEN 'VARI'.
-        cv_icon = icon_abap.
       WHEN 'VIEW' OR 'VIED' OR swbm_c_type_ddic_view OR 'VDAT' OR 'VIET'.
         cv_icon = icon_database_table_ina.
       WHEN 'XSLT' OR swbm_c_type_xslt_file.
@@ -429,7 +427,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         cv_icon = icon_test.
       WHEN 'ECSC' OR swbm_c_type_ecatt_test_script.
         cv_icon = icon_test.
-      WHEN 'AUTH' OR 'SUSC'.
+      WHEN 'AUTH'.
         cv_icon = icon_locked.
 *     Additional objects
       WHEN 'XPRA' OR 'PRAG'.
@@ -718,8 +716,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_entity.
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'VARI'.
-    APPEND ls_object_list TO gt_object_list.
+    " 'VARI'
+    " see /MBTOOLS/CL_CTS_REQ_DISP_BASIS
     ls_object_list-low = 'VIEW'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VIED'.
@@ -812,8 +810,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AUTH'.
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'SUSC'.
-    APPEND ls_object_list TO gt_object_list.
 *   Additional objects
     ls_object_list-low = 'LDBA'.
     APPEND ls_object_list TO gt_object_list.
@@ -877,20 +873,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ev_encl_obj = lv_name(lc_prog).
       ELSE.                          " old syntax
         ev_obj_name = lv_name+lc_prog_old(lc_dynp).
-        ev_encl_obj = lv_name(lc_prog_old).
-      ENDIF.
-    ELSEIF iv_pgmid  = 'LIMU' AND (  iv_object = 'VARI'
-                                  OR iv_object = 'VARX' ).
-      ev_obj_type = 'VARI'.
-      lv_length1  = lc_prog + lc_vari.      " new maximum length
-      lv_name     = iv_obj_name(lv_length1)." skip comments
-      lv_objlen   = strlen( lv_name ).
-      lv_length2  = lc_prog_old + lc_vari.  " former maximum length
-      IF lv_objlen > lv_length2.     " new syntax
-        ev_obj_name = lv_name+lc_prog(lc_vari).
-        ev_encl_obj = lv_name(lc_prog).
-      ELSE.                          " old syntax
-        ev_obj_name = lv_name+lc_prog_old(lc_vari).
         ev_encl_obj = lv_name(lc_prog_old).
       ENDIF.
     ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'MESS'.
