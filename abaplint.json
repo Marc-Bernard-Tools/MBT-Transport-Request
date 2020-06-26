@@ -7,9 +7,9 @@
   },
   "dependencies": [
     {
-      "url": "https://github.com/abaplint/deps",
+      "url": false,
       "folder": "/deps",
-      "files": "/src/**/*.*"
+      "files": "/**/*.*"
     }
   ],
   "syntax": {
@@ -278,7 +278,7 @@
     "empty_statement": true,
     "empty_structure": {
       "loop": true,
-      "if": false,
+      "if": true,
       "while": true,
       "case": true,
       "select": true,
@@ -293,7 +293,7 @@
         "^flag$", "^sydatum$", "^syindex$", "^sytabix$", "^syuzeit$"]
     },
     "form_no_dash": true,
-    "form_tables_obsolete": false,
+    "form_tables_obsolete": true,
     "fully_type_constants": true,
     "functional_writing": true,
     "global_class": true,
@@ -400,7 +400,7 @@
       "doma": "^/MBTOOLS/",
       "msag": "^/MBTOOLS/",
       "tran": "^/MBTOOLS/",
-      "enqu": "^/MBTOOLS/E",
+      "enqu": "^/MBTOOLS/E_",
       "auth": "^/MBTOOLS/",
       "pinf": "^/MBTOOLS/",
       "idoc": "^/MBTOOLS/",
@@ -469,10 +469,10 @@
     "start_at_tab": true,
     "superclass_final": true,
     "tabl_enhancement_category": true,
-    "try_without_catch": false,
+    "try_without_catch": true,
     "type_begin_single_include": true,
     "type_form_parameters": true,
-    "types_naming": false,
+    "types_naming": true,
     "unknown_types": {
       "exclude": [
         "#mbtools#cts_object_list.prog.abap"
