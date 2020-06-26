@@ -14,7 +14,7 @@
   ],
   "syntax": {
     "version": "v702",
-    "errorNamespace": "^(/MBTOOLS/(?!CL_SAP|CL_TOOLS|CL_TLOGO|IF_CTS)|LT?CL_|LIF_)",
+    "errorNamespace": "^(/MBTOOLS/|LT?CL_|LIF_|Y|Z)",
     "globalConstants": [
       "apack_manifest",
       "icon_abap",
@@ -472,7 +472,11 @@
     "try_without_catch": true,
     "type_begin_single_include": true,
     "type_form_parameters": true,
-    "types_naming": true,
+    "types_naming": {
+      "exclude" : [
+        "#mbtools#cts_object_list.prog.abap"
+       ]
+    },
     "unknown_types": {
       "exclude": [
         "#mbtools#cts_object_list.prog.abap"
