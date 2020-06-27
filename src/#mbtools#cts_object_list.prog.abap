@@ -629,6 +629,7 @@ FORM get_object_and_display_name
     lv_object  TYPE trobj_name,
     lv_display TYPE trobj_name,
     lv_deleted TYPE tadir-delflag,
+    lv_pos     TYPE i,
     lv_more    TYPE i.
 
   " Icons (LSCTS_OLEF01, FORM ole_init_global_constants)
@@ -710,8 +711,8 @@ FORM get_object_and_display_name
   " End texts that are too long with ellipsis
   lv_more = strlen( rv_obj_name ).
   IF lv_more > 75.
-    CONCATENATE rv_obj_name(/mbtools/if_cts_req_display=>c_pos_ellipsis)
-      /mbtools/if_cts_req_display=>c_ellipsis INTO rv_obj_name.
+    lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
+    CONCATENATE rv_obj_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis INTO rv_obj_name.
   ENDIF.
 
   " Return display name
@@ -719,8 +720,8 @@ FORM get_object_and_display_name
 
   lv_more = strlen( rv_disp_name ).
   IF lv_more > 75.
-    CONCATENATE rv_disp_name(/mbtools/if_cts_req_display=>c_pos_ellipsis)
-      /mbtools/if_cts_req_display=>c_ellipsis ']' INTO rv_disp_name.
+    lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
+    CONCATENATE rv_disp_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis ']' INTO rv_disp_name.
   ENDIF.
 
 ENDFORM.                               " GET_OBJECT_AND_DISPLAY_NAME
