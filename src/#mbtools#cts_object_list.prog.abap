@@ -97,7 +97,7 @@ FORM create_object_list
 
 *{   INSERT         M0NK900019                                        1
   LOG-POINT ID /mbtools/bc
-    SUBKEY /mbtools/cl_cts_req_display=>c_title
+    SUBKEY /mbtools/cl_tool_bc_cts_req=>c_tool-title
     FIELDS sy-datum sy-uzeit sy-uname.
 
 * Read texts of object list headings
@@ -578,8 +578,15 @@ FORM format_tabkeys
       IF NOT l_tabkey IS INITIAL.
         l_tabkey = l_tabkey && ','.
       ENDIF.
-      l_tabkey = l_tabkey && <ls_e071k>-tabkey+l_pos(<l_len>).
+      IF ( l_pos + <l_len> ) > 120.
+        l_tabkey = l_tabkey && <ls_e071k>-tabkey+l_pos(*).
+      ELSE.
+        l_tabkey = l_tabkey && <ls_e071k>-tabkey+l_pos(<l_len>).
+      ENDIF.
       l_pos = l_pos + <l_len>.
+      IF l_pos >= 120.
+        EXIT.
+      ENDIF.
     ENDLOOP.
     IF sy-subrc = 0.
       <ls_e071k>-tabkey = l_tabkey.

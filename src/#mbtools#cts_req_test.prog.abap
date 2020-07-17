@@ -29,6 +29,9 @@ PARAMETERS:
   p_count TYPE i DEFAULT 5.
 SELECTION-SCREEN END OF BLOCK b3.
 
+CONSTANTS:
+  c_title TYPE string VALUE /mbtools/cl_tool_bc_cts_req=>c_tool-title.
+
 TYPES:
   ty_list        TYPE RANGE OF trobjtype.
 
@@ -64,6 +67,11 @@ FIELD-SYMBOLS:
   <gr_object_list> TYPE ty_list.
 
 INITIALIZATION.
+
+  IF /mbtools/cl_switches=>is_active( c_title ) = abap_false.
+    MESSAGE e004(/mbtools/bc) WITH c_title.
+    RETURN.
+  ENDIF.
 
   " All classes provided by abapGit
   SELECT DISTINCT clsname FROM seoclass INTO TABLE gt_abapgit

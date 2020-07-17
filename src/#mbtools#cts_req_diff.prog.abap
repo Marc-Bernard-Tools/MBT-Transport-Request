@@ -10,6 +10,7 @@
 REPORT /mbtools/cts_req_diff LINE-SIZE 250.
 
 CONSTANTS:
+  c_title    TYPE string VALUE /mbtools/cl_tool_bc_cts_req=>c_tool-title,
   c_max      TYPE i VALUE 200,
   c_lstrhtop TYPE progname VALUE 'LSTRHTOP',
   c_lstrhf01 TYPE progname VALUE 'LSTRHF01',
@@ -46,6 +47,13 @@ DEFINE macro_end.
   APPEND gv_code TO &2.
   APPEND '' TO &2.
 END-OF-DEFINITION.
+
+INITIALIZATION.
+
+  IF /mbtools/cl_switches=>is_active( c_title ) = abap_false.
+    MESSAGE e004(/mbtools/bc) WITH c_title.
+    RETURN.
+  ENDIF.
 
 START-OF-SELECTION.
 

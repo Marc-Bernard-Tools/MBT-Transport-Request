@@ -25,7 +25,7 @@
       <item>* (c) MBT 2020 https://marcbernardtools.com/</item>
       <item>************************************************************************</item>
       <item/>
-      <item>IF /mbtools/cl_tools=&gt;factory( /mbtools/cl_cts_req_display=&gt;c_title )-&gt;is_active( ) = abap_true.</item>
+      <item>IF /mbtools/cl_switches=&gt;is_active( /mbtools/cl_tool_bc_cts_req=&gt;c_tool-title ) = abap_true.</item>
       <item/>
       <item>PERFORM create_object_list IN PROGRAM /mbtools/cts_object_list</item>
       <item>USING    pv_parent_level</item>
@@ -54,7 +54,7 @@
       <item>* (c) MBT 2020 https://marcbernardtools.com/</item>
       <item>************************************************************************</item>
       <item/>
-      <item>IF /mbtools/cl_tools=&gt;factory( /mbtools/cl_cts_req_display=&gt;c_title )-&gt;is_active( ) = abap_true.</item>
+      <item>IF /mbtools/cl_switches=&gt;is_active( /mbtools/cl_tool_bc_cts_req=&gt;c_tool-title ) = abap_true.</item>
       <item/>
       <item>PERFORM create_key_list IN PROGRAM /mbtools/cts_object_list</item>
       <item>USING    pv_keep_nodes</item>
