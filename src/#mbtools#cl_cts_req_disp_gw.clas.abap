@@ -1,13 +1,12 @@
-************************************************************************
-* /MBTOOLS/CL_CTS_REQ_DISP_GW
-* MBT Transport Request
-*
-* (c) MBT 2020 https://marcbernardtools.com/
-************************************************************************
 CLASS /mbtools/cl_cts_req_disp_gw DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+************************************************************************
+* MBT Request Display - SAP Gateway
+*
+* (c) MBT 2020 https://marcbernardtools.com/
+************************************************************************
 
   PUBLIC SECTION.
 

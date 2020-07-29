@@ -1,13 +1,12 @@
-************************************************************************
-* /MBTOOLS/CL_TOOL_BC_CTS_REQ
-* MBT Transport Request
-*
-* (c) MBT 2020 https://marcbernardtools.com/
-************************************************************************
 CLASS /mbtools/cl_tool_bc_cts_req DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+************************************************************************
+* MBT Transport Request
+*
+* (c) MBT 2020 https://marcbernardtools.com/
+************************************************************************
 
   PUBLIC SECTION.
 

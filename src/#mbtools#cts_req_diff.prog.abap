@@ -1,5 +1,5 @@
+REPORT /mbtools/cts_req_diff LINE-SIZE 250.
 ************************************************************************
-* /MBTOOLS/BC_CTS_REQ_DIFF
 * MBT Transport Request
 *
 * This program is used to catch differences between standard coding and
@@ -7,7 +7,6 @@
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-REPORT /mbtools/cts_req_diff LINE-SIZE 250.
 
 CONSTANTS:
   c_title    TYPE string VALUE /mbtools/cl_tool_bc_cts_req=>c_tool-title,

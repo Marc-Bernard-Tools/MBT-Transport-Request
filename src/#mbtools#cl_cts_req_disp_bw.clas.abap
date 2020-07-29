@@ -1,13 +1,12 @@
-************************************************************************
-* /MBTOOLS/CL_CTS_REQ_DISP_BW
-* MBT Request Display
-*
-* (c) MBT 2020 https://marcbernardtools.com/
-************************************************************************
 CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+************************************************************************
+* MBT Request Display - SAP BW
+*
+* (c) MBT 2020 https://marcbernardtools.com/
+************************************************************************
 
   PUBLIC SECTION.
     TYPE-POOLS rsd .

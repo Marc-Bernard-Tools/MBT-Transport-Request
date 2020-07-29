@@ -1,10 +1,11 @@
+REPORT /mbtools/cts_object_list.
 ************************************************************************
-* /MBTOOLS/BC_CTS_OBJECT_LIST
 * MBT Transport Request
+*
+* Callback routines for enhancement of function group STRH
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-REPORT /mbtools/cts_object_list.
 
 TYPE-POOLS: icon.
 

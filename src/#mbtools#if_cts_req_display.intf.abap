@@ -1,11 +1,11 @@
+INTERFACE /mbtools/if_cts_req_display
+  PUBLIC .
 ************************************************************************
-* /MBTOOLS/IF_CTS_REQ_DISPLAY
-* MBT Request Display
+* /MBTOOLS/CL_TOOL_BC_CTS_REQ
+* MBT Transport Request
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-INTERFACE /mbtools/if_cts_req_display
-  PUBLIC .
 
   TYPE-POOLS icon .
 

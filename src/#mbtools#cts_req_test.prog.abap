@@ -1,10 +1,11 @@
+REPORT /mbtools/cts_req_test LINE-SIZE 255.
 ************************************************************************
-* /MBTOOLS/BC_CTS_REQ_TEST
 * MBT Transport Request
+*
+* This program is used to test the implementation of the enhancement
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-REPORT /mbtools/cts_req_test LINE-SIZE 255.
 
 TABLES:
   seometarel, objh.
