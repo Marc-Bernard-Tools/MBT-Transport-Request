@@ -252,6 +252,7 @@ FORM create_object_list
         USING lt_txt ls_e071-trkorr ls_e071-as4pos
               ls_e071-pgmid ls_e071-object
               ls_e071-objfunc ls_e071-obj_name
+              'To be deleted in target system'(del)
         CHANGING lv_found lv_objt_name lv_disp_name.
 *
 *}   INSERT
@@ -455,6 +456,7 @@ FORM create_key_list USING    pv_keep_nodes   TYPE c
             USING lt_txt ls_e071k-trkorr /mbtools/cl_cts_req_disp_wb=>c_as4pos
                   ls_e071k-pgmid ls_e071k-object
                   ls_e071-objfunc ls_e071k-objname
+                  'To be deleted in target system'(del)
             CHANGING lv_found lv_objt_name lv_disp_name.
 *
 *}   INSERT
@@ -506,6 +508,7 @@ FORM create_key_list USING    pv_keep_nodes   TYPE c
             USING lt_txt ls_e071k_str-trkorr /mbtools/cl_cts_req_disp_wb=>c_as4pos
                   ls_e071k_str-pgmid ls_e071k_str-object
                   ls_e071-objfunc ls_e071k_str-objname
+                  'To be deleted in target system'(del)
             CHANGING lv_found lv_objt_name lv_disp_name.
 *
 *}   INSERT
@@ -626,6 +629,7 @@ FORM get_object_and_display_name
     iv_object          TYPE e071-object
     iv_objfunc         TYPE e071-objfunc
     VALUE(iv_obj_name) TYPE csequence
+    value(iv_text_del) TYPE csequence
   CHANGING
     rv_found           TYPE abap_bool
     rv_obj_name        TYPE trobj_name
@@ -699,7 +703,7 @@ FORM get_object_and_display_name
 
   IF lv_deleted = abap_true OR lv_icon = icon_delete.
     lv_icon   = icon_delete.
-    lv_object = '(' && 'To be deleted in target system'(del) && ')'.
+    lv_object = '(' && iv_text_del && ')'.
   ENDIF.
 
   " Set fallback for initial values

@@ -209,6 +209,16 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
           SELECT SINGLE ctext FROM tobct INTO ls_e071_txt-text
             WHERE oclss = <ls_e071>-obj_name
               AND langu = sy-langu.
+        WHEN 'W3HT'. " WWW HTML Templates
+          SELECT SINGLE text FROM wwwdata INTO ls_e071_txt-text
+            WHERE relid = 'HT'
+              AND objid = <ls_e071>-obj_name
+              AND srtf2 = 0.
+        WHEN 'W3MI'. " WWW Mime
+          SELECT SINGLE text FROM wwwdata INTO ls_e071_txt-text
+            WHERE relid = 'MI'
+              AND objid = <ls_e071>-obj_name
+              AND srtf2 = 0.
 
         WHEN OTHERS.
           ASSERT 0 = 1. " Check class constructor
@@ -273,6 +283,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         cv_icon = icon_abap.
       WHEN 'SUSC'. " Authorization object class
         cv_icon = icon_locked.
+      WHEN 'W3HT'. " WWW HTML Templates
+        cv_icon = icon_htm.
+      WHEN 'W3MI'. " WWW Mime
+        cv_icon = icon_bmp.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -339,6 +353,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     ls_object_list-low = 'VARX'. " Variants
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SUSC'. " Authorization object class
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'W3HT'. " WWW HTML
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'W3MI'. " WWW Mime
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.

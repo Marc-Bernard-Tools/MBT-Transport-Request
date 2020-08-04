@@ -39,6 +39,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
 
+    CONSTANTS:
+      c_del TYPE string VALUE '<Deleted>' ##NO_TEXT.
+
     DATA:
       ls_e071_txt TYPE /mbtools/trwbo_s_e071_txt,
       lv_guid     TYPE sdok_docid,
@@ -49,6 +52,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
       lt_dspname  TYPE TABLE OF skwf_dspn.
 
     FIELD-SYMBOLS:
+      <lv_del>  TYPE any,
       <ls_e071> TYPE trwbo_s_e071.
 
     LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
@@ -119,7 +123,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
         MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
         lv_icon = ls_dspname-objtype.
 
-        IF ls_dspname-name = '<Deleted>'.
+        ASSIGN '(CL_SKWF_DISPLAY_UTIL==========CP)TEXT-001' TO <lv_del>.
+        IF sy-subrc <> 0.
+          ASSIGN c_del TO <lv_del>.
+        ENDIF.
+
+        IF ls_dspname-name = <lv_del>.
           ls_e071_txt-icon = icon_delete.
         ELSE.
           get_object_icon(

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_PROG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <PROGDIR>
+    <NAME>/MBTOOLS/CTS_OBJECT_LIST_2</NAME>
+    <SUBC>1</SUBC>
+    <APPL>S</APPL>
+    <RSTAT>K</RSTAT>
+    <RLOAD>E</RLOAD>
+    <FIXPT>X</FIXPT>
+    <UCCHECK>X</UCCHECK>
+   </PROGDIR>
+   <TPOOL>
+    <item>
+     <ID>I</ID>
+     <KEY>DEL</KEY>
+     <ENTRY>Object deleted</ENTRY>
+     <LENGTH>60</LENGTH>
+    </item>
+    <item>
+     <ID>R</ID>
+     <ENTRY>MBT Transport Request - Object List</ENTRY>
+     <LENGTH>35</LENGTH>
+    </item>
+   </TPOOL>
+  </asx:values>
+ </asx:abap>
+</abapGit>
