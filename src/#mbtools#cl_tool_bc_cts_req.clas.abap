@@ -23,10 +23,14 @@ CLASS /mbtools/cl_tool_bc_cts_req DEFINITION
         bundle_id   TYPE i VALUE 1,
         download_id TYPE i VALUE 4411,
         description TYPE string
-        VALUE 'The Ultimate Enhancement for Displaying Transport Requests in SAP GUI' ##NO_TEXT,
+        VALUE 'The ultimate enhancement for displaying transport requests in SAP GUI' ##NO_TEXT,
+        has_launch  TYPE abap_bool VALUE abap_true,
       END OF c_tool.
 
     METHODS constructor .
+
+    METHODS launch.
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -43,5 +47,10 @@ CLASS /MBTOOLS/CL_TOOL_BC_CTS_REQ IMPLEMENTATION.
   METHOD constructor.
     CREATE OBJECT mo_tool EXPORTING io_tool = me.
     mbt_manifest = mo_tool->mbt_manifest.
+  ENDMETHOD.
+
+
+  METHOD launch.
+    /mbtools/cl_sap=>run_transaction( 'SE09' ).
   ENDMETHOD.
 ENDCLASS.
