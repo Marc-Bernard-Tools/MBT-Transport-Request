@@ -3,7 +3,7 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <PROGDIR>
-    <NAME>/MBTOOLS/CTS_REQ_TEST</NAME>
+    <NAME>/MBTOOLS/CTS_REQ_TESTER</NAME>
     <SUBC>1</SUBC>
     <APPL>S</APPL>
     <RSTAT>K</RSTAT>
@@ -146,8 +146,8 @@
     </item>
     <item>
      <ID>R</ID>
-     <ENTRY>MBT Transport Request - Test</ENTRY>
-     <LENGTH>28</LENGTH>
+     <ENTRY>MBT Transport Request - Tester</ENTRY>
+     <LENGTH>30</LENGTH>
     </item>
     <item>
      <ID>S</ID>

@@ -25,20 +25,20 @@
       <item>* (c) MBT 2020 https://marcbernardtools.com/</item>
       <item>************************************************************************</item>
       <item/>
-      <item>IF /mbtools/cl_switches=&gt;is_active( /mbtools/cl_tool_bc_cts_req=&gt;c_tool-title ) = abap_true.</item>
+      <item>  IF /mbtools/cl_switches=&gt;is_active( /mbtools/cl_tool_bc_cts_req=&gt;c_tool-title ) = abap_true.</item>
       <item/>
-      <item>PERFORM create_object_list IN PROGRAM /mbtools/cts_object_list</item>
-      <item>USING    pv_parent_level</item>
-      <item>pv_trkorr</item>
-      <item>pv_with_keys</item>
-      <item>CHANGING pt_e071</item>
-      <item>pt_e071k</item>
-      <item>pt_e071k_str</item>
-      <item>pt_nodes.</item>
+      <item>    PERFORM create_object_list IN PROGRAM /mbtools/cts_object_list</item>
+      <item>      USING    pv_parent_level</item>
+      <item>               pv_trkorr</item>
+      <item>               pv_with_keys</item>
+      <item>      CHANGING pt_e071</item>
+      <item>               pt_e071k</item>
+      <item>               pt_e071k_str</item>
+      <item>               pt_nodes.</item>
       <item/>
-      <item>EXIT.</item>
+      <item>    EXIT.</item>
       <item/>
-      <item>ENDIF.</item>
+      <item>  ENDIF.</item>
       <item/>
      </SOURCE>
     </ENH_HOOK_IMPL>
@@ -54,80 +54,54 @@
       <item>* (c) MBT 2020 https://marcbernardtools.com/</item>
       <item>************************************************************************</item>
       <item/>
-      <item>IF /mbtools/cl_switches=&gt;is_active( /mbtools/cl_tool_bc_cts_req=&gt;c_tool-title ) = abap_true.</item>
+      <item>  IF /mbtools/cl_switches=&gt;is_active( /mbtools/cl_tool_bc_cts_req=&gt;c_tool-title ) = abap_true.</item>
       <item/>
-      <item>PERFORM create_key_list IN PROGRAM /mbtools/cts_object_list</item>
-      <item>USING    pv_keep_nodes</item>
-      <item>pv_object_level</item>
-      <item>pv_as4pos</item>
-      <item>pt_e071</item>
-      <item>pt_e071k</item>
-      <item>pt_e071k_str</item>
-      <item>CHANGING pt_nodes.</item>
+      <item>    PERFORM create_key_list IN PROGRAM /mbtools/cts_object_list</item>
+      <item>      USING    pv_keep_nodes</item>
+      <item>               pv_object_level</item>
+      <item>               pv_as4pos</item>
+      <item>               pt_e071</item>
+      <item>               pt_e071k</item>
+      <item>               pt_e071k_str</item>
+      <item>      CHANGING pt_nodes.</item>
       <item/>
-      <item>EXIT.</item>
+      <item>    EXIT.</item>
       <item/>
-      <item>ENDIF.</item>
+      <item>  ENDIF.</item>
       <item/>
      </SOURCE>
     </ENH_HOOK_IMPL>
    </ENHANCEMENTS>
-   <SPACES>
+   <SOTR>
     <item>
-     <FULL_NAME>\PR:SAPLSTRH\FO:CREATE_OBJECT_LIST\SE:BEGIN\EI</FULL_NAME>
-     <SPACES>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>2</item>
-      <item>0</item>
-      <item>4</item>
-      <item>6</item>
-      <item>15</item>
-      <item>15</item>
-      <item>6</item>
-      <item>15</item>
-      <item>15</item>
-      <item>15</item>
-      <item>0</item>
-      <item>4</item>
-      <item>0</item>
-      <item>2</item>
-      <item>0</item>
-     </SPACES>
+     <HEADER>
+      <CONCEPT>000D3A8FA0651EEAA9B0A3DA0CF6283B</CONCEPT>
+      <CREA_LAN>E</CREA_LAN>
+      <TRALA_TYPE>1</TRALA_TYPE>
+      <OBJID_VEC>AAI=</OBJID_VEC>
+     </HEADER>
+     <ENTRIES>
+      <SOTR_TEXT>
+       <CONCEPT>000D3A8FA0651EEAA9B0A3DA0CF6283B</CONCEPT>
+       <LANGU>E</LANGU>
+       <LFD_NUM>0001</LFD_NUM>
+       <FLAG_CNTXT>X</FLAG_CNTXT>
+       <STATUS>R</STATUS>
+       <LENGTH>053</LENGTH>
+       <TEXT>MBT Transport Request - Object List</TEXT>
+      </SOTR_TEXT>
+     </ENTRIES>
     </item>
-    <item>
-     <FULL_NAME>\PR:SAPLSTRH\FO:CREATE_KEY_LIST\SE:BEGIN\EI</FULL_NAME>
-     <SPACES>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>0</item>
-      <item>2</item>
-      <item>0</item>
-      <item>4</item>
-      <item>6</item>
-      <item>15</item>
-      <item>15</item>
-      <item>15</item>
-      <item>15</item>
-      <item>15</item>
-      <item>6</item>
-      <item>0</item>
-      <item>4</item>
-      <item>0</item>
-      <item>2</item>
-      <item>0</item>
-     </SPACES>
-    </item>
-   </SPACES>
+   </SOTR>
+   <SOTR_USE>
+    <SOTR_USE>
+     <PGMID>R3TR</PGMID>
+     <OBJECT>ENHO</OBJECT>
+     <OBJ_NAME>/MBTOOLS/BC_CTS_OBJECT_LIST</OBJ_NAME>
+     <CONCEPT>000D3A8FA0651EEAA9B0A3DA0CF6283B</CONCEPT>
+     <LFD_NUM>0001</LFD_NUM>
+    </SOTR_USE>
+   </SOTR_USE>
   </asx:values>
  </asx:abap>
 </abapGit>

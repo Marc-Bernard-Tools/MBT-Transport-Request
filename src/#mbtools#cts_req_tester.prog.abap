@@ -1,6 +1,6 @@
-REPORT /mbtools/cts_req_test LINE-SIZE 255.
+REPORT /mbtools/cts_req_tester LINE-SIZE 255.
 ************************************************************************
-* MBT Transport Request
+* MBT Transport Request - Tester
 *
 * This program is used to test the implementation of the enhancement
 *
