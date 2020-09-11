@@ -73,8 +73,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
             WITH KEY pgmid = <ls_e071>-obj_name(4) object = <ls_e071>-obj_name+4(4).
           IF sy-subrc = 0.
             ls_e071_txt-text = ls_object_text-text.
-          ELSE.
-            ls_e071_txt-text = 'No description'.
           ENDIF.
           CONCATENATE <ls_e071>-obj_name(4) <ls_e071>-obj_name+4(4) <ls_e071>-obj_name+8
             INTO ls_e071_txt-name SEPARATED BY space.

@@ -296,7 +296,7 @@ FORM create_object_list
         SELECT SINGLE attribute_value
                       FROM si_rq_filecntrl INTO lv_application
                       WHERE id             = ls_e071-obj_name
-                        AND attribute_name = 'APPLICATION'.
+                        AND attribute_name = 'APPLICATION' ##WARN_OK.
 *       get file name
         SELECT SINGLE physname FROM si_rq_content INTO lv_physname
                                WHERE id = ls_e071-obj_name.
@@ -629,7 +629,7 @@ FORM get_object_and_display_name
     iv_object          TYPE e071-object
     iv_objfunc         TYPE e071-objfunc
     VALUE(iv_obj_name) TYPE csequence
-    value(iv_text_del) TYPE csequence
+    VALUE(iv_text_del) TYPE csequence
   CHANGING
     rv_found           TYPE abap_bool
     rv_obj_name        TYPE trobj_name
@@ -643,6 +643,8 @@ FORM get_object_and_display_name
     lv_deleted TYPE tadir-delflag,
     lv_pos     TYPE i,
     lv_more    TYPE i.
+
+  CLEAR: rv_found, rv_obj_name, rv_disp_name.
 
   " Icons (LSCTS_OLEF01, FORM ole_init_global_constants)
   CASE iv_objfunc.
@@ -690,6 +692,8 @@ FORM get_object_and_display_name
                 lv_deleted = /mbtools/cl_sap=>is_devc_deleted( iv_obj_name ).
               WHEN 'FUGR'.
                 lv_deleted = /mbtools/cl_sap=>is_fugr_deleted( iv_obj_name ).
+              WHEN 'PROG'.
+                lv_deleted = /mbtools/cl_sap=>is_prog_deleted( iv_obj_name ).
               WHEN 'TOBJ'.
                 lv_deleted = /mbtools/cl_sap=>is_tobj_deleted( iv_obj_name ).
             ENDCASE.
@@ -708,12 +712,12 @@ FORM get_object_and_display_name
 
   " Set fallback for initial values
   IF lv_icon IS INITIAL.
-    lv_icon = icon_dummy.
+    lv_icon = icon_parameter.
   ENDIF.
   IF lv_object IS INITIAL.
-    lv_object = '(' && 'Text not found'(ktv) && ')'.
-  ENDIF.
-  IF lv_display IS INITIAL.
+    lv_object  = iv_obj_name. " or '(' && 'Text not found'(ktv) && ')'
+    lv_display = ''.
+  ELSEIF lv_display IS INITIAL.
     lv_display = iv_obj_name.
   ENDIF.
 
@@ -728,12 +732,14 @@ FORM get_object_and_display_name
   ENDIF.
 
   " Return display name
-  CONCATENATE '[' lv_display ']' INTO rv_disp_name.
+  IF NOT lv_display IS INITIAL.
+    CONCATENATE '[' lv_display ']' INTO rv_disp_name.
 
-  lv_more = strlen( rv_disp_name ).
-  IF lv_more > 75.
-    lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
-    CONCATENATE rv_disp_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis ']' INTO rv_disp_name.
+    lv_more = strlen( rv_disp_name ).
+    IF lv_more > 75.
+      lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
+      CONCATENATE rv_disp_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis ']' INTO rv_disp_name.
+    ENDIF.
   ENDIF.
 
 ENDFORM.                               " GET_OBJECT_AND_DISPLAY_NAME

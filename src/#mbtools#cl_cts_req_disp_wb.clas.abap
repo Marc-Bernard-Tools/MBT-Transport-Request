@@ -52,8 +52,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       ls_object   TYPE seu_objtxt,
       lt_object   TYPE TABLE OF seu_objtxt,
       lv_obj_name TYPE trobj_name,
-      lv_clear    TYPE xsdboolean,
-      lv_text     TYPE string.
+      lv_clear    TYPE xsdboolean.
 
     FIELD-SYMBOLS:
       <ls_e071>      TYPE trwbo_s_e071,
@@ -431,7 +430,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
 *     Additional objects
       WHEN 'XPRA' OR 'PRAG'.
         cv_icon = icon_abap.
-      WHEN 'LDBA' OR swbm_c_type_logical_database.
+      WHEN 'LDBA'.
         cv_icon = icon_database_table.
       WHEN 'DDLS' OR swbm_c_type_ddic_ddl_source.
         cv_icon = icon_abap.
@@ -846,14 +845,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     " From INCLUDE TTYPLENG
     CONSTANTS:
       lc_prog     TYPE i VALUE 40,
-      lc_vari     TYPE i VALUE 14,
       lc_dynp     TYPE i VALUE 4,
       lc_msag     TYPE i VALUE 20,
       lc_mess     TYPE i VALUE 3,
       lc_clas     TYPE i VALUE 30,
       lc_meth     TYPE i VALUE 61,
-      lc_wapa     TYPE i VALUE 30,
-      lc_wapp     TYPE i VALUE 70,
       lc_prog_old TYPE i VALUE 8.
 
     " Same logic as function module TR_OBJECT_JUMP_TO_TOOL

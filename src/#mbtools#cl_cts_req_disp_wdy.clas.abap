@@ -109,14 +109,14 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WDY IMPLEMENTATION.
           IF lv_len >= 0.
             SELECT SINGLE text FROM sotr_text INTO ls_e071_txt-text
               WHERE concept = <ls_e071>-obj_name+lv_len(*)
-                AND langu   = sy-langu.
+                AND langu   = sy-langu ##WARN_OK.
           ENDIF.
         WHEN 'SOTU'. " OTR Long Text
           lv_len = strlen( <ls_e071>-obj_name ) - 32.
           IF lv_len >= 0.
             SELECT SINGLE text FROM sotr_textu INTO ls_e071_txt-text
               WHERE concept = <ls_e071>-obj_name+lv_len(*)
-                AND langu   = sy-langu.
+                AND langu   = sy-langu ##WARN_OK.
           ENDIF.
       ENDCASE.
 

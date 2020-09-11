@@ -143,7 +143,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         WHEN 'AVAS'. " Classification
           SELECT SINGLE trobjtype sobj_name FROM cls_assignment
             INTO (lv_obj_type, lv_obj_name)
-            WHERE guid = <ls_e071>-obj_name.
+            WHERE guid = <ls_e071>-obj_name ##WARN_OK.
           IF sy-subrc = 0.
             CONCATENATE lv_obj_type lv_obj_name INTO ls_e071_txt-text
               SEPARATED BY space.
@@ -219,6 +219,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
             WHERE relid = 'MI'
               AND objid = <ls_e071>-obj_name
               AND srtf2 = 0.
+        WHEN 'AVAR'. " Activation Variants
+          SELECT SINGLE descript FROM aab_var_propt INTO ls_e071_txt-text
+            WHERE name = <ls_e071>-obj_name
+              AND local = ''
+              AND langu = sy-langu.
 
         WHEN OTHERS.
           ASSERT 0 = 1. " Check class constructor
@@ -287,6 +292,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
         cv_icon = icon_htm.
       WHEN 'W3MI'. " WWW Mime
         cv_icon = icon_bmp.
+      WHEN 'AVAR'. " Activation Variants
+        cv_icon = icon_variants.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -357,6 +364,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     ls_object_list-low = 'W3HT'. " WWW HTML
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'W3MI'. " WWW Mime
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'AVAR'. " Activation Variants
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.

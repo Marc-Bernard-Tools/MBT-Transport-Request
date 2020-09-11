@@ -44,7 +44,6 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       ls_e071_txt  TYPE /mbtools/trwbo_s_e071_txt,
       ls_object    TYPE rso_s_tlogo,
       ls_tlogoprop TYPE rstlogoprop,
-      lv_tlogo     TYPE rstlogo,
       lv_objvers   TYPE rsobjvers,
       lv_txtlg     TYPE rstxtlg,
       lv_icon      TYPE icon_d,
@@ -54,8 +53,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       lv_iobjtp    TYPE rsiobjtp,
       lv_compid    TYPE rszcompid,
       lv_deftp     TYPE rszdeftp,
-      lv_element   TYPE string,
-      lv_text      TYPE string.
+      lv_element   TYPE string.
 
     FIELD-SYMBOLS:
       <ls_e071> TYPE e071.
@@ -81,7 +79,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       CASE ls_object-tlogo.
         WHEN 'DSAA'. " Application component hierarchy
           SELECT SINGLE applnm INTO lv_applnm FROM rodsappl
-            WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers.
+            WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers ##WARN_OK.
           IF sy-subrc <> 0.
             lv_icon = icon_delete.
           ENDIF.
@@ -93,10 +91,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
               cv_icon   = lv_icon ).
 
           SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
-            WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
+            WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm
+              AND objvers = lv_objvers AND langu = sy-langu ##WARN_OK.
           IF sy-subrc <> 0.
             SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
-              WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers.
+              WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm
+                AND objvers = lv_objvers ##WARN_OK.
           ENDIF.
 
         WHEN 'OSOA'. " OLTP DataSource
@@ -117,7 +117,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
             WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers AND langu = sy-langu.
           IF sy-subrc <> 0.
             SELECT SINGLE txtlg INTO lv_txtlg FROM roosourcet
-              WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers.
+              WHERE oltpsource = ls_object-objnm AND objvers = lv_objvers ##WARN_OK.
           ENDIF.
 
         WHEN OTHERS.
@@ -158,19 +158,19 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
         WHEN rs_c_tlogo-infoobject.
           CASE lv_iobjtp.
             WHEN rsd_c_objtp-charact.
-              lv_txtlg = 'Characteristic'.
+              lv_txtlg = 'Characteristic'(001).
             WHEN rsd_c_objtp-keyfigure.
-              lv_txtlg = 'Key Figure'.
+              lv_txtlg = 'Key Figure'(002).
             WHEN rsd_c_objtp-time.
-              lv_txtlg = 'Time Characteristic'.
+              lv_txtlg = 'Time Characteristic'(003).
             WHEN rsd_c_objtp-package.
-              lv_txtlg = 'Data Packet Characteristic'.
+              lv_txtlg = 'Data Packet Characteristic'(004).
             WHEN rsd_c_objtp-unit.
-              lv_txtlg = 'Unit of Measurement'.
+              lv_txtlg = 'Unit of Measurement'(005).
             WHEN rsd_c_objtp-xxl.
-              lv_txtlg = 'XXL InfoObject'.
+              lv_txtlg = 'XXL InfoObject'(006).
             WHEN OTHERS.
-              lv_txtlg = 'Unknown InfoObject Type'.
+              lv_txtlg = 'Unknown InfoObject Type'(007).
           ENDCASE.
           ls_e071_txt-text = |{ lv_txtlg }: { ls_e071_txt-text }|.
 
@@ -186,37 +186,35 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
           CASE lv_deftp.
             WHEN rzd1_c_deftp-report.
-              lv_element = 'Query'.
+              lv_element = 'Query'(008).
             WHEN rzd1_c_deftp-structure.
-              lv_element = 'Structure'.
+              lv_element = 'Structure'(009).
             WHEN rzd1_c_deftp-selection.
-              lv_element = 'Selection'.
+              lv_element = 'Selection'(010).
             WHEN rzd1_c_deftp-calkeyfig.
-              lv_element = 'Calc. Key Figure'.
+              lv_element = 'Calc. Key Figure'(011).
             WHEN rzd1_c_deftp-restkeyfig.
-              lv_element = 'Rest. Key Figure'.
+              lv_element = 'Rest. Key Figure'(012).
             WHEN rzd1_c_deftp-characteristic.
-              lv_element = 'Characteristic'.
+              lv_element = 'Characteristic'(001).
             WHEN rzd1_c_deftp-formula.
-              lv_element = 'Formula'.
+              lv_element = 'Formula'(013).
             WHEN rzd1_c_deftp-variable.
-              lv_element = 'Variable'.
+              lv_element = 'Variable'(014).
             WHEN rzd1_c_deftp-sel_object.
-              lv_element = 'Filter'.
+              lv_element = 'Filter'(015).
             WHEN rzd1_c_deftp-sheet.
-              lv_element = 'Sheet'.
+              lv_element = 'Sheet'(016).
             WHEN rzd1_c_deftp-str_mem OR rzd1_c_deftp-str_mem_inv.
-              lv_element = 'Structure Member'.
+              lv_element = 'Structure Member'(017).
             WHEN rzd1_c_deftp-cell OR rzd1_c_deftp-cell_inv.
-              lv_element = 'Cell'.
-            WHEN rzd1_c_deftp-cell.
-              lv_element = 'Cell'.
+              lv_element = 'Cell'(018).
             WHEN rzd1_c_deftp-exception.
-              lv_element = 'Exception'.
+              lv_element = 'Exception'(019).
             WHEN rzd1_c_deftp-condition.
-              lv_element = 'Condition'.
+              lv_element = 'Condition'(020).
             WHEN OTHERS.
-              lv_element = 'Unkown Element Type'.
+              lv_element = 'Unkown Element Type'(021).
           ENDCASE.
           ls_e071_txt-text = |{ lv_element }: { ls_e071_txt-text }|.
         WHEN OTHERS.

@@ -40,12 +40,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
 
     CONSTANTS:
-      c_del TYPE string VALUE '<Deleted>' ##NO_TEXT.
+      lc_del TYPE string VALUE '<Deleted>' ##NO_TEXT.
 
     DATA:
       ls_e071_txt TYPE /mbtools/trwbo_s_e071_txt,
       lv_guid     TYPE sdok_docid,
-      lv_icon     TYPE icon_d,
       ls_io       TYPE skwf_io,
       lt_io       TYPE TABLE OF skwf_io,
       ls_dspname  TYPE skwf_dspn,
@@ -116,16 +115,16 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
 
     LOOP AT it_e071 ASSIGNING <ls_e071>.
       READ TABLE lt_dspname INTO ls_dspname
-        WITH KEY objid = <ls_e071>-obj_name.
+        WITH KEY objid = <ls_e071>-obj_name ##WARN_OK.
       IF sy-subrc = 0.
         CLEAR ls_e071_txt.
 
         MOVE-CORRESPONDING <ls_e071> TO ls_e071_txt.
-        lv_icon = ls_dspname-objtype.
 
+        " Get the text in the right language
         ASSIGN '(CL_SKWF_DISPLAY_UTIL==========CP)TEXT-001' TO <lv_del>.
         IF sy-subrc <> 0.
-          ASSIGN c_del TO <lv_del>.
+          ASSIGN lc_del TO <lv_del>.
         ENDIF.
 
         IF ls_dspname-name = <lv_del>.
