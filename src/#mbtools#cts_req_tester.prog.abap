@@ -154,7 +154,7 @@ INITIALIZATION.
   " All classes provided by abapGit
   SELECT DISTINCT clsname FROM seoclass INTO TABLE gt_abapgit
     WHERE clsname LIKE 'ZCL_ABAPGIT_OBJECT_%'
-    ORDER BY clsname.
+    ORDER BY clsname.                    "#EC CI_BYPASS "#EC CI_GENBUFF
   IF sy-subrc = 0.
     gv_abapgit = abap_true.
   ENDIF.
@@ -191,7 +191,7 @@ START-OF-SELECTION.
   " All classes that implement the BAdI
   SELECT DISTINCT clsname FROM seometarel INTO TABLE gt_classes
     WHERE clsname IN s_class AND refclsname = '/MBTOOLS/IF_CTS_REQ_DISPLAY'
-    ORDER BY clsname.
+    ORDER BY clsname.                    "#EC CI_BYPASS "#EC CI_GENBUFF
 
   gt_no_enh = gt_abapgit.
 
@@ -446,7 +446,8 @@ FORM get_object_type_ext
 ENDFORM.
 
 FORM check_list.
-  SELECT SINGLE * FROM objh WHERE objectname = gv_object.
+  SELECT SINGLE * FROM objh
+    WHERE objectname = gv_object. "#EC CI_ALL_FIELDS_NEEDED "#EC CI_GENBUFF
   IF sy-subrc = 0.
     WRITE: 'Type:', objh-objecttype, 'Category:', objh-objcateg.
   ELSE.
@@ -530,7 +531,7 @@ FORM check_objs.
       UP TO p_count ROWS
       WHERE pgmid = 'R3TR' AND object = gv_object
         AND obj_name BETWEEN 'A' AND 'ZZZ'
-        AND delflag = '' ##TOO_MANY_ITAB_FIELDS.
+        AND delflag = '' ##TOO_MANY_ITAB_FIELDS. "#EC CI_BYPASS "#EC CI_GENBUFF
   ENDIF.
 
   IF gv_pgmid = 'LIMU' OR sy-subrc <> 0.

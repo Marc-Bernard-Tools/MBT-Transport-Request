@@ -67,7 +67,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
       " Check if content object
       READ TABLE gt_tlogoprop INTO ls_tlogoprop
-        WITH KEY tlogo_d = ls_object-tlogo.
+        WITH KEY tlogo_d = ls_object-tlogo.             "#EC CI_HASHSEQ
       IF sy-subrc = 0.
         lv_objvers = rs_c_objvers-delivery.
         ls_object-tlogo = ls_tlogoprop-tlogo.
@@ -96,7 +96,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
           IF sy-subrc <> 0.
             SELECT SINGLE txtlg INTO lv_txtlg FROM rodsapplt
               WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm
-                AND objvers = lv_objvers ##WARN_OK.
+                AND objvers = lv_objvers ##WARN_OK.     "#EC CI_NOFIRST
           ENDIF.
 
         WHEN 'OSOA'. " OLTP DataSource
@@ -260,7 +260,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       SELECT * FROM rstlogoprop INTO TABLE gt_tlogoprop.
 
       " Enhancements and DDLs are handled in /MBTOOLS/CL_CTS_REQ_DISP_WB
-      DELETE gt_tlogoprop WHERE tlogo = 'ENHO' OR tlogo = 'DDLS'.
+      DELETE gt_tlogoprop WHERE tlogo = 'ENHO' OR tlogo = 'DDLS'. "#EC CI_HASHSEQ
 
       " Add Application Component Hierarchty and DataSource
       ls_tlogoprop-tlogo   = 'DSAA'.

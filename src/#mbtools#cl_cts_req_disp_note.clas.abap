@@ -82,7 +82,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
           SELECT SINGLE numm FROM cwbntci INTO ls_note-numm
             WHERE ciinsta = <ls_e071>-obj_name(10)
               AND cipakid = <ls_e071>-obj_name+10(10)
-              AND cialeid = <ls_e071>-obj_name+20(10) ##WARN_OK.
+              AND cialeid = <ls_e071>-obj_name+20(10) ##WARN_OK. "#EC CI_GENBUFF
           IF sy-subrc = 0.
             ls_e071_txt-text = ls_note-numm.
             SHIFT ls_e071_txt-text LEFT DELETING LEADING '0'.

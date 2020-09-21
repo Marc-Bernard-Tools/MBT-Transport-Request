@@ -9,6 +9,10 @@ REPORT /mbtools/cts_object_list.
 
 TYPE-POOLS: icon.
 
+CONSTANTS:
+  gc_width      TYPE i VALUE 75,
+  gc_max_tabkey TYPE i VALUE 120.
+
 *&---------------------------------------------------------------------*
 *&      Global Types and Data (LSTRHTOP)
 *&---------------------------------------------------------------------*
@@ -468,9 +472,9 @@ FORM create_key_list USING    pv_keep_nodes   TYPE c
 *
           IF lv_found = abap_true.
             ls_node-text     = lv_objt_name.
-            ls_node-tlength  = 75.
+            ls_node-tlength  = gc_width.
             ls_node-text1    = lv_disp_name.
-            ls_node-tlength1 = 75.
+            ls_node-tlength1 = gc_width.
           ELSE.
             ls_node-text1    = ls_e071k-objname.
             ls_node-tlength1 = 30.
@@ -520,9 +524,9 @@ FORM create_key_list USING    pv_keep_nodes   TYPE c
 *
           IF lv_found = abap_true.
             ls_node-text     = lv_objt_name.
-            ls_node-tlength  = 75.
+            ls_node-tlength  = gc_width.
             ls_node-text1    = lv_disp_name.
-            ls_node-tlength1 = 75.
+            ls_node-tlength1 = gc_width.
           ELSE.
             ls_node-text1    = ls_e071k_str-objname.
             ls_node-tlength1 = 30.
@@ -582,13 +586,13 @@ FORM format_tabkeys
       IF NOT l_tabkey IS INITIAL.
         l_tabkey = l_tabkey && ','.
       ENDIF.
-      IF ( l_pos + <l_len> ) > 120.
+      IF ( l_pos + <l_len> ) > gc_max_tabkey.
         l_tabkey = l_tabkey && <ls_e071k>-tabkey+l_pos(*).
       ELSE.
         l_tabkey = l_tabkey && <ls_e071k>-tabkey+l_pos(<l_len>).
       ENDIF.
       l_pos = l_pos + <l_len>.
-      IF l_pos >= 120.
+      IF l_pos >= gc_max_tabkey.
         EXIT.
       ENDIF.
     ENDLOOP.
@@ -726,7 +730,7 @@ FORM get_object_and_display_name
 
   " End texts that are too long with ellipsis
   lv_more = strlen( rv_obj_name ).
-  IF lv_more > 75.
+  IF lv_more > gc_width.
     lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
     CONCATENATE rv_obj_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis INTO rv_obj_name.
   ENDIF.
@@ -736,7 +740,7 @@ FORM get_object_and_display_name
     CONCATENATE '[' lv_display ']' INTO rv_disp_name.
 
     lv_more = strlen( rv_disp_name ).
-    IF lv_more > 75.
+    IF lv_more > gc_width.
       lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
       CONCATENATE rv_disp_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis ']' INTO rv_disp_name.
     ENDIF.

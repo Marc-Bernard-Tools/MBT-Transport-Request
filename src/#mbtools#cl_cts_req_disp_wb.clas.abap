@@ -852,6 +852,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
       lc_meth     TYPE i VALUE 61,
       lc_prog_old TYPE i VALUE 8.
 
+    CLEAR: ev_obj_type, ev_obj_name, ev_encl_obj.
+
     " Same logic as function module TR_OBJECT_JUMP_TO_TOOL
     IF     iv_pgmid  = 'LIMU'  AND  iv_object  =  'REPO'.
       ev_obj_type = 'PROG'.

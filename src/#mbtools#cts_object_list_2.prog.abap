@@ -82,11 +82,11 @@ FORM create_tree USING pt_nodes TYPE tt_snodetext.
 
     IF lv_found = abap_true.
       <ls_node>-text1    = |[{ <ls_node>-text } { <ls_node>-text1 } { <ls_node>-text2 }]|.
-      <ls_node>-tlength1 = 55.
+      <ls_node>-tlength1 = 55.                           "#EC NUMBER_OK
       <ls_node>-text     = lv_objt_name.
-      <ls_node>-tlength  = 75.
+      <ls_node>-tlength  = 75.                           "#EC NUMBER_OK
       <ls_node>-text2    = ''.
-      <ls_node>-tlength2 = 00.
+      <ls_node>-tlength2 = 0.                            "#EC NUMBER_OK
     ENDIF.
 
   ENDLOOP.
