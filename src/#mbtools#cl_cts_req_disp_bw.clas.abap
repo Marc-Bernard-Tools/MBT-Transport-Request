@@ -35,7 +35,7 @@ ENDCLASS.
 
 
 
-CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
+CLASS /mbtools/cl_cts_req_disp_bw IMPLEMENTATION.
 
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
@@ -77,6 +77,25 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
 
       " Source system objects
       CASE ls_object-tlogo.
+        WHEN 'BIMO'. " BI Meta (Transport) Object Type
+          get_object_icon(
+            EXPORTING
+              iv_object = ls_object-tlogo
+            CHANGING
+              cv_icon   = lv_icon ).
+
+          lv_txtlg = /mbtools/cl_tlogo=>get_tlogo_text( |{ ls_object-objnm }| ).
+
+        WHEN 'PCLA'. " Program Class for BW Generation Tools
+          get_object_icon(
+            EXPORTING
+              iv_object = ls_object-tlogo
+            CHANGING
+              cv_icon   = lv_icon ).
+
+          SELECT SINGLE title INTO lv_txtlg FROM rssgtpclat
+            WHERE langu = sy-langu AND progclass = ls_object-objnm.
+
         WHEN 'DSAA'. " Application component hierarchy
           SELECT SINGLE applnm INTO lv_applnm FROM rodsappl
             WHERE hier LIKE 'APCO%' AND applnm = ls_object-objnm AND objvers = lv_objvers ##WARN_OK.
@@ -262,7 +281,13 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BW IMPLEMENTATION.
       " Enhancements and DDLs are handled in /MBTOOLS/CL_CTS_REQ_DISP_WB
       DELETE gt_tlogoprop WHERE tlogo = 'ENHO' OR tlogo = 'DDLS'. "#EC CI_HASHSEQ
 
-      " Add Application Component Hierarchty and DataSource
+      " Add Meta Object, Program Class, Application Component Hierarchty, and DataSource
+      ls_tlogoprop-tlogo   = 'BIMO'.
+      ls_tlogoprop-tlogo_d = ''.
+      INSERT ls_tlogoprop INTO TABLE gt_tlogoprop.
+      ls_tlogoprop-tlogo   = 'PCLA'.
+      ls_tlogoprop-tlogo_d = ''.
+      INSERT ls_tlogoprop INTO TABLE gt_tlogoprop.
       ls_tlogoprop-tlogo   = 'DSAA'.
       ls_tlogoprop-tlogo_d = 'DSAD'.
       INSERT ls_tlogoprop INTO TABLE gt_tlogoprop.

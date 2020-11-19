@@ -42,7 +42,7 @@ ENDCLASS.
 
 
 
-CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
+CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
 
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
@@ -300,9 +300,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         cv_icon = icon_wd_view.
       WHEN 'ENQU' OR 'ENQD' OR swbm_c_type_ddic_enqueue.
         cv_icon = icon_locked.
-      WHEN 'FUNC' OR swbm_c_type_function.
+      WHEN 'FUNC' OR 'SRFC' OR swbm_c_type_function.
         cv_icon = icon_abap.
-      WHEN 'FUGR' OR 'FUGT' OR swbm_c_type_function_pool.
+      WHEN 'FUGR' OR 'FUGS' OR 'FUGT' OR swbm_c_type_function_pool.
         cv_icon = icon_abap.
       WHEN 'GURL' OR swbm_c_type_url.
         cv_icon = icon_url.
@@ -346,7 +346,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         cv_icon = icon_test.
       WHEN 'SOBJ' OR swbm_c_type_bor_objtype.
         cv_icon = icon_businav_objects.
-      WHEN 'SHI3' OR 'U'.
+      WHEN 'SHI3' OR 'U' OR 'SHI6'.
         cv_icon = icon_context_menu.
       WHEN 'SHLP' OR 'SHLD' OR swbm_c_type_ddic_searchhelp OR 'SHLX'.
         cv_icon = icon_value_help.
@@ -530,7 +530,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_function.
     APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'SRFC'. " RFC function
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'FUGR'.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'FUGS'. " Exit function group
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'FUGT'.
     APPEND ls_object_list TO gt_object_list.
@@ -629,6 +633,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
     ls_object_list-low = swbm_c_type_bor_objtype.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHI3'.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'SHI6'. "NEW: Same as SHI3
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'U'.
     APPEND ls_object_list TO gt_object_list.
@@ -968,6 +974,12 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_WB IMPLEMENTATION.
         ev_obj_type = 'WAPA'.
       WHEN 'SQLD' OR 'SQTT'.
         ev_obj_type = 'SQLT'.
+      WHEN 'FUGS'.
+        ev_obj_type = 'FUGR'.
+      WHEN 'SRFC'.
+        ev_obj_type = 'FUNC'.
+      WHEN 'SHI6'.
+        ev_obj_type = 'SHI3'.
     ENDCASE.
 
   ENDMETHOD.

@@ -35,7 +35,7 @@ ENDCLASS.
 
 
 
-CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
+CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
 
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
@@ -73,7 +73,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
             WHERE icf_name   = <ls_e071>-obj_name(15)
               AND icfparguid = <ls_e071>-obj_name+15(25)
               AND icf_langu  = sy-langu.
-        WHEN 'TOBJ'. " Transport object
+        WHEN 'TOBJ' OR 'OBJM'. " Transport object or AIM
           lv_len = strlen( <ls_e071>-obj_name ) - 1.
           lv_objectname = <ls_e071>-obj_name(lv_len).
           lv_objecttype = <ls_e071>-obj_name+lv_len(1).
@@ -95,6 +95,11 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
                 AND objectname = lv_objectname
                 AND objecttype = lv_objecttype.
           ENDIF.
+        WHEN 'OBJA'. " After import method (api)
+          SELECT SINGLE description FROM slapitx INTO ls_e071_txt-text
+            WHERE language = sy-langu
+              AND api_id   = <ls_e071>-obj_name.
+
         WHEN 'DOCU'. " Documentation
           ls_e071_txt-text = ls_e071_txt-name.
         WHEN 'DOCT'. " General Text
@@ -240,7 +245,7 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     CASE iv_object.
       WHEN 'SICF'. " ICF Service
         cv_icon = icon_wf_reserve_workitem.
-      WHEN 'TOBJ'. " Transport object
+      WHEN 'TOBJ' OR 'OBJA' OR 'OBJM'. " Transport object & AIM
         cv_icon = icon_transport.
       WHEN 'DOCU'. " Documentation
         cv_icon = icon_document.
@@ -312,6 +317,10 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_BASIS IMPLEMENTATION.
     ls_object_list-low = 'SICF'. " ICF Service
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TOBJ'. " Transport object
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'OBJA'. " After import method (api)
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'OBJM'. " After import method (metadata)
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DOCU'. " Documentation
     APPEND ls_object_list TO gt_object_list.

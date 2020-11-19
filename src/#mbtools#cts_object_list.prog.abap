@@ -720,7 +720,7 @@ FORM get_object_and_display_name
   ENDIF.
   IF lv_object IS INITIAL.
     lv_object  = iv_obj_name. " or '(' && 'Text not found'(ktv) && ')'
-    lv_display = ''.
+    lv_display = iv_obj_name.
   ELSEIF lv_display IS INITIAL.
     lv_display = iv_obj_name.
   ENDIF.

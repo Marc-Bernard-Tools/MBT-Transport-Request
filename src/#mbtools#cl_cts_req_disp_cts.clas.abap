@@ -30,7 +30,7 @@ ENDCLASS.
 
 
 
-CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
+CLASS /mbtools/cl_cts_req_disp_cts IMPLEMENTATION.
 
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
@@ -76,6 +76,9 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
           ENDIF.
           CONCATENATE <ls_e071>-obj_name(4) <ls_e071>-obj_name+4(4) <ls_e071>-obj_name+8
             INTO ls_e071_txt-name SEPARATED BY space.
+        WHEN 'SYST'.
+          " Global System Options
+          ls_e071_txt-text = 'Global System Options'.
         WHEN OTHERS.
           ls_e071_txt-text = <ls_e071>-obj_name.
           ls_e071_txt-name = <ls_e071>-obj_name.
@@ -100,6 +103,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
         cv_icon = icon_detail.
       WHEN 'COMM'. " Object List of Request or Piece List
         cv_icon = icon_document.
+      WHEN 'SYST'. " Global System Options
+        cv_icon = icon_header.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -115,6 +120,8 @@ CLASS /MBTOOLS/CL_CTS_REQ_DISP_CTS IMPLEMENTATION.
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.
 
+    ls_object_list-low = 'SYST'. " Global System Options
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'MERG'. " Comment: Object List Included
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PERF'. " Perforce Changelist
