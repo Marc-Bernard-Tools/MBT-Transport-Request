@@ -244,6 +244,11 @@ FORM create_object_list
         ls_node-tlength1  = 75.
         ls_node-name(4)   = ls_e071-pgmid.
         ls_node-name+4(4) = ls_e071-object. "Only for refreshing
+*{   INSERT         M0NK900019                                        3
+        ls_node-text     = ls_node-text1.
+        ls_node-text1    = '[' && ls_e071-pgmid && ` ` && ls_e071-object && ']'.
+        ls_node-tlength  = 75.
+*}   INSERT
         ls_node-tlevel    = lv_header_level.
         ls_node-type      = gc_node_objtyp.
 *       ls_node-color     = pv_node_color.
