@@ -9,7 +9,7 @@
     {
       "url": false,
       "folder": "/deps",
-      "files": "/**/*.*"
+      "files": "/src/**/*.*"
     }
   ],
   "syntax": {
