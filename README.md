@@ -1,4 +1,4 @@
-# MBT Transport Request Display
+# MBT Transport Request
 
 This tool is an enhancement for the display of transport requests.
 
