@@ -229,6 +229,10 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
             WHERE name = <ls_e071>-obj_name
               AND local = ''
               AND langu = sy-langu.
+        WHEN 'SHI5'. " Gen. hierarchy storage extrension name
+          SELECT SINGLE text FROM ttree_extt INTO ls_e071_txt-text
+            WHERE extension = <ls_e071>-obj_name
+              AND spras     = sy-langu.
 
         WHEN OTHERS.
           ASSERT 0 = 1. " Check class constructor
@@ -299,6 +303,8 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
         cv_icon = icon_bmp.
       WHEN 'AVAR'. " Activation Variants
         cv_icon = icon_variants.
+      WHEN 'SHI5'. " Gen. hierarchy storage extrension name
+        cv_icon = icon_tree.
       WHEN OTHERS.
         cv_icon = icon_dummy.
     ENDCASE.
@@ -375,6 +381,8 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
     ls_object_list-low = 'W3MI'. " WWW Mime
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AVAR'. " Activation Variants
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'SHI5'. " Gen. hierarchy storage extrension name
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.

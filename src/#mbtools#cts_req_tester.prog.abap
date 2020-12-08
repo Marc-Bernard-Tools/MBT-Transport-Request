@@ -623,7 +623,7 @@ FORM check_git.
     WRITE: 'No'(012) COLOR COL_TOTAL.
     gv_warn = gv_warn + 1.
   ELSE.
-    WRITE: '---' COLOR COL_NORMAL.
+    WRITE: 'n/a       ' COLOR COL_NORMAL INTENSIFIED ON.
     gv_ok = gv_ok + 1.
   ENDIF.
 ENDFORM.
