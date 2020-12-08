@@ -7,7 +7,7 @@
   },
   "dependencies": [
     {
-      "url": false,
+      "url": "https://github.com/mbtools/MBT_Transport_Request/deps",
       "folder": "/deps",
       "files": "/src/**/*.*"
     }
