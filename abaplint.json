@@ -3,13 +3,14 @@
     "files": "/src/**/*.*",
     "skipGeneratedGatewayClasses": true,
     "skipGeneratedPersistentClasses": true,
-    "skipGeneratedFunctionGroups": true
+    "skipGeneratedFunctionGroups": true,
+    "useApackDependencies": false
   },
   "dependencies": [
     {
       "url": false,
       "folder": "/deps",
-      "files": "/src/**/*.*"
+      "files": "/**/*.*"
     }
   ],
   "syntax": {
