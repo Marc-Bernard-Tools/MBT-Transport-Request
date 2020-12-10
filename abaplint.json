@@ -94,6 +94,7 @@
       "icon_table_settings",
       "icon_test",
       "icon_text_ina",
+      "icon_tree",
       "icon_transport",
       "icon_url",
       "icon_value_help",
@@ -214,11 +215,14 @@
       "allowed": [
         "CLAS",
         "DEVC",
+        "DSYS",
         "ENHO",
         "ENHS",
         "FUGR",
         "INTF",
+        "NSPC",
         "PROG",
+        "SOTS",
         "TABL",
         "TRAN",
         "TTYP",
@@ -364,6 +368,7 @@
     "message_exists": false,
     "method_length": {
       "exclude": [
+        "#mbtools#cl_cts_req_disp_basis.clas.abap",
         "#mbtools#cl_cts_req_disp_bw.clas.abap",
         "#mbtools#cl_cts_req_disp_wb.clas.abap"
       ],
