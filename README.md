@@ -1,6 +1,6 @@
 # MBT Transport Request
 
-This tool is an enhancement for the display of transport requests.
+This tool is an enhancement for displaying of transport requests.
 
 ## EVERYTHING IS VERY MUCH IN PROGRESS HERE 
 ## WE SUGGEST TO WAIT UNTIL THE OFFICIAL LAUNCH
