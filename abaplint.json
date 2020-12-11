@@ -8,8 +8,8 @@
   ],
   "global": {
     "exclude": [
-      "#mbtools#cl_cts_object_list.prog.abap",
-      "#mbtools#cl_cts_object_list_2.prog.abap"
+      "#mbtools#cts_object_list.prog.abap",
+      "#mbtools#cts_object_list_2.prog.abap"
     ],
     "files": "/src/**/*.*",
     "skipGeneratedFunctionGroups": true,
