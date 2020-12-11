@@ -21,7 +21,7 @@
     },
     "abapdoc": {
       "checkLocal": false,
-      "exclude": [],
+      "exclude": [".*"],
       "severity": "Error"
     },
     "allowed_object_naming": {
@@ -78,7 +78,7 @@
       "severity": "Error"
     },
     "check_comments": {
-      "allowEndOfLine": false,
+      "allowEndOfLine": true,
       "exclude": [],
       "severity": "Error"
     },
