@@ -124,6 +124,7 @@ CLASS /mbtools/cl_cts_req_disp_bds IMPLEMENTATION.
         ASSIGN '(CL_SKWF_DISPLAY_UTIL==========CP)TEXT-001' TO <lv_del>.
         IF sy-subrc <> 0.
           ASSIGN lc_del TO <lv_del>.
+          ASSERT sy-subrc = 0.
         ENDIF.
 
         IF ls_dspname-name = <lv_del>.
