@@ -103,7 +103,7 @@
       "modifyDatabase": true,
       "openDataset": true,
       "readTable": true,
-      "selectSingle": true,
+      "selectSingle": false,
       "severity": "Error",
       "updateDatabase": true
     },
