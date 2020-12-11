@@ -2,13 +2,14 @@ CLASS /mbtools/cl_cts_req_disp_cts DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+
 ************************************************************************
 * MBT Request Display - Change & Transport System
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-
   PUBLIC SECTION.
+    TYPE-POOLS icon .
 
     INTERFACES if_badi_interface .
     INTERFACES /mbtools/if_cts_req_display .

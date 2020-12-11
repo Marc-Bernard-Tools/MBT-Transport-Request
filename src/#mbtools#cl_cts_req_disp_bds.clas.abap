@@ -2,13 +2,14 @@ CLASS /mbtools/cl_cts_req_disp_bds DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+
 ************************************************************************
 * MBT Request Display - Business Document Services
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-
   PUBLIC SECTION.
+    TYPE-POOLS icon .
     TYPE-POOLS skwfc .
 
     INTERFACES if_badi_interface .
@@ -34,7 +35,7 @@ ENDCLASS.
 
 
 
-CLASS /MBTOOLS/CL_CTS_REQ_DISP_BDS IMPLEMENTATION.
+CLASS /mbtools/cl_cts_req_disp_bds IMPLEMENTATION.
 
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.

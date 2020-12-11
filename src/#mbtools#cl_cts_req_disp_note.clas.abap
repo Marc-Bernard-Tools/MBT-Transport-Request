@@ -2,13 +2,14 @@ CLASS /mbtools/cl_cts_req_disp_note DEFINITION
   PUBLIC
   FINAL
   CREATE PUBLIC .
+
 ************************************************************************
 * MBT Request Display - SAP Notes
 *
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
-
   PUBLIC SECTION.
+    TYPE-POOLS icon .
 
     INTERFACES if_badi_interface .
     INTERFACES /mbtools/if_cts_req_display .
@@ -30,7 +31,7 @@ ENDCLASS.
 
 
 
-CLASS /MBTOOLS/CL_CTS_REQ_DISP_NOTE IMPLEMENTATION.
+CLASS /mbtools/cl_cts_req_disp_note IMPLEMENTATION.
 
 
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
