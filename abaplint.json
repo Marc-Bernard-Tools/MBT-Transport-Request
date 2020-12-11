@@ -7,7 +7,10 @@
     }
   ],
   "global": {
-    "exclude": [],
+    "exclude": [
+      "#mbtools#cl_cts_req_list.prog.abap",
+      "#mbtools#cl_cts_req_list_2.prog.abap"
+    ],
     "files": "/src/**/*.*",
     "skipGeneratedFunctionGroups": true,
     "skipGeneratedGatewayClasses": true,
