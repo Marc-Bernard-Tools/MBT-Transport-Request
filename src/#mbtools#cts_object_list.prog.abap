@@ -18,8 +18,8 @@ CONSTANTS:
 *&---------------------------------------------------------------------*
 
 * internal tables
-TYPES: tt_streenode   TYPE streenode    OCCURS 50.
-TYPES: tt_snodetext   TYPE snodetext    OCCURS 50.
+TYPES: tt_streenode   LIKE streenode    OCCURS 50.
+TYPES: tt_snodetext   LIKE snodetext    OCCURS 50.
 
 TYPES: BEGIN OF  ts_hide_object,
          trkorr TYPE trwbo_s_e070-trkorr,
