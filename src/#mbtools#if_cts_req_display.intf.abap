@@ -7,8 +7,6 @@ INTERFACE /mbtools/if_cts_req_display
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
 
-  TYPE-POOLS icon .
-
   INTERFACES if_badi_interface .
 
 * Ellipsis character
