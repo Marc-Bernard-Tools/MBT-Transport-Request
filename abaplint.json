@@ -215,14 +215,11 @@
       "allowed": [
         "CLAS",
         "DEVC",
-        "DSYS",
         "ENHO",
         "ENHS",
         "FUGR",
         "INTF",
-        "NSPC",
         "PROG",
-        "SOTS",
         "TABL",
         "TRAN",
         "TTYP",
@@ -368,7 +365,6 @@
     "message_exists": false,
     "method_length": {
       "exclude": [
-        "#mbtools#cl_cts_req_disp_basis.clas.abap",
         "#mbtools#cl_cts_req_disp_bw.clas.abap",
         "#mbtools#cl_cts_req_disp_wb.clas.abap"
       ],
