@@ -103,7 +103,7 @@ CLASS /mbtools/cl_cts_req_disp_bds IMPLEMENTATION.
       APPEND ls_io TO lt_io.
     ENDLOOP.
 
-    CHECK NOT lt_io IS INITIAL.
+    CHECK lt_io IS NOT INITIAL.
 
     cl_skwf_display_util=>ios_displayname_get(
       EXPORTING

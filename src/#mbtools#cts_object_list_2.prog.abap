@@ -14,7 +14,7 @@ TYPE-POOLS: icon.
 *&---------------------------------------------------------------------*
 
 * internal tables
-TYPES: tt_snodetext LIKE snodetext OCCURS 50.
+TYPES: tt_snodetext TYPE snodetext OCCURS 50.
 
 START-OF-SELECTION.
 

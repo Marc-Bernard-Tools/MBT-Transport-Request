@@ -9,8 +9,6 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
 * (c) MBT 2020 https://marcbernardtools.com/
 ************************************************************************
   PUBLIC SECTION.
-    TYPE-POOLS icon .
-    TYPE-POOLS swbm .
 
     INTERFACES if_badi_interface .
     INTERFACES /mbtools/if_cts_req_display .
