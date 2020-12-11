@@ -201,7 +201,7 @@
       "while": true
     },
     "exit_or_check": {
-      "exclude": [],
+      "exclude": [".*"],
       "severity": "Error"
     },
     "exporting": {
@@ -261,7 +261,7 @@
       "severity": "Error"
     },
     "in_statement_indentation": {
-      "exclude": [],
+      "exclude": [".*"],
       "ignoreExceptions": true,
       "severity": "Error"
     },
