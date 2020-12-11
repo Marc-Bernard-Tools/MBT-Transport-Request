@@ -1,14 +1,9 @@
 {
   "dependencies": [
     {
-      "files": "",
-      "folder": "",
+      "files": "/**/*.*",
+      "folder": "/deps",
       "url": "https://github.com/abaplint/deps"
-    },
-    {
-        "files": "/**/*.*",
-        "folder": "/deps",
-        "url": ""
     }
   ],
   "global": {
