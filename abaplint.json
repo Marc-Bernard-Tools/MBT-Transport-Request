@@ -351,7 +351,11 @@
     },
     "method_length": {
       "errorWhenEmpty": true,
-      "exclude": [],
+      "exclude": [
+        "#mbtools#cl_cts_req_disp_basis.clas.abap",
+        "#mbtools#cl_cts_req_disp_bw.clas.abap",
+        "#mbtools#cl_cts_req_disp_wb.clas.abap"
+      ],
       "ignoreTestClasses": false,
       "severity": "Error",
       "statements": 100
