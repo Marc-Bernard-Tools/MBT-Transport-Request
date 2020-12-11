@@ -331,7 +331,7 @@ FORM get_object_type
   DATA: lv_global_type TYPE wbobjtype.
   DATA: lv_wb_type TYPE seu_objtyp.
 
-  IF    iv_object <> 'REPO' AND iv_object <> 'DYNP'
+  IF iv_object <> 'REPO' AND iv_object <> 'DYNP'
     AND iv_object <> 'VARI' AND iv_object <> 'VARX'
     AND iv_object <> 'MESS' AND iv_object <> 'METH'
     AND iv_object <> 'WAPP' AND iv_object <> 'TABU'
