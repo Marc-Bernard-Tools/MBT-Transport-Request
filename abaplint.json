@@ -19,7 +19,9 @@
   },
   "rules": {
     "7bit_ascii": {
-      "exclude": [],
+      "exclude": [
+        "#mbtools#if_cts_req_display.intf.abap"
+      ],
       "severity": "Error"
     },
     "abapdoc": {
@@ -47,7 +49,9 @@
       "define": true,
       "describeLines": true,
       "endselect": false,
-      "exclude": [],
+      "exclude": [
+        "#mbtools#cts_req_diff.prog.abap"
+      ],
       "execSQL": true,
       "kernelCall": true,
       "severity": "Error",
@@ -589,7 +593,9 @@
     "unused_variables": {
       "exclude": [],
       "severity": "Error",
-      "skipNames": []
+      "skipNames": [
+        "C_TOOL"
+      ]
     },
     "use_bool_expression": {
       "exclude": [],
