@@ -76,7 +76,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       COLLECT ls_object INTO lt_object.
     ENDLOOP.
 
-    IF NOT lt_object IS INITIAL.
+    IF lt_object IS NOT INITIAL.
 
       " RS_SHORTTEXT_GET has bug in buffer so we have to clear it every time (until we get a fix)
       " Note: This workaround still does not fix all issues with this function but better than nothing
@@ -147,7 +147,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
 
       ENDLOOP.
 
-      IF NOT lt_object IS INITIAL.
+      IF lt_object IS NOT INITIAL.
 
         lv_clear = abap_true. "see above
 
@@ -220,7 +220,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
 
       ENDLOOP.
 
-      IF NOT lt_object IS INITIAL.
+      IF lt_object IS NOT INITIAL.
 
         lv_clear = abap_true. "see above
 
@@ -283,7 +283,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       WHEN 'BMPC' OR swbm_c_type_proc_process.
         cv_icon = icon_workflow_process.
       WHEN 'CLAS' OR swbm_c_type_class OR 'SHMA' OR swbm_c_type_shared_obj_area
-        OR 'CINC' OR 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK' OR 'MAPP'.
+          OR 'CINC' OR 'CLSD' OR 'CPRI' OR 'CPRO' OR 'CPUB' OR 'CPAK' OR 'MAPP'.
         cv_icon = icon_oo_class.
       WHEN 'COCO' OR swbm_c_type_control_composite.
         cv_icon = icon_layout_control.
@@ -370,7 +370,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       WHEN swbm_c_type_cua_title.
         cv_icon = icon_wd_toolbar_caption.
       WHEN 'TABL' OR 'TABD' OR swbm_c_type_ddic_db_table OR swbm_c_type_ddic_structure
-        OR swbm_c_type_prg_table OR 'TABT' OR 'INDX'.
+          OR swbm_c_type_prg_table OR 'TABT' OR 'INDX'.
         cv_icon = icon_database_table.
       WHEN 'TRAN' OR swbm_c_type_transaction.
         cv_icon = icon_execute_object.
@@ -862,11 +862,11 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     CLEAR: ev_obj_type, ev_obj_name, ev_encl_obj.
 
     " Same logic as function module TR_OBJECT_JUMP_TO_TOOL
-    IF     iv_pgmid  = 'LIMU'  AND  iv_object  =  'REPO'.
+    IF iv_pgmid = 'LIMU' AND iv_object = 'REPO'.
       ev_obj_type = 'PROG'.
       ev_obj_name = iv_obj_name.
       ev_encl_obj = space.
-    ELSEIF iv_pgmid  = 'LIMU'  AND  iv_object  =  'DYNP'.
+    ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'DYNP'.
       ev_obj_type = 'DYNP'.
       lv_length1  = lc_prog + lc_dynp.      " new maximal length
       lv_name     = iv_obj_name(lv_length1)." skip comments
@@ -879,7 +879,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         ev_obj_name = lv_name+lc_prog_old(lc_dynp).
         ev_encl_obj = lv_name(lc_prog_old).
       ENDIF.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'MESS'.
+    ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'MESS'.
       ev_obj_type = 'MESS'.
       lv_length1  = lc_msag + lc_mess.      " maximum length
       lv_name     = iv_obj_name(lv_length1)." skip comments
@@ -887,7 +887,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       lv_msag     = lv_objlen - lc_mess.
       ev_obj_name = lv_name+lv_msag(lc_mess).
       ev_encl_obj = lv_name(lv_msag).
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'METH'.
+    ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'METH'.
       ev_obj_type = 'METH'.
       lv_name = iv_obj_name+lc_clas(lc_meth).
 *     Inherited methods?
@@ -897,11 +897,11 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         ev_obj_name = lv_name.
         ev_encl_obj = iv_obj_name(lc_clas).
       ENDIF.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'INTD'.
+    ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'INTD'.
       ev_obj_type = 'INTF'.
       ev_obj_name = iv_obj_name.
       ev_encl_obj = space.
-    ELSEIF iv_pgmid = 'LIMU'  AND  iv_object = 'ADIR'.
+    ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'ADIR'.
       ev_obj_type = iv_obj_name+4(4).
       ev_obj_name = iv_obj_name+8.
     ELSE.
