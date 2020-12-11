@@ -1,9 +1,3 @@
-************************************************************************
-* /MBTOOLS/CL_SAP
-* MBT SAP
-*
-* (c) MBT 2020 https://marcbernardtools.com/
-************************************************************************
 CLASS /mbtools/cl_sap DEFINITION
   PUBLIC
   FINAL
@@ -61,6 +55,11 @@ CLASS /mbtools/cl_sap DEFINITION
         !iv_obj_name     TYPE csequence
       RETURNING
         VALUE(rv_result) TYPE abap_bool .
+    CLASS-METHODS is_prog_deleted
+      IMPORTING
+        !iv_obj_name     TYPE csequence
+      RETURNING
+        VALUE(rv_result) TYPE abap_bool .
     CLASS-METHODS is_sap_note
       IMPORTING
         !iv_input        TYPE csequence
@@ -76,13 +75,20 @@ CLASS /mbtools/cl_sap DEFINITION
         !iv_input        TYPE csequence
       RETURNING
         VALUE(rv_result) TYPE string .
-    CLASS-METHODS show_object
+    CLASS-METHODS show_icon
       IMPORTING
-        !iv_pgmid      TYPE csequence DEFAULT 'R3TR'
-        !iv_object     TYPE csequence
-        !iv_obj_name   TYPE csequence
+        !iv_icon       TYPE csequence
       RETURNING
         VALUE(rv_exit) TYPE abap_bool .
+    CLASS-METHODS show_object
+      IMPORTING
+        !iv_pgmid        TYPE csequence DEFAULT 'R3TR'
+        !iv_object       TYPE csequence
+        !iv_obj_name     TYPE csequence
+        !iv_line_number  TYPE i OPTIONAL
+        !iv_sub_obj_name TYPE csequence OPTIONAL
+      RETURNING
+        VALUE(rv_exit)   TYPE abap_bool .
     CLASS-METHODS run_transaction
       IMPORTING
         !iv_tcode      TYPE csequence
@@ -124,5 +130,9 @@ CLASS /mbtools/cl_sap IMPLEMENTATION.
   METHOD run_transaction.
   ENDMETHOD.
   METHOD run_program.
+  ENDMETHOD.
+  METHOD show_icon.
+  ENDMETHOD.
+  METHOD is_prog_deleted.
   ENDMETHOD.
 ENDCLASS.
