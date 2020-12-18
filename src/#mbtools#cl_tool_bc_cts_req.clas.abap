@@ -18,7 +18,7 @@ CLASS /mbtools/cl_tool_bc_cts_req DEFINITION
 
     CONSTANTS:
       BEGIN OF c_tool,
-        version     TYPE string VALUE '1.2.0' ##NO_TEXT,
+        version     TYPE string VALUE '1.0.2' ##NO_TEXT,
         title       TYPE string VALUE 'MBT Transport Request' ##NO_TEXT,
         bundle_id   TYPE i VALUE 1,
         download_id TYPE i VALUE 4411,
@@ -41,7 +41,7 @@ ENDCLASS.
 
 
 
-CLASS /mbtools/cl_tool_bc_cts_req IMPLEMENTATION.
+CLASS /MBTOOLS/CL_TOOL_BC_CTS_REQ IMPLEMENTATION.
 
 
   METHOD constructor.
