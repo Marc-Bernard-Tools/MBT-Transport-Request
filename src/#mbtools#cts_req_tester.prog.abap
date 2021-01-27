@@ -312,7 +312,7 @@ START-OF-SELECTION.
     ELSE.
       WRITE: / 'Object:'(017), AT 15 '----' COLOR COL_NORMAL,
         gv_object COLOR COL_NORMAL.
-      gv_text = 'Not a transport object'(018).
+      gv_text = 'Not a transport object (supported in higher release)'(018).
       WRITE: AT 50 gv_text COLOR COL_NORMAL INTENSIFIED OFF.
     ENDIF.
 
@@ -450,9 +450,11 @@ FORM check_list.
     WHERE objectname = gv_object. "#EC CI_ALL_FIELDS_NEEDED "#EC CI_GENBUFF
   IF sy-subrc = 0.
     WRITE: 'Type:', objh-objecttype, 'Category:', objh-objcateg.
-  ELSE.
+  ELSEIF gv_pgmid = 'R3TR'.
     WRITE: 'Missing Object Header' COLOR COL_NORMAL INTENSIFIED OFF.
     gv_warn = gv_warn + 1.
+  ELSEIF gv_pgmid = 'LIMU'.
+    WRITE: 'Part Object' COLOR COL_NORMAL INTENSIFIED OFF.
   ENDIF.
 ENDFORM.
 
@@ -470,7 +472,7 @@ FORM check_badi.
   gv_len = strlen( gv_object ).
   IF gv_text IS INITIAL.
     IF gv_len < 4.
-      WRITE: 'Missing text'(004) COLOR COL_NORMAL INTENSIFIED OFF.
+      WRITE: 'Missing text'(004) COLOR COL_TOTAL.
       gv_warn = gv_warn + 1.
     ELSE.
       WRITE: 'Missing text'(004) COLOR COL_NEGATIVE.

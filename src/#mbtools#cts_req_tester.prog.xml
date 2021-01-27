@@ -123,8 +123,8 @@
     <item>
      <ID>I</ID>
      <KEY>018</KEY>
-     <ENTRY>Not a transport object</ENTRY>
-     <LENGTH>30</LENGTH>
+     <ENTRY>Not a transport object (supported in higher release)</ENTRY>
+     <LENGTH>80</LENGTH>
     </item>
     <item>
      <ID>I</ID>

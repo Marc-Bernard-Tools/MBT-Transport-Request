@@ -153,11 +153,11 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
             CONCATENATE lv_obj_type lv_obj_name INTO ls_e071_txt-text
               SEPARATED BY space.
           ENDIF.
-        WHEN 'SFBF'. " Business Function
+        WHEN 'SFBF' OR 'SFB2'. " Business Function
           SELECT SINGLE name80 FROM sfw_bft INTO ls_e071_txt-text
             WHERE spras     = sy-langu
               AND bfunction = <ls_e071>-obj_name.
-        WHEN 'SFBS'. " Business Set
+        WHEN 'SFBS' OR 'SFB1'. " Business Set
           SELECT SINGLE name80 FROM sfw_bst INTO ls_e071_txt-text
             WHERE spras = sy-langu
               AND bset  = <ls_e071>-obj_name.
@@ -271,9 +271,9 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
         cv_icon = icon_viewer_optical_archive.
       WHEN 'AVAS'. " Classification
         cv_icon = icon_class_connection_space.
-      WHEN 'SFBF'. " Business Function
+      WHEN 'SFBF' OR 'SFB2'. " Business Function
         cv_icon = icon_activity_group.
-      WHEN 'SFBS'. " Business Set
+      WHEN 'SFBS' OR 'SFB1'. " Business Set
         cv_icon = icon_composite_activitygroup.
       WHEN 'SFSW'. " Switch
         cv_icon = icon_business_area.
@@ -347,6 +347,10 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
     ls_object_list-low = 'AOBJ'. " Archiving object
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AVAS'. " Classification
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'SFB1'. " Switch Framework
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'SFB2'. " Switch Framework
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFBF'. " Switch Framework
     APPEND ls_object_list TO gt_object_list.
