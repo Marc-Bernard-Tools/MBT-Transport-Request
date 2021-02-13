@@ -396,11 +396,11 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       WHEN 'WEBI' OR swbm_c_type_virt_interface.
         cv_icon = icon_interface.
       WHEN 'ENHO' OR swbm_c_type_enhancement.
-        cv_icon = icon_activity_group.
+        cv_icon = icon_vsd.
       WHEN 'ENHC' OR swbm_c_type_enh_composite.
         cv_icon = icon_wd_tree_node.
       WHEN 'ENHS' OR swbm_c_type_enh_spot.
-        cv_icon = icon_mc_contentindicator.
+        cv_icon = icon_wd_context.
       WHEN 'ENSC' OR swbm_c_type_enh_spot_comp.
         cv_icon = icon_wd_controller.
       WHEN 'SFPI' OR swbm_c_type_formobject_intf.
