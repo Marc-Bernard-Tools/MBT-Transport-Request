@@ -275,6 +275,7 @@ CLASS /mbtools/cl_cts_req_disp_bw IMPLEMENTATION.
     " Get all TLOGO properties
     IF gt_tlogoprop IS INITIAL.
       SELECT * FROM rstlogoprop INTO TABLE gt_tlogoprop.
+      ASSERT sy-subrc = 0.
 
       " Enhancements and DDLs are handled in /MBTOOLS/CL_CTS_REQ_DISP_WB
       DELETE gt_tlogoprop WHERE tlogo = 'ENHO' OR tlogo = 'DDLS'. "#EC CI_HASHSEQ

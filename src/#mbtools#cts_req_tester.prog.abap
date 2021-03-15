@@ -505,6 +505,8 @@ FORM check_badi.
 ENDFORM.
 
 FORM check_objs.
+  DATA lv_subrc TYPE sy-subrc.
+
   " Check of WB objects
   IF gv_class = '/MBTOOLS/CL_CTS_REQ_DISP_WB'.
     WRITE: 'WB Mapping:'(021).
@@ -531,8 +533,6 @@ FORM check_objs.
   SKIP.
 
   " Get some (random) test objects
-  CLEAR sy-subrc.
-
   IF gv_pgmid = 'R3TR'.
     SELECT DISTINCT pgmid object obj_name FROM tadir
       INTO CORRESPONDING FIELDS OF TABLE gt_e071
@@ -540,9 +540,10 @@ FORM check_objs.
       WHERE pgmid = 'R3TR' AND object = gv_object
         AND obj_name BETWEEN 'A' AND 'ZZZ'
         AND delflag = '' ##TOO_MANY_ITAB_FIELDS. "#EC CI_BYPASS "#EC CI_GENBUFF
+    lv_subrc = sy-subrc.
   ENDIF.
 
-  IF gv_pgmid = 'LIMU' OR sy-subrc <> 0.
+  IF gv_pgmid = 'LIMU' OR lv_subrc <> 0.
     SELECT DISTINCT pgmid object obj_name FROM e071
       INTO CORRESPONDING FIELDS OF TABLE gt_e071
       UP TO p_count ROWS
