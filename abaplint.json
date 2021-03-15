@@ -40,9 +40,10 @@
 		"allowed_object_types": {
 			"allowed": [
 				"CLAS",
-				"DTEL",
 				"DEVC",
 				"DOMA",
+				"DSYS",
+				"DTEL",
 				"ENHC",
 				"ENHO",
 				"ENHS",
@@ -72,7 +73,9 @@
 			"defaultKey": false,
 			"define": true,
 			"describeLines": true,
-			"exclude": [],
+			"exclude": [
+				"#mbtools#cts_req_diff.prog.abap"
+			],
 			"severity": "Error",
 			"statics": true
 		},
@@ -205,7 +208,7 @@
 			"systemCall": true
 		},
 		"db_operation_in_loop": {
-			"exclude": [],
+			"exclude": [".*"],
 			"severity": "Error"
 		},
 		"definitions_top": {
@@ -439,9 +442,11 @@
 		"method_length": {
 			"errorWhenEmpty": true,
 			"exclude": [],
+				"#mbtools#cl_cts_req_disp_wb.clas.abap"
+			],
 			"ignoreTestClasses": true,
 			"severity": "Warning",
-			"statements": 100
+			"statements": 150
 		},
 		"method_overwrites_builtin": {
 			"exclude": [],
@@ -828,8 +833,10 @@
 			"icon_view_table",
 			"icon_view_thumbnails",
 			"icon_viewer_optical_archive",
+			"icon_vsd",
 			"icon_wd_application",
 			"icon_wd_component",
+			"icon_wd_context",
 			"icon_wd_controller",
 			"icon_wd_custom_controller",
 			"icon_wd_toolbar",
