@@ -441,7 +441,7 @@
 		},
 		"method_length": {
 			"errorWhenEmpty": true,
-			"exclude": [],
+			"exclude": [
 				"#mbtools#cl_cts_req_disp_wb.clas.abap"
 			],
 			"ignoreTestClasses": true,
