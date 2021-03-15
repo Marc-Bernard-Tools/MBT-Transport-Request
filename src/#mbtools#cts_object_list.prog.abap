@@ -737,7 +737,7 @@ FORM get_object_and_display_name
   lv_more = strlen( rv_obj_name ).
   IF lv_more > gc_width.
     lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
-    CONCATENATE rv_obj_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis INTO rv_obj_name.
+    CONCATENATE rv_obj_name(lv_pos) /mbtools/if_special_chars=>c_ellipsis INTO rv_obj_name.
   ENDIF.
 
   " Return display name
@@ -747,7 +747,7 @@ FORM get_object_and_display_name
     lv_more = strlen( rv_disp_name ).
     IF lv_more > gc_width.
       lv_pos = /mbtools/if_cts_req_display=>c_pos_ellipsis.
-      CONCATENATE rv_disp_name(lv_pos) /mbtools/if_cts_req_display=>c_ellipsis ']' INTO rv_disp_name.
+      CONCATENATE rv_disp_name(lv_pos) /mbtools/if_special_chars=>c_ellipsis ']' INTO rv_disp_name.
     ENDIF.
   ENDIF.
 

@@ -154,6 +154,8 @@ INITIALIZATION.
 
   scr_t230 = 'Select which check to perform'(230).
 
+  scr_tab-prog = sy-cprog. " abaplint #1291
+
   " All classes provided by abapGit
   SELECT DISTINCT clsname FROM seoclass INTO TABLE gt_abapgit
     WHERE clsname LIKE 'ZCL_ABAPGIT_OBJECT_%'
@@ -195,6 +197,7 @@ START-OF-SELECTION.
   SELECT DISTINCT clsname FROM seometarel INTO TABLE gt_classes
     WHERE clsname IN s_class AND refclsname = '/MBTOOLS/IF_CTS_REQ_DISPLAY'
     ORDER BY clsname.                    "#EC CI_BYPASS "#EC CI_GENBUFF
+  CHECK sy-subrc = 0.
 
   gt_no_enh = gt_abapgit.
 
@@ -590,13 +593,11 @@ FORM check_objs.
           WRITE: gs_e071_txt-text COLOR COL_POSITIVE.
           gv_ok = gv_ok + 1.
         ENDIF.
+        gs_e071_txt-obj_name = '[' && gs_e071_txt-obj_name && ']'.
+        CONDENSE gs_e071_txt-obj_name NO-GAPS.
         IF gs_e071-obj_name = gs_e071_txt-obj_name.
-          gs_e071_txt-obj_name = '[' && gs_e071_txt-obj_name && ']'.
-          CONDENSE gs_e071_txt-obj_name NO-GAPS.
           WRITE: gs_e071_txt-obj_name COLOR COL_NORMAL INTENSIFIED ON.
         ELSE.
-          gs_e071_txt-obj_name = '[' && gs_e071_txt-obj_name && ']'.
-          CONDENSE gs_e071_txt-obj_name NO-GAPS.
           WRITE: gs_e071_txt-obj_name COLOR COL_NORMAL INTENSIFIED OFF.
         ENDIF.
       ELSE.
