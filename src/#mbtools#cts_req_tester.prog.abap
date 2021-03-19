@@ -432,7 +432,7 @@ FORM get_object_type_ext
     WHEN 'SPRX'.
       ev_obj_type = 'DE/T'.
     WHEN 'DDLS'.
-      ev_obj_type = swbm_c_type_ddic_ddl_source.
+      ev_obj_type = 'DF '. "swbm_c_type_ddic_ddl_source.
     WHEN 'DCLS'.
       ev_obj_type = 'Q0R'.
     WHEN 'DEVP'.

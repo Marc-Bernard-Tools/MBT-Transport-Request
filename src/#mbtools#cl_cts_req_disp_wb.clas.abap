@@ -431,7 +431,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         cv_icon = icon_abap.
       WHEN 'LDBA'.
         cv_icon = icon_database_table.
-      WHEN 'DDLS' OR swbm_c_type_ddic_ddl_source.
+      WHEN 'DDLS' OR 'DF '. "swbm_c_type_ddic_ddl_source.
         cv_icon = icon_abap.
       WHEN 'DCLS' OR 'Q0R'.
         cv_icon = icon_locked.

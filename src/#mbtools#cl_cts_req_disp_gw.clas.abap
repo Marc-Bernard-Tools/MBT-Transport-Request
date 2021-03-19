@@ -36,6 +36,7 @@ CLASS /mbtools/cl_cts_req_disp_gw IMPLEMENTATION.
   METHOD /mbtools/if_cts_req_display~get_object_descriptions.
 
     DATA:
+      lv_tabname  TYPE tabname,
       ls_e071_txt TYPE /mbtools/trwbo_s_e071_txt.
 
     FIELD-SYMBOLS:
@@ -57,47 +58,55 @@ CLASS /mbtools/cl_cts_req_disp_gw IMPLEMENTATION.
         WHEN 'G4BA'  " SAP Gateway OData V4 Backend Service Group & Assigments
           OR 'G4BG'  " SAP Gateway OData V4 Backend Service Group & Assigments (obsolete)
           OR 'G4BS'. " SAP Gateway OData V4 Backend Service
-          SELECT SINGLE description FROM /iwbep/i_v4_msgt INTO ls_e071_txt-text
+          lv_tabname = '/IWBEP/I_V4_MSGT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE group_id = <ls_e071>-object
               AND language = sy-langu.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
         WHEN 'IWMO'. " SAP Gateway Business Suite Enablement - Model
-          SELECT SINGLE description FROM /iwbep/i_mgw_oht INTO ls_e071_txt-text
+          lv_tabname = '/IWBEP/I_MGW_OHT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE technical_name = <ls_e071>-obj_name(32)
               AND version = <ls_e071>-obj_name+32(4)
               AND language = sy-langu.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
         WHEN 'IWOM'. " SAP Gateway: Model Metadata
-          SELECT SINGLE description FROM /iwfnd/i_med_oht INTO ls_e071_txt-text
+          lv_tabname = '/IWFND/I_MED_OHT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE model_identifier = <ls_e071>-obj_name
               AND is_active = 'A'
               AND language = sy-langu.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
         WHEN 'IWPR'. " SAP Gateway BSE - Service Builder Project
-          SELECT SINGLE description FROM /iwbep/i_sbd_prt INTO ls_e071_txt-text
+          lv_tabname = '/IWBEP/I_SBD_PRT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE project = <ls_e071>-obj_name
               AND sylangu = sy-langu.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
         WHEN 'IWSG'. " SAP Gateway: Service Groups Metadata
-          SELECT SINGLE description FROM /iwfnd/i_med_srt INTO ls_e071_txt-text
+          lv_tabname = '/IWFND/I_MED_SRT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE srv_identifier = <ls_e071>-obj_name
               AND is_active = 'A'
               AND language = sy-langu.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
         WHEN 'IWSV'. " SAP Gateway Business Suite Enablement - Service
-          SELECT SINGLE description FROM /iwbep/i_mgw_srt INTO ls_e071_txt-text
+          lv_tabname = '/IWBEP/I_MGW_SRT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE technical_name = <ls_e071>-obj_name(35)
               AND version = <ls_e071>-obj_name+35(4)
               AND language = sy-langu.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
         WHEN 'IWVB'. " SAP Gateway Business Suite Enablement - Vocabulary Annotation
-          SELECT SINGLE description FROM /iwbep/i_mgw_vat INTO ls_e071_txt-text
+          lv_tabname = '/IWBEP/I_MGW_VAT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE technical_name = <ls_e071>-obj_name(32)
               AND version = <ls_e071>-obj_name+32(4)
               AND language = sy-langu.
           INSERT ls_e071_txt INTO TABLE ct_e071_txt.
         WHEN 'IWVO'. " SAP Gateway Business Suite Enablement - Vocabulary
-          SELECT SINGLE description FROM /iwbep/i_mgw_vot INTO ls_e071_txt-text
+          lv_tabname = '/IWBEP/I_MGW_VOT'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE vocab_id = <ls_e071>-obj_name(32)
               AND version = <ls_e071>-obj_name+32(4)
               AND language = sy-langu.

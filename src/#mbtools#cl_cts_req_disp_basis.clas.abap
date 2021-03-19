@@ -96,7 +96,8 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
                 AND objecttype = lv_objecttype.
           ENDIF.
         WHEN 'OBJA'. " After import method (api)
-          SELECT SINGLE description FROM slapitx INTO ls_e071_txt-text
+          lv_tabname = 'SLAPITX'.
+          SELECT SINGLE description FROM (lv_tabname) INTO ls_e071_txt-text
             WHERE language = sy-langu
               AND api_id   = <ls_e071>-obj_name.
 
