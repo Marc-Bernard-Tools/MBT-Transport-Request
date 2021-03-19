@@ -184,7 +184,7 @@ CLASS /mbtools/cl_cts_req_disp_bw IMPLEMENTATION.
               lv_txtlg = 'Data Packet Characteristic'(004).
             WHEN rsd_c_objtp-unit.
               lv_txtlg = 'Unit of Measurement'(005).
-            WHEN rsd_c_objtp-xxl.
+            WHEN 'XXL'. "rsd_c_objtp-xxl.
               lv_txtlg = 'XXL InfoObject'(006).
             WHEN OTHERS.
               lv_txtlg = 'Unknown InfoObject Type'(007).
