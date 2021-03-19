@@ -824,7 +824,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DCLS'.
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = swbm_c_type_ddic_ddl_source.
+    ls_object_list-low = 'DF '. "swbm_c_type_ddic_ddl_source.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'PRAG'.
     APPEND ls_object_list TO gt_object_list.
@@ -958,7 +958,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         ev_obj_type = ev_obj_name(4).
         ev_obj_name = ev_obj_name+4(*).
       WHEN 'DDLS'.
-        ev_obj_type = swbm_c_type_ddic_ddl_source.
+        ev_obj_type = 'DF '. "swbm_c_type_ddic_ddl_source.
       WHEN 'DCLS'.
         ev_obj_type = 'Q0R'.
       WHEN 'DEVP'.
