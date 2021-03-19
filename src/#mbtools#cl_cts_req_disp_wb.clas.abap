@@ -27,6 +27,10 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
 
   PRIVATE SECTION.
 
+    TYPES:
+      ty_shorttext  TYPE seu_objtxt,
+      ty_shorttexts TYPE STANDARD TABLE OF seu_objtxt WITH DEFAULT KEY.
+
     CLASS-METHODS split_object
       IMPORTING
         !iv_pgmid    TYPE e071-pgmid
@@ -36,6 +40,10 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
         !ev_obj_type TYPE trobjtype
         !ev_obj_name TYPE sobj_name
         !ev_encl_obj TYPE sobj_name .
+
+    CLASS-METHODS get_shorttexts
+      CHANGING
+        ct_object TYPE ty_shorttexts.
 
 ENDCLASS.
 
@@ -76,15 +84,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
 
     IF lt_object IS NOT INITIAL.
 
-      " RS_SHORTTEXT_GET has bug in buffer so we have to clear it every time (until we get a fix)
-      " Note: This workaround still does not fix all issues with this function but better than nothing
-      lv_clear = abap_true.
-
-      CALL FUNCTION 'RS_SHORTTEXT_GET'
-        EXPORTING
-          clear_buffer = lv_clear
-        TABLES
-          obj_tab      = lt_object.
+      get_shorttexts( CHANGING ct_object = lt_object ).
 
       LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
 
@@ -147,13 +147,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
 
       IF lt_object IS NOT INITIAL.
 
-        lv_clear = abap_true. "see above
-
-        CALL FUNCTION 'RS_SHORTTEXT_GET'
-          EXPORTING
-            clear_buffer = lv_clear
-          TABLES
-            obj_tab      = lt_object.
+        get_shorttexts( CHANGING ct_object = lt_object ).
 
         LOOP AT it_e071k ASSIGNING <ls_e071k> WHERE object IN gt_object_list.
 
@@ -220,13 +214,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
 
       IF lt_object IS NOT INITIAL.
 
-        lv_clear = abap_true. "see above
-
-        CALL FUNCTION 'RS_SHORTTEXT_GET'
-          EXPORTING
-            clear_buffer = lv_clear
-          TABLES
-            obj_tab      = lt_object.
+        get_shorttexts( CHANGING ct_object = lt_object ).
 
         LOOP AT it_e071k_str ASSIGNING <ls_e071k_str> WHERE object IN gt_object_list.
 
@@ -834,6 +822,29 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SAPC'.
     APPEND ls_object_list TO gt_object_list.
+
+  ENDMETHOD.
+
+
+  METHOD get_shorttexts.
+
+    DATA lv_clear TYPE abap_bool.
+
+    " RS_SHORTTEXT_GET has bug in buffer so we have to clear it every time (until we get a fix)
+    " Note: This workaround still does not fix all issues with this function but better than nothing
+    lv_clear = abap_true.
+
+    TRY.
+        CALL FUNCTION 'RS_SHORTTEXT_GET'
+          EXPORTING
+            clear_buffer = lv_clear  " not in lower releases
+          TABLES
+            obj_tab      = ct_object.
+      CATCH cx_sy_dyn_call_param_not_found.
+        CALL FUNCTION 'RS_SHORTTEXT_GET'
+          TABLES
+            obj_tab = ct_object.
+    ENDTRY.
 
   ENDMETHOD.
 
