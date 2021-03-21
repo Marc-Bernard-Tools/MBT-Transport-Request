@@ -29,7 +29,7 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
 
     TYPES:
       ty_shorttext  TYPE seu_objtxt,
-      ty_shorttexts TYPE STANDARD TABLE OF seu_objtxt WITH DEFAULT KEY.
+      ty_shorttexts TYPE STANDARD TABLE OF ty_shorttext WITH DEFAULT KEY.
 
     CLASS-METHODS split_object
       IMPORTING
@@ -58,8 +58,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       ls_e071_txt TYPE /mbtools/trwbo_s_e071_txt,
       ls_object   TYPE seu_objtxt,
       lt_object   TYPE TABLE OF seu_objtxt,
-      lv_obj_name TYPE trobj_name,
-      lv_clear    TYPE xsdboolean.
+      lv_obj_name TYPE trobj_name.
 
     FIELD-SYMBOLS:
       <ls_e071>      TYPE trwbo_s_e071,
