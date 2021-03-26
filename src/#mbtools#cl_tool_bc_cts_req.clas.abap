@@ -40,8 +40,18 @@ ENDCLASS.
 CLASS /mbtools/cl_tool_bc_cts_req IMPLEMENTATION.
 
 
+  METHOD /mbtools/if_tool~install.
+    RETURN.
+  ENDMETHOD.
+
+
   METHOD /mbtools/if_tool~launch.
     /mbtools/cl_sap=>run_transaction( 'SE09' ).
+  ENDMETHOD.
+
+
+  METHOD /mbtools/if_tool~uninstall.
+    RETURN.
   ENDMETHOD.
 
 
