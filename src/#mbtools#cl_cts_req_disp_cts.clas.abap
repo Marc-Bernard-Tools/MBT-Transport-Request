@@ -58,7 +58,7 @@ CLASS /mbtools/cl_cts_req_disp_cts IMPLEMENTATION.
           cv_icon   = ls_e071_txt-icon ).
 
       CASE <ls_e071>-object.
-        WHEN 'MERG' OR 'RELE' OR 'COMM'.
+        WHEN 'MERG' OR 'RELE' OR 'COMM' OR 'CPKM'.
           " Comment: Object List Included, Comment Entry: Released,
           " Object List of Request or Piece List
           SELECT SINGLE as4text FROM e07t INTO ls_e071_txt-text
@@ -103,6 +103,8 @@ CLASS /mbtools/cl_cts_req_disp_cts IMPLEMENTATION.
         cv_icon = icon_detail.
       WHEN 'COMM'. " Object List of Request or Piece List
         cv_icon = icon_document.
+      WHEN 'CPKM'. " Meta data of a transport-based correction instruction
+        cv_icon = icon_transport.
       WHEN 'SYST'. " Global System Options
         cv_icon = icon_header.
       WHEN OTHERS.
@@ -131,6 +133,8 @@ CLASS /mbtools/cl_cts_req_disp_cts IMPLEMENTATION.
     ls_object_list-low = 'ADIR'. " Object Directory Entry
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'COMM'. " Object List of Request or Piece List
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'CPKM'. " Meta data of a transport-based correction instruction
     APPEND ls_object_list TO gt_object_list.
 
   ENDMETHOD.
