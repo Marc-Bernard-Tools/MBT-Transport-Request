@@ -2,7 +2,7 @@
 
 # MBT Transport Request
 
-The Ultimate Enhancement for Displaying Transport Requests in SAP GUI
+The ultimate enhancement for displaying of transport requests in SAP GUI
 
 ### EVERYTHING IS VERY MUCH IN PROGRESS HERE 
 ### WE SUGGEST TO WAIT UNTIL THE OFFICIAL LAUNCH
