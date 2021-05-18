@@ -642,8 +642,8 @@
 			"endSelect": true,
 			"exclude": [".*"],
 			"selectStar": true,
-			"severity": "Error"
-			"starOkayIfFewColumns": 10,
+			"severity": "Error",
+			"starOkayIfFewColumns": 10
 		},
 		"selection_screen_naming": {
 			"exclude": [],
@@ -721,6 +721,10 @@
 			"severity": "Error"
 		},
 		"unreachable_code": {
+			"exclude": [],
+			"severity": "Error"
+		},
+		"unsecure_fae": {
 			"exclude": [],
 			"severity": "Error"
 		},
