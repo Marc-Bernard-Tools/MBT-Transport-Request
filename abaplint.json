@@ -320,6 +320,10 @@
 			"exclude": [],
 			"severity": "Error"
 		},
+		"identical_descriptions": {
+			"exclude": [],
+			"severity": "Error"
+		},
 		"identical_form_names": {
 			"exclude": [],
 			"severity": "Error"
@@ -468,6 +472,12 @@
 			"exclude": [],
 			"severity": "Error"
 		},
+		"modify_only_own_db_tables": {
+			"exclude": [],
+			"ownTables": "^/MBTOOLS/",
+			"reportDynamic": true,
+			"severity": "Error"
+		},
 		"msag_consistency": {
 			"exclude": [],
 			"severity": "Error"
@@ -492,6 +502,11 @@
 			"exclude": [
 				"#mbtools#if_command.intf.abap"
 			],
+			"severity": "Error"
+		},
+		"no_yoda_conditions": {
+			"exclude": [],
+  			"onlyConstants": true,
 			"severity": "Error"
 		},
 		"object_naming": {
@@ -526,14 +541,17 @@
 			"divide": true,
 			"exclude": [],
 			"fieldSymbolStructure": true,
+			"freeMemory": true,
 			"load": true,
 			"move": true,
 			"multiply": true,
 			"occurs": true,
+			"pack": true,
 			"parameter": true,
 			"ranges": true,
 			"refresh": true,
 			"requested": true,
+			"selectWithoutInto": true,
 			"setExtended": true,
 			"severity": "Error",
 			"subtract": true,
@@ -616,11 +634,16 @@
 			"exclude": [],
 			"severity": "Error"
 		},
+		"select_add_order_by": {
+			"exclude": [".*"],
+			"severity": "Error"
+		},
 		"select_performance": {
 			"endSelect": true,
 			"exclude": [".*"],
 			"selectStar": true,
 			"severity": "Error"
+			"starOkayIfFewColumns": 10,
 		},
 		"selection_screen_naming": {
 			"exclude": [],
