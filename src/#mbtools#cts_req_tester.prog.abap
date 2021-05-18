@@ -104,6 +104,7 @@ DATA:
   gv_text        TYPE ddtext,
   gv_icon        TYPE icon_d,
   gv_type        TYPE seu_stype,
+  gs_objh        TYPE objh,
   gv_pgmid       TYPE pgmid,
   gv_object      TYPE trobjtype,
   gv_obj_type    TYPE trobjtype,
@@ -452,10 +453,10 @@ FORM get_object_type_ext
 ENDFORM.
 
 FORM check_list.
-  SELECT SINGLE * FROM objh
+  SELECT SINGLE * FROM objh INTO gs_objh
     WHERE objectname = gv_object. "#EC CI_ALL_FIELDS_NEEDED "#EC CI_GENBUFF
   IF sy-subrc = 0.
-    WRITE: 'Type:', objh-objecttype, 'Category:', objh-objcateg.
+    WRITE: 'Type:', gs_objh-objecttype, 'Category:', gs_objh-objcateg.
   ELSEIF gv_pgmid = 'R3TR'.
     WRITE: 'Missing Object Header' COLOR COL_NORMAL INTENSIFIED OFF.
     gv_warn = gv_warn + 1.
