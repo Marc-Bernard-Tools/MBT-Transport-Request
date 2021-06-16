@@ -102,6 +102,7 @@
 			"move": true,
 			"refresh": true,
 			"severity": "Error",
+			"sort": true,
 			"unassign": true,
 			"write": true
 		},
@@ -253,6 +254,8 @@
 			"while": true
 		},
 		"exit_or_check": {
+			"allowCheck": false,
+			"allowExit": false,
 			"exclude": [".*"],
 			"severity": "Error"
 		},
@@ -348,6 +351,7 @@
 			"ignoreExceptions": true,
 			"ignoreGlobalClassDefinition": false,
 			"ignoreGlobalInterface": false,
+			"selectionScreenBlockIndentation": false,
 			"severity": "Error"
 		},
 		"inline_data_old_versions": {
@@ -355,9 +359,8 @@
 			"severity": "Error"
 		},
 		"intf_referencing_clas": {
-			"exclude": [
-				"#mbtools#if_command.intf.abap"
-			],
+			"allow": [],
+			"exclude": [],
 			"severity": "Error"
 		},
 		"keep_single_parameter_on_one_line": {
@@ -540,6 +543,7 @@
 			"compute": true,
 			"divide": true,
 			"exclude": [],
+			"exitFromSQL": true,
 			"fieldSymbolStructure": true,
 			"freeMemory": true,
 			"load": true,
