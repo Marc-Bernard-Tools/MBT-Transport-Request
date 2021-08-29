@@ -188,6 +188,11 @@
 			"severity": "Error",
 			"spaces": 1
 		},
+		"cyclic_oo": {
+			"exclude": [],
+			"severity": "Error",
+			"skip": []
+		},
 		"cyclomatic_complexity": {
 			"exclude": [],
 			"max": 20,
@@ -340,6 +345,7 @@
 			"severity": "Error"
 		},
 		"in_statement_indentation": {
+			"blockStatements": 2,
 			"exclude": [".*"],
 			"ignoreExceptions": true,
 			"severity": "Error"
@@ -381,6 +387,7 @@
 			"style": "upper"
 		},
 		"line_break_multiple_parameters": {
+			"count": 1,
 			"exclude": [],
 			"severity": "Error"
 		},
@@ -426,7 +433,7 @@
 			"exclude": [],
 			"severity": "Error"
 		},
-		"many_parenthesis": {
+		"many_parentheses": {
 			"exclude": [],
 			"severity": "Error"
 		},
@@ -447,6 +454,7 @@
 			"severity": "Error"
 		},
 		"method_length": {
+			"checkForms": true,
 			"errorWhenEmpty": true,
 			"exclude": [
 				"#mbtools#cl_cts_req_disp_wb.clas.abap"
@@ -539,6 +547,7 @@
 		},
 		"obsolete_statement": {
 			"add": true,
+			"callTransformation": true,
 			"communication": true,
 			"compute": true,
 			"divide": true,
@@ -558,6 +567,7 @@
 			"selectWithoutInto": true,
 			"setExtended": true,
 			"severity": "Error",
+			"sortByFS": true,
 			"subtract": true,
 			"typePools": true,
 			"withHeaderLine": true
@@ -732,6 +742,10 @@
 			"exclude": [],
 			"severity": "Error"
 		},
+		"unused_ddic": {
+			"exclude": [],
+			"severity": "Error"
+		},
 		"unused_methods": {
 			"exclude": [],
 			"severity": "Error"
@@ -778,109 +792,6 @@
 	"syntax": {
 		"errorNamespace": "^(/MBTOOLS/|LCL_|LIF_|Y|Z)",
 		"globalConstants": [
-			"icon_abap",
-			"icon_abc",
-			"icon_activity_group",
-			"icon_annotation",
-			"icon_background_job",
-			"icon_biw_report",
-			"icon_biw_virtual_info_provider",
-			"icon_bmp",
-			"icon_businav_datamodel",
-			"icon_businav_entity",
-			"icon_businav_objects",
-			"icon_business_area",
-			"icon_bw_apd_db",
-			"icon_bw_exception_monitor",
-			"icon_change_number",
-			"icon_change_text",
-			"icon_check",
-			"icon_class_connection_space",
-			"icon_composite_activitygroup",
-			"icon_configuration",
-			"icon_context_menu",
-			"icon_controlling_area",
-			"icon_database_table",
-			"icon_database_table_ina",
-			"icon_delete",
-			"icon_detail",
-			"icon_display_text",
-			"icon_display_tree",
-			"icon_document",
-			"icon_dummy",
-			"icon_execute_object",
-			"icon_filter",
-			"icon_foreign_key",
-			"icon_header",
-			"icon_htm",
-			"icon_htt",
-			"icon_include_objects",
-			"icon_interface",
-			"icon_layout_control",
-			"icon_led_green",
-			"icon_led_inactive",
-			"icon_led_red",
-			"icon_led_yellow",
-			"icon_list",
-			"icon_locked",
-			"icon_mc_contentindicator",
-			"icon_message_information",
-			"icon_message_type",
-			"icon_model",
-			"icon_modification_create",
-			"icon_modification_overview",
-			"icon_modified_object",
-			"icon_object_list",
-			"icon_okay",
-			"icon_oo_class",
-			"icon_oo_class_method",
-			"icon_oo_interface",
-			"icon_package_application",
-			"icon_package_dynamic",
-			"icon_package_standard",
-			"icon_parameter",
-			"icon_project",
-			"icon_ranking",
-			"icon_release",
-			"icon_role",
-			"icon_set_state",
-			"icon_short_message",
-			"icon_stack",
-			"icon_status_critical",
-			"icon_summarize",
-			"icon_system_help",
-			"icon_system_play",
-			"icon_system_start_recording",
-			"icon_table_settings",
-			"icon_test",
-			"icon_text_ina",
-			"icon_tree",
-			"icon_transport",
-			"icon_url",
-			"icon_value_help",
-			"icon_variants",
-			"icon_view_form",
-			"icon_view_list",
-			"icon_view_table",
-			"icon_view_thumbnails",
-			"icon_viewer_optical_archive",
-			"icon_vsd",
-			"icon_wd_application",
-			"icon_wd_component",
-			"icon_wd_context",
-			"icon_wd_controller",
-			"icon_wd_custom_controller",
-			"icon_wd_toolbar",
-			"icon_wd_toolbar_caption",
-			"icon_wd_tree_node",
-			"icon_wd_view",
-			"icon_wf_reserve_workitem",
-			"icon_workflow",
-			"icon_workflow_activity",
-			"icon_workflow_fork",
-			"icon_workflow_process",
-			"icon_write_file",
-			"icon_xml_doc",
 			"ko100",
 			"mbt_manifest",
 			"rs_c_objvers",
