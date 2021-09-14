@@ -1,10 +1,11 @@
 INTERFACE /mbtools/if_cts_req_display
   PUBLIC .
+
 ************************************************************************
-* /MBTOOLS/CL_TOOL_BC_CTS_REQ
 * MBT Transport Request
 *
-* (c) MBT 2020 https://marcbernardtools.com/
+* Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
+* SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
 
   INTERFACES if_badi_interface .

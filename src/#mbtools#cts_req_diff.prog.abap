@@ -5,7 +5,8 @@ REPORT /mbtools/cts_req_diff LINE-SIZE 250.
 * This program is used to catch differences between standard coding and
 * the MBT enhancement
 *
-* (c) MBT 2020 https://marcbernardtools.com/
+* Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
+* SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
 
 CONSTANTS:

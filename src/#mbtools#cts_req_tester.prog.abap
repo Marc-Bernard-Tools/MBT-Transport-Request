@@ -4,7 +4,8 @@ REPORT /mbtools/cts_req_tester LINE-SIZE 255.
 *
 * This program is used to test the implementation of the enhancement
 *
-* (c) MBT 2020 https://marcbernardtools.com/
+* Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
+* SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
 
 TABLES:

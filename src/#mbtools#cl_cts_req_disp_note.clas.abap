@@ -6,7 +6,8 @@ CLASS /mbtools/cl_cts_req_disp_note DEFINITION
 ************************************************************************
 * MBT Request Display - SAP Notes
 *
-* (c) MBT 2020 https://marcbernardtools.com/
+* Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
+* SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
   PUBLIC SECTION.
 
