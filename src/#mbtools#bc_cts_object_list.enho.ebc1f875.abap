@@ -1,4 +1,4 @@
-"NAME:\PR:SAPLSTRH\FO:CREATE_OBJECT_LIST\SE:BEGIN\EI
+"Name: \PR:SAPLSTRH\FO:CREATE_OBJECT_LIST\SE:BEGIN\EI
 ENHANCEMENT 0 /MBTOOLS/BC_CTS_OBJECT_LIST.
 ************************************************************************
 * MBT Transport Request

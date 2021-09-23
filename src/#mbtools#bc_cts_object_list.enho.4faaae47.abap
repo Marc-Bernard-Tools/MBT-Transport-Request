@@ -1,5 +1,5 @@
-"NAME:\PR:SAPLSTRV\FO:CREATE_TREE\SE:BEGIN\EI
-ENHANCEMENT 0 /MBTOOLS/BC_CTS_OBJECT_LIST_2.
+"Name: \FU:TRINT_DISPLAY_REQUESTS\SE:BEGIN\EI
+ENHANCEMENT 0 /MBTOOLS/BC_CTS_OBJECT_LIST.
 ************************************************************************
 * MBT Transport Request
 *
@@ -9,8 +9,10 @@ ENHANCEMENT 0 /MBTOOLS/BC_CTS_OBJECT_LIST_2.
 
   IF /mbtools/cl_switches=>is_active( /mbtools/cl_switches=>c_tool-mbt_transport_request ) = abap_true.
 
-    PERFORM create_tree IN PROGRAM /mbtools/cts_object_list_2
-      CHANGING pt_nodes.
+    " Wider popup to display description AND object names
+    IF is_popup-end_column = 84.
+      is_popup-end_column = 150.
+    ENDIF.
 
   ENDIF.
 

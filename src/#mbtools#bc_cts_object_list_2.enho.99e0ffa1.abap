@@ -1,5 +1,5 @@
-"NAME:\PR:SAPLSTRH\FO:CREATE_KEY_LIST\SE:BEGIN\EI
-ENHANCEMENT 0 /MBTOOLS/BC_CTS_OBJECT_LIST.
+"Name: \PR:SAPLSTRV\FO:CREATE_TREE\SE:BEGIN\EI
+ENHANCEMENT 0 /MBTOOLS/BC_CTS_OBJECT_LIST_2.
 ************************************************************************
 * MBT Transport Request
 *
@@ -9,16 +9,8 @@ ENHANCEMENT 0 /MBTOOLS/BC_CTS_OBJECT_LIST.
 
   IF /mbtools/cl_switches=>is_active( /mbtools/cl_switches=>c_tool-mbt_transport_request ) = abap_true.
 
-    PERFORM create_key_list IN PROGRAM /mbtools/cts_object_list
-      USING    pv_keep_nodes
-               pv_object_level
-               pv_as4pos
-               pt_e071
-               pt_e071k
-               pt_e071k_str
+    PERFORM create_tree IN PROGRAM /mbtools/cts_object_list_2
       CHANGING pt_nodes.
-
-    EXIT.
 
   ENDIF.
 
