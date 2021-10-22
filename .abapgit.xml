@@ -11,22 +11,6 @@
      <MIN_RELEASE>731</MIN_RELEASE>
     </item>
    </REQUIREMENTS>
-   <PACKAGING>
-    <NAME>MBT-Transport-Request</NAME>
-    <VERSION>1.1.0</VERSION>
-    <DESCRIPTION>The ultimate enhancement for displaying of transport requests in SAP GUI</DESCRIPTION>
-    <GIT_URL>https://github.com/Marc-Bernard-Tools/MBT-Transport-Request</GIT_URL>
-    <TARGET_PACKAGE>/MBTOOLS/BC-CTS-REQ</TARGET_PACKAGE>
-    <LOGO>/MBTOOLS/MBT_TRANSPORT_REQUEST_TN</LOGO>
-    <DEPENDENCIES>
-     <item>
-      <NAME>MBT-Base</NAME>
-      <VERSION>1.1.0</VERSION>
-      <GIT_URL>https://github.com/Marc-Bernard-Tools/MBT-Base</GIT_URL>
-      <TARGET_PACKAGE>/MBTOOLS/BC</TARGET_PACKAGE>
-     </item>
-    </DEPENDENCIES>
-   </PACKAGING>
   </DATA>
  </asx:values>
 </asx:abap>

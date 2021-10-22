@@ -1,32 +1,31 @@
 CLASS /mbtools/cl_cts_req_disp_note DEFINITION
   PUBLIC
   FINAL
-  CREATE PUBLIC .
+  CREATE PUBLIC.
 
 ************************************************************************
-* MBT Request Display - SAP Notes
+* MBT Transport Request - SAP Notes
 *
 * Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
 * SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
   PUBLIC SECTION.
 
-    INTERFACES if_badi_interface .
-    INTERFACES /mbtools/if_cts_req_display .
+    INTERFACES if_badi_interface.
+    INTERFACES /mbtools/if_cts_req_display.
 
     ALIASES get_object_descriptions
-      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+      FOR /mbtools/if_cts_req_display~get_object_descriptions.
     ALIASES get_object_icon
-      FOR /mbtools/if_cts_req_display~get_object_icon .
+      FOR /mbtools/if_cts_req_display~get_object_icon.
 
     CLASS-DATA:
-      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY.
 
-    CLASS-METHODS class_constructor .
+    CLASS-METHODS class_constructor.
+
   PROTECTED SECTION.
-
   PRIVATE SECTION.
-
 ENDCLASS.
 
 

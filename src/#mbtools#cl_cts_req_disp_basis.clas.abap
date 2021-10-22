@@ -1,37 +1,38 @@
 CLASS /mbtools/cl_cts_req_disp_basis DEFINITION
   PUBLIC
   FINAL
-  CREATE PUBLIC .
+  CREATE PUBLIC.
 
 ************************************************************************
-* MBT Request Display - SAP Basis
+* MBT Transport Request - SAP Basis
 *
 * Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
 * SPDX-License-Identifier: GPL-3.0-or-later
 ************************************************************************
   PUBLIC SECTION.
 
-    INTERFACES if_badi_interface .
-    INTERFACES /mbtools/if_cts_req_display .
+    INTERFACES if_badi_interface.
+    INTERFACES /mbtools/if_cts_req_display.
 
     ALIASES get_object_descriptions
-      FOR /mbtools/if_cts_req_display~get_object_descriptions .
+      FOR /mbtools/if_cts_req_display~get_object_descriptions.
     ALIASES get_object_icon
-      FOR /mbtools/if_cts_req_display~get_object_icon .
+      FOR /mbtools/if_cts_req_display~get_object_icon.
 
     CLASS-DATA:
-      gt_object_list TYPE RANGE OF e071-object READ-ONLY .
+      gt_object_list TYPE RANGE OF e071-object READ-ONLY.
 
-    CLASS-METHODS class_constructor .
+    CLASS-METHODS class_constructor.
+
   PROTECTED SECTION.
-
   PRIVATE SECTION.
 
     CLASS-METHODS get_variant_text
       IMPORTING
         !iv_obj_name     TYPE csequence
       RETURNING
-        VALUE(rv_result) TYPE ddtext .
+        VALUE(rv_result) TYPE ddtext.
+
 ENDCLASS.
 
 
