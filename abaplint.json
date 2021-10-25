@@ -515,9 +515,7 @@
 		},
 		"no_public_attributes": {
 			"allowReadOnly": true,
-			"exclude": [
-				"#mbtools#if_command.intf.abap"
-			],
+			"exclude": [],
 			"severity": "Error"
 		},
 		"no_yoda_conditions": {
