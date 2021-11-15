@@ -18,7 +18,7 @@ CLASS /mbtools/cl_tool_bc_cts_req DEFINITION
         version      TYPE string VALUE '1.2.0' ##NO_TEXT,
         title        TYPE string VALUE 'MBT Transport Request' ##NO_TEXT,
         description  TYPE string
-        VALUE 'The ultimate enhancement for displaying transport requests in SAP GUI' ##NO_TEXT,
+        VALUE 'The ultimate enhancement for transport requests in SAP GUI' ##NO_TEXT,
         bundle_id    TYPE i VALUE 1,
         download_id  TYPE i VALUE 4411,
         has_launch   TYPE abap_bool VALUE abap_true,

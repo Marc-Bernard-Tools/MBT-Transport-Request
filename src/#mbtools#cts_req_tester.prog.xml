@@ -153,13 +153,13 @@
     <item>
      <ID>I</ID>
      <KEY>200</KEY>
-     <ENTRY>Filter the available implementation and object types</ENTRY>
+     <ENTRY>Filter the available implementation and object types:</ENTRY>
      <LENGTH>80</LENGTH>
     </item>
     <item>
      <ID>I</ID>
      <KEY>230</KEY>
-     <ENTRY>Select which check to perform</ENTRY>
+     <ENTRY>Select which check to perform:</ENTRY>
      <LENGTH>80</LENGTH>
     </item>
     <item>
@@ -188,14 +188,14 @@
     <item>
      <ID>S</ID>
      <KEY>P_NONE</KEY>
-     <ENTRY>List of Object Types</ENTRY>
-     <LENGTH>28</LENGTH>
+     <ENTRY>List Supported Object Types</ENTRY>
+     <LENGTH>35</LENGTH>
     </item>
     <item>
      <ID>S</ID>
      <KEY>P_OBJS</KEY>
-     <ENTRY>Check Object Types</ENTRY>
-     <LENGTH>26</LENGTH>
+     <ENTRY>Check Object Types (slow)</ENTRY>
+     <LENGTH>33</LENGTH>
     </item>
     <item>
      <ID>S</ID>
