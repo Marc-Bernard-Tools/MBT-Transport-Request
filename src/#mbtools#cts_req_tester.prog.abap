@@ -152,9 +152,9 @@ INITIALIZATION.
     iv_icon = icon_abap
     iv_text = 'Enhancement Implementations'(000) ).
 
-  scr_t200 = 'Filter the available implementation and object types'(200).
+  scr_t200 = 'Filter the available implementation and object types:'(200).
 
-  scr_t230 = 'Select which check to perform'(230).
+  scr_t230 = 'Select which check to perform:'(230).
 
   scr_tab-prog = sy-cprog. " abaplint #1291
 
