@@ -147,16 +147,16 @@ FORM create_object_list
 *** Enhancement: BADI to get description of objects as alternativ to object names
 
     DATA:
-      lr_badi      TYPE REF TO /mbtools/bc_cts_req_display,
+      li_badi      TYPE REF TO /mbtools/bc_cts_req_display,
       lt_txt       TYPE /mbtools/trwbo_t_e071_txt,
       lv_found     TYPE abap_bool,
       lv_objt_name TYPE trobj_name,
       lv_disp_name TYPE trobj_name.
 
-    GET BADI lr_badi.
+    GET BADI li_badi.
 
-    IF lr_badi IS BOUND.
-      CALL BADI lr_badi->get_object_descriptions
+    IF li_badi IS BOUND.
+      CALL BADI li_badi->get_object_descriptions
         EXPORTING
           it_e071     = pt_e071
         CHANGING
@@ -367,16 +367,16 @@ FORM create_key_list USING    pv_keep_nodes   TYPE c
 *{   INSERT         M0NK900019                                        6
 *
     DATA:
-      lr_badi      TYPE REF TO /mbtools/bc_cts_req_display,
+      li_badi      TYPE REF TO /mbtools/bc_cts_req_display,
       lt_txt       TYPE /mbtools/trwbo_t_e071_txt,
       lv_found     TYPE abap_bool,
       lv_objt_name TYPE trobj_name,
       lv_disp_name TYPE trobj_name.
 
-    GET BADI lr_badi.
+    GET BADI li_badi.
 
-    IF lr_badi IS BOUND.
-      CALL BADI lr_badi->get_object_descriptions
+    IF li_badi IS BOUND.
+      CALL BADI li_badi->get_object_descriptions
         EXPORTING
           it_e071      = pt_e071
           it_e071k     = pt_e071k

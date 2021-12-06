@@ -29,7 +29,7 @@ FORM create_tree USING pt_nodes TYPE tt_snodetext.
   DATA:
     ls_e071      TYPE trwbo_s_e071,
     lt_e071      TYPE trwbo_t_e071,
-    lr_badi      TYPE REF TO /mbtools/bc_cts_req_display,
+    li_badi      TYPE REF TO /mbtools/bc_cts_req_display,
     lt_txt       TYPE /mbtools/trwbo_t_e071_txt,
     lv_found     TYPE abap_bool,
     lv_objt_name TYPE trobj_name,
@@ -56,10 +56,10 @@ FORM create_tree USING pt_nodes TYPE tt_snodetext.
   DELETE ADJACENT DUPLICATES FROM lt_e071.
 
   " Get object descriptions and icons via BAdI
-  GET BADI lr_badi.
+  GET BADI li_badi.
 
-  IF lr_badi IS BOUND.
-    CALL BADI lr_badi->get_object_descriptions
+  IF li_badi IS BOUND.
+    CALL BADI li_badi->get_object_descriptions
       EXPORTING
         it_e071     = lt_e071
       CHANGING
