@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Marc Bernard Tools - Listcube
+Upstream-Name: Marc Bernard Tools - Transport Request
 Upstream-Contact: Marc Bernard <hello@marcbernardtools.com>
-Source: https://github.com/Marc-Bernard-Tools/MBT-Listcube
+Source: https://github.com/Marc-Bernard-Tools/MBT-Transport-Request
 
 Files: *
 Copyright: 2021 Marc Bernard <https://marcbernardtools.com/>
