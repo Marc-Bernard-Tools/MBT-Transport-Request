@@ -1,5 +1,4 @@
-![abap package version](https://img.shields.io/endpoint?url=https://shield.abap.space/version-shield-json/github/Marc-Bernard-Tools/Marc-Bernard-Tools-Versions/.apack-manifest.xml/dependencies/github.com/Marc-Bernard-Tools/MBT-Transport-Request&label=version&color=blue)
-![abaplint](https://github.com/sbcgua/ajson/workflows/abaplint/badge.svg)
+![Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fshield.abap.space%2Fversion-shield-json%2Fgithub%2FMarc-Bernard-Tools%2FMBT-Transport-Request%2Fsrc%2F%2523mbtools%2523cl_tool_bc_cts_req.clas.abap&label=Version&color=blue)
 
 [![license](https://img.shields.io/github/license/Marc-Bernard-Tools/MBT-Transport-Request?color=green)](LICENSE)
 [![REUSE Status](https://api.reuse.software/badge/github.com/Marc-Bernard-Tools/MBT-Transport-Request)](https://api.reuse.software/info/github.com/Marc-Bernard-Tools/MBT-Transport-Request)
