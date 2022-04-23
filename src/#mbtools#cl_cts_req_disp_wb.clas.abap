@@ -177,9 +177,10 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
               CHANGING
                 cv_icon   = ls_e071_txt-icon ).
 
-            ls_e071_txt-text   = ls_object-stext.
-            ls_e071_txt-name   = ls_e071_txt-obj_name = <ls_e071k>-objname.
-            ls_e071_txt-as4pos = c_as4pos.
+            ls_e071_txt-text     = ls_object-stext.
+            ls_e071_txt-name     = <ls_e071k>-objname.
+            ls_e071_txt-obj_name = <ls_e071k>-objname.
+            ls_e071_txt-as4pos   = c_as4pos.
             COLLECT ls_e071_txt INTO ct_e071_txt.
           ENDIF.
 
@@ -244,9 +245,10 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
               CHANGING
                 cv_icon   = ls_e071_txt-icon ).
 
-            ls_e071_txt-text   = ls_object-stext.
-            ls_e071_txt-name   = ls_e071_txt-obj_name = <ls_e071k_str>-objname.
-            ls_e071_txt-as4pos = c_as4pos.
+            ls_e071_txt-text     = ls_object-stext.
+            ls_e071_txt-name     = <ls_e071k_str>-objname.
+            ls_e071_txt-obj_name = <ls_e071k_str>-objname.
+            ls_e071_txt-as4pos   = c_as4pos.
             COLLECT ls_e071_txt INTO ct_e071_txt.
           ENDIF.
 

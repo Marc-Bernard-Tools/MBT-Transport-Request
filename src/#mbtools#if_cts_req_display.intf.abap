@@ -11,7 +11,7 @@ INTERFACE /mbtools/if_cts_req_display
   INTERFACES if_badi_interface .
 
 * Position for ellipsis = Length of data element SEU_TEXT - 2
-  CONSTANTS c_pos_ellipsis TYPE i VALUE 73 ##NO_TEXT.
+  CONSTANTS c_pos_ellipsis TYPE i VALUE 73.
 
   CLASS-METHODS get_object_descriptions
     IMPORTING

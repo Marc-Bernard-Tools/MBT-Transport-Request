@@ -78,8 +78,8 @@ SELECTION-SCREEN:
     SKIP,
   END OF BLOCK scr_header,
   BEGIN OF TABBED BLOCK scr_tab FOR 23 LINES,
-    TAB (40) scr_tab2 USER-COMMAND scr_push2 DEFAULT SCREEN 0200,
-    TAB (40) scr_tab9 USER-COMMAND scr_push9 DEFAULT SCREEN 0900,
+    TAB (40) scr_tab2 USER-COMMAND scr_push2 DEFAULT SCREEN 200,
+    TAB (40) scr_tab9 USER-COMMAND scr_push9 DEFAULT SCREEN 900,
   END OF BLOCK scr_tab.
 
 *-----------------------------------------------------------------------
@@ -431,6 +431,7 @@ FORM get_object_type_ext
     WHEN 'IARP' OR swbm_c_type_w3_resource.
       ev_obj_type = 'IASP'.
     WHEN 'IATU' OR swbm_c_type_w3_template.
+      ev_obj_type = 'IATU' ##TODO.
     WHEN 'SPRX'.
       ev_obj_type = 'DE/T'.
     WHEN 'DDLS'.

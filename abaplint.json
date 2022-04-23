@@ -217,7 +217,7 @@
 			"deleteDynpro": true,
 			"deleteReport": true,
 			"deleteTextpool": true,
-			"dynamicSQL": true,
+			"dynamicSQL": false,
 			"exclude": [],
 			"execSQL": true,
 			"generateDynpro": true,
@@ -526,7 +526,7 @@
 			"severity": "Error"
 		},
 		"no_aliases": {
-			"exclude": [],
+			"exclude": [".*"],
 			"severity": "Error"
 		},
 		"no_chained_assignment": {
@@ -731,7 +731,7 @@
 			"severity": "Error"
 		},
 		"slow_parameter_passing": {
-			"exclude": [],
+			"exclude": [".*"],
 			"severity": "Error"
 		},
 		"space_before_colon": {
