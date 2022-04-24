@@ -790,9 +790,7 @@
 			"severity": "Error"
 		},
 		"unnecessary_chaining": {
-			"exclude": [
-				".*"
-			],
+			"exclude": [".*"],
 			"severity": "Error"
 		},
 		"unnecessary_pragma": {
