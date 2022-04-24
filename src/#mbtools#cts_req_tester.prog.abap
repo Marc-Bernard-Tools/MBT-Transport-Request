@@ -156,8 +156,6 @@ INITIALIZATION.
 
   scr_t230 = 'Select which check to perform:'(230).
 
-  scr_tab-prog = sy-cprog. " abaplint #1291
-
   " All classes provided by abapGit
   SELECT DISTINCT clsname FROM seoclass INTO TABLE gt_abapgit
     WHERE clsname LIKE 'ZCL_ABAPGIT_OBJECT_%'
@@ -431,7 +429,7 @@ FORM get_object_type_ext
     WHEN 'IARP' OR swbm_c_type_w3_resource.
       ev_obj_type = 'IASP'.
     WHEN 'IATU' OR swbm_c_type_w3_template.
-      ev_obj_type = 'IATU' ##TODO.
+      ev_obj_type = 'IATL'.
     WHEN 'SPRX'.
       ev_obj_type = 'DE/T'.
     WHEN 'DDLS'.
