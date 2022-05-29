@@ -414,6 +414,7 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
 
     SELECT dokclass dokdescr1 FROM tdclt INTO TABLE gt_dokclass WHERE doklangu = sy-langu.
+    CHECK sy-subrc = 0.
 
   ENDMETHOD.
 
