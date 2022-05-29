@@ -27,8 +27,24 @@ CLASS /mbtools/cl_cts_req_disp_basis DEFINITION
   PROTECTED SECTION.
   PRIVATE SECTION.
 
+    TYPES:
+      BEGIN OF ty_dokclass,
+        dokclass  TYPE doku_class,
+        dokdescr1 TYPE doku_descr,
+      END OF ty_dokclass.
+
+    CLASS-DATA:
+      gt_dokclass TYPE HASHED TABLE OF ty_dokclass WITH UNIQUE KEY dokclass.
+
     CLASS-METHODS get_variant_text
       IMPORTING
+        !iv_obj_name     TYPE csequence
+      RETURNING
+        VALUE(rv_result) TYPE ddtext.
+
+    CLASS-METHODS get_documentation_text
+      IMPORTING
+        !iv_object       TYPE csequence
         !iv_obj_name     TYPE csequence
       RETURNING
         VALUE(rv_result) TYPE ddtext.
@@ -103,12 +119,13 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
             WHERE language = sy-langu
               AND api_id   = <ls_e071>-obj_name.
 
-        WHEN 'DOCU'. " Documentation
-          ls_e071_txt-text = ls_e071_txt-name.
-        WHEN 'DOCT'. " General Text
-          ls_e071_txt-text = ls_e071_txt-name.
-        WHEN 'DOCV'. " Documentation (Independent)
-          ls_e071_txt-text = ls_e071_txt-name.
+        WHEN 'DOCU' " Documentation
+          OR 'DOCT' " General Text
+          OR 'DOCV' " Documentation (Independent)
+          OR 'DSYS'. " Chapter of a Book Structure
+          ls_e071_txt-text = get_documentation_text(
+            iv_object   = <ls_e071>-object
+            iv_obj_name = <ls_e071>-obj_name ).
         WHEN 'NSPC'. " Namespace
           SELECT SINGLE descriptn FROM trnspacett INTO ls_e071_txt-text
             WHERE spras     = sy-langu
@@ -260,6 +277,8 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
         cv_icon = icon_display_text.
       WHEN 'DOCV'. " Documentation (Independent)
         cv_icon = icon_document.
+      WHEN 'DSYS'. " Chapter of a Book Structure
+        cv_icon = icon_document.
       WHEN 'NSPC'. " Namespace
         cv_icon = icon_abc.
       WHEN 'CDAT'. " View Cluster Maintenance: Data
@@ -337,6 +356,8 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DOCV'. " Documentation (Independent)
     APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'DSYS'. " Chapter of a Book Structure
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'NSPC'. " Namespace
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'CDAT'. " View Cluster Maintenance: Data
@@ -391,6 +412,48 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHI5'. " Gen. hierarchy storage extrension name
     APPEND ls_object_list TO gt_object_list.
+
+    SELECT dokclass dokdescr1 FROM tdclt INTO TABLE gt_dokclass WHERE doklangu = sy-langu.
+
+  ENDMETHOD.
+
+
+  METHOD get_documentation_text.
+
+    DATA:
+      lv_dokclass  TYPE doku_class,
+      lv_namespace TYPE namespace,
+      lv_dokname   TYPE string,
+      ls_dokclass  TYPE ty_dokclass.
+
+    CASE iv_object.
+      WHEN 'DOCT'.
+        lv_dokclass = 'TX'.
+        lv_dokname  = iv_obj_name.
+      WHEN 'DOCU' OR 'DOCV'.
+        IF iv_obj_name CS '/'.
+          SPLIT iv_obj_name+1 AT '/' INTO lv_namespace lv_dokname.
+        ELSE.
+          lv_dokname = iv_obj_name.
+        ENDIF.
+        lv_dokclass = lv_dokname(2).
+        lv_dokname  = lv_dokname+2.
+      WHEN 'DSYS'.
+        IF iv_obj_name CS '/'.
+          SPLIT iv_obj_name+1 AT '/' INTO lv_namespace lv_dokname.
+        ELSE.
+          lv_dokname = iv_obj_name.
+        ENDIF.
+        lv_dokclass = lv_dokname(4).
+        lv_dokname  = lv_dokname+4.
+    ENDCASE.
+
+    READ TABLE gt_dokclass INTO ls_dokclass WITH TABLE KEY dokclass = lv_dokclass.
+    IF sy-subrc = 0.
+      rv_result = |{ ls_dokclass-dokdescr1 }: { lv_dokname }|.
+    ELSE.
+      rv_result = iv_obj_name.
+    ENDIF.
 
   ENDMETHOD.
 
