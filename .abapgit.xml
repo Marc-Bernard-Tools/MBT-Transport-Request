@@ -13,14 +13,14 @@
    </REQUIREMENTS>
    <PACKAGING>
     <NAME>mbt-transport-request</NAME>
-    <VERSION>1.2.0</VERSION>
+    <VERSION>1.3.0</VERSION>
     <DESCRIPTION>The ultimate enhancement for displaying of transport requests in SAP GUI</DESCRIPTION>
     <TARGET_PACKAGE>/MBTOOLS/BC-CTS-REQ</TARGET_PACKAGE>
     <LOGO>/MBTOOLS/MBT_TRANSPORT_REQUEST_TN</LOGO>
     <DEPENDENCIES>
      <item>
       <NAME>mbt-base</NAME>
-      <VERSION>1.2.0</VERSION>
+      <VERSION>1.3.0</VERSION>
      </item>
     </DEPENDENCIES>
    </PACKAGING>
