@@ -24,6 +24,20 @@
      <DESCRIPT>Get variant</DESCRIPT>
     </SEOCOMPOTX>
    </DESCRIPTIONS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_VARIANT_TEXT</CMPNAME>
+     <SCONAME>IV_OBJ_NAME</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Object Name in Object Directory</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_VARIANT_TEXT</CMPNAME>
+     <SCONAME>RV_RESULT</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Explanatory Short Text</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
   </asx:values>
  </asx:abap>
 </abapGit>
