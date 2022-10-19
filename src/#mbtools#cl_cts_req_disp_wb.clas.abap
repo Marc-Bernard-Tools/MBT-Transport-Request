@@ -7,7 +7,7 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
 * MBT Transport Request - ABAP Workbench
 *
 * Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
-* SPDX-License-Identifier: GPL-3.0-or-later
+* SPDX-License-Identifier: GPL-3.0-only
 ************************************************************************
   PUBLIC SECTION.
 

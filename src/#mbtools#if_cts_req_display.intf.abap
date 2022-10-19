@@ -5,7 +5,7 @@ INTERFACE /mbtools/if_cts_req_display
 * MBT Transport Request
 *
 * Copyright 2021 Marc Bernard <https://marcbernardtools.com/>
-* SPDX-License-Identifier: GPL-3.0-or-later
+* SPDX-License-Identifier: GPL-3.0-only
 ************************************************************************
 
   INTERFACES if_badi_interface .
