@@ -15,7 +15,7 @@ CLASS /mbtools/cl_tool_bc_cts_req DEFINITION
 
     CONSTANTS:
       BEGIN OF c_tool,
-        version      TYPE string VALUE '1.3.0' ##NO_TEXT,
+        version      TYPE string VALUE '1.3.1' ##NO_TEXT,
         title        TYPE string VALUE 'MBT Transport Request' ##NO_TEXT,
         description  TYPE string
         VALUE 'The ultimate enhancement for transport requests in SAP GUI' ##NO_TEXT,
