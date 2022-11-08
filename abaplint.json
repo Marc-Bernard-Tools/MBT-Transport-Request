@@ -241,7 +241,7 @@
       "deleteDynpro": true,
       "deleteReport": true,
       "deleteTextpool": true,
-      "dynamicSQL": true,
+      "dynamicSQL": false,
       "exclude": [],
       "execSQL": true,
       "exportDynpro": true,
