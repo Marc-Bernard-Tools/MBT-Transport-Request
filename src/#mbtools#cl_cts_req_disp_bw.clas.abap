@@ -19,11 +19,9 @@ CLASS /mbtools/cl_cts_req_disp_bw DEFINITION
     ALIASES get_object_icon
       FOR /mbtools/if_cts_req_display~get_object_icon.
 
-    CLASS-DATA:
-      gt_object_list TYPE RANGE OF e071-object READ-ONLY.
+    CLASS-DATA gt_object_list TYPE RANGE OF e071-object READ-ONLY.
 
     CLASS-METHODS class_constructor.
-
   PROTECTED SECTION.
   PRIVATE SECTION.
 
@@ -54,8 +52,7 @@ CLASS /mbtools/cl_cts_req_disp_bw IMPLEMENTATION.
       lv_deftp     TYPE rszdeftp,
       lv_element   TYPE string.
 
-    FIELD-SYMBOLS:
-      <ls_e071> TYPE e071.
+    FIELD-SYMBOLS <ls_e071> TYPE e071.
 
     LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR: lv_icon, lv_txtlg.
@@ -247,8 +244,7 @@ CLASS /mbtools/cl_cts_req_disp_bw IMPLEMENTATION.
 
   METHOD /mbtools/if_cts_req_display~get_object_icon.
 
-    DATA:
-      lv_tlogo TYPE rstlogo.
+    DATA lv_tlogo TYPE rstlogo.
 
     lv_tlogo = iv_object.
 
@@ -265,8 +261,7 @@ CLASS /mbtools/cl_cts_req_disp_bw IMPLEMENTATION.
       ls_tlogoprop   TYPE rstlogoprop,
       ls_object_list LIKE LINE OF gt_object_list.
 
-    FIELD-SYMBOLS:
-      <ls_tlogoprop> TYPE rstlogoprop.
+    FIELD-SYMBOLS <ls_tlogoprop> TYPE rstlogoprop.
 
     " Instanciate repository
     IF go_repository IS INITIAL.

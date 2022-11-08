@@ -20,11 +20,10 @@ CLASS /mbtools/cl_cts_req_disp_wb DEFINITION
       FOR /mbtools/if_cts_req_display~get_object_icon.
 
     CONSTANTS c_as4pos TYPE ddposition VALUE '999999' ##NO_TEXT.
-    CLASS-DATA:
-      gt_object_list TYPE RANGE OF e071-object READ-ONLY.
+
+    CLASS-DATA gt_object_list TYPE RANGE OF e071-object READ-ONLY.
 
     CLASS-METHODS class_constructor.
-
   PROTECTED SECTION.
   PRIVATE SECTION.
 

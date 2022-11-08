@@ -15,24 +15,24 @@ TABLES:
 
 * Main
 SELECTION-SCREEN:
-  BEGIN OF SCREEN 200 AS SUBSCREEN,
-    BEGIN OF BLOCK b200 WITH FRAME,
-      COMMENT /1(77) sc_t200,
-    END OF BLOCK b200,
-    BEGIN OF BLOCK b210 WITH FRAME.
+BEGIN OF SCREEN 200 AS SUBSCREEN,
+BEGIN OF BLOCK b200 WITH FRAME,
+COMMENT /1(77) sc_t200,
+END OF BLOCK b200,
+BEGIN OF BLOCK b210 WITH FRAME.
 SELECT-OPTIONS:
   s_class FOR seometarel-clsname, " DEFAULT '/MBTOOLS/CL_CTS_REQ_DISP_WB',
   s_obj   FOR objh-objectname.
 SELECTION-SCREEN:
-  END OF BLOCK b210,
-  BEGIN OF BLOCK b220 WITH FRAME.
+END OF BLOCK b210,
+BEGIN OF BLOCK b220 WITH FRAME.
 PARAMETERS p_all TYPE c NO-DISPLAY.
 SELECTION-SCREEN:
-  END OF BLOCK b220,
-  SKIP,
-  BEGIN OF BLOCK b230 WITH FRAME,
-    COMMENT /1(77) sc_t230,
-  END OF BLOCK b230,
+END OF BLOCK b220,
+SKIP,
+BEGIN OF BLOCK b230 WITH FRAME,
+COMMENT /1(77) sc_t230,
+END OF BLOCK b230,
 BEGIN OF BLOCK b240 WITH FRAME.
 PARAMETERS:
   p_none  RADIOBUTTON GROUP g1 DEFAULT 'X',
@@ -41,45 +41,45 @@ PARAMETERS:
   p_objs  RADIOBUTTON GROUP g1,
   p_count TYPE i DEFAULT 5.
 SELECTION-SCREEN:
-  END OF BLOCK b240,
+END OF BLOCK b240,
 END OF SCREEN 200.
 
 *-----------------------------------------------------------------------
 
 * About
 SELECTION-SCREEN:
-  BEGIN OF SCREEN 900 AS SUBSCREEN,
-    BEGIN OF BLOCK b900 WITH FRAME,
-      COMMENT /1(50) sc_t900,
-      COMMENT 60(25) sc_t901,
-      SKIP,
-      COMMENT /1(77) sc_t902,
-    END OF BLOCK b900,
-    BEGIN OF BLOCK b910 WITH FRAME,
-      PUSHBUTTON /1(55) sc_docu USER-COMMAND docu,
-      SKIP,
-      PUSHBUTTON /1(55) sc_tool USER-COMMAND tool,
-      SKIP,
-      PUSHBUTTON /1(55) sc_lice USER-COMMAND lice,
-      SKIP,
-      PUSHBUTTON /1(55) sc_home USER-COMMAND home,
-    END OF BLOCK b910,
-  END OF SCREEN 900.
+BEGIN OF SCREEN 900 AS SUBSCREEN,
+BEGIN OF BLOCK b900 WITH FRAME,
+COMMENT /1(50) sc_t900,
+COMMENT 60(25) sc_t901,
+SKIP,
+COMMENT /1(77) sc_t902,
+END OF BLOCK b900,
+BEGIN OF BLOCK b910 WITH FRAME,
+PUSHBUTTON /1(55) sc_docu USER-COMMAND docu,
+SKIP,
+PUSHBUTTON /1(55) sc_tool USER-COMMAND tool,
+SKIP,
+PUSHBUTTON /1(55) sc_lice USER-COMMAND lice,
+SKIP,
+PUSHBUTTON /1(55) sc_home USER-COMMAND home,
+END OF BLOCK b910,
+END OF SCREEN 900.
 
 *-----------------------------------------------------------------------
 
 * Header
 SELECTION-SCREEN:
-  BEGIN OF BLOCK sc_header,
-    SKIP,
-    SKIP,
-    COMMENT /3(77) sc_t001,
-    SKIP,
-  END OF BLOCK sc_header,
-  BEGIN OF TABBED BLOCK sc_tab FOR 23 LINES,
-    TAB (40) sc_tab2 USER-COMMAND sc_push2 DEFAULT SCREEN 200,
-    TAB (40) sc_tab9 USER-COMMAND sc_push9 DEFAULT SCREEN 900,
-  END OF BLOCK sc_tab.
+BEGIN OF BLOCK sc_header,
+SKIP,
+SKIP,
+COMMENT /3(77) sc_t001,
+SKIP,
+END OF BLOCK sc_header,
+BEGIN OF TABBED BLOCK sc_tab FOR 23 LINES,
+TAB (40) sc_tab2 USER-COMMAND sc_push2 DEFAULT SCREEN 200,
+TAB (40) sc_tab9 USER-COMMAND sc_push9 DEFAULT SCREEN 900,
+END OF BLOCK sc_tab.
 
 *-----------------------------------------------------------------------
 
@@ -329,8 +329,9 @@ FORM get_object_type
   CHANGING
     cv_obj_type TYPE tadir-object.
 
-  DATA: lv_global_type TYPE wbobjtype.
-  DATA: lv_wb_type TYPE seu_objtyp.
+  DATA:
+    lv_global_type TYPE wbobjtype,
+    lv_wb_type     TYPE seu_objtyp.
 
   IF iv_object <> 'REPO' AND iv_object <> 'DYNP'
     AND iv_object <> 'VARI' AND iv_object <> 'VARX'
