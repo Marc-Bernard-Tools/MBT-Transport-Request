@@ -26,8 +26,7 @@ SELECT-OPTIONS:
 SELECTION-SCREEN:
   END OF BLOCK b210,
   BEGIN OF BLOCK b220 WITH FRAME.
-PARAMETERS:
-  p_all  TYPE c NO-DISPLAY.
+PARAMETERS p_all TYPE c NO-DISPLAY.
 SELECTION-SCREEN:
   END OF BLOCK b220,
   SKIP,
@@ -84,11 +83,9 @@ SELECTION-SCREEN:
 
 *-----------------------------------------------------------------------
 
-CONSTANTS:
-  c_title TYPE string VALUE /mbtools/cl_tool_bc_cts_req=>c_tool-title.
+CONSTANTS c_title TYPE string VALUE /mbtools/cl_tool_bc_cts_req=>c_tool-title.
 
-TYPES:
-  ty_list        TYPE RANGE OF trobjtype.
+TYPES ty_list TYPE RANGE OF trobjtype.
 
 DATA:
   gv_abapgit     TYPE abap_bool,
@@ -119,11 +116,9 @@ DATA:
   gs_e071_txt    TYPE /mbtools/trwbo_s_e071_txt,
   gt_e071_txt    TYPE /mbtools/trwbo_t_e071_txt.
 
-FIELD-SYMBOLS:
-  <gr_object_list> TYPE ty_list.
+FIELD-SYMBOLS <gr_object_list> TYPE ty_list.
 
-DATA:
-  go_screen TYPE REF TO /mbtools/cl_screen.
+DATA go_screen TYPE REF TO /mbtools/cl_screen.
 
 *-----------------------------------------------------------------------
 
@@ -298,7 +293,7 @@ START-OF-SELECTION.
 
   CHECK s_class IS INITIAL AND s_obj IS INITIAL AND p_git = abap_true.
 
-  WRITE: / 'Objects supported by abapGit but not by MBT Transport Request'(016).
+  WRITE / 'Objects supported by abapGit but not by MBT Transport Request'(016).
   SKIP.
 
   LOOP AT gt_no_enh INTO gv_class.
@@ -314,17 +309,17 @@ START-OF-SELECTION.
       WRITE: / 'Object:'(017), AT 15 gs_object_text-pgmid COLOR COL_NORMAL,
         gv_object COLOR COL_NORMAL.
       gv_text = gs_object_text-text.
-      WRITE: AT 50 gv_text.
+      WRITE AT 50 gv_text.
     ELSE.
       WRITE: / 'Object:'(017), AT 15 '----' COLOR COL_NORMAL,
         gv_object COLOR COL_NORMAL.
       gv_text = 'Not a transport object (supported in higher release)'(018).
-      WRITE: AT 50 gv_text COLOR COL_NORMAL INTENSIFIED OFF.
+      WRITE AT 50 gv_text COLOR COL_NORMAL INTENSIFIED OFF.
     ENDIF.
 
   ENDLOOP.
   IF sy-subrc <> 0.
-    WRITE: / 'None'(019) COLOR COL_POSITIVE.
+    WRITE / 'None'(019) COLOR COL_POSITIVE.
   ENDIF.
 
 FORM get_object_type
@@ -458,10 +453,10 @@ FORM check_list.
   IF sy-subrc = 0.
     WRITE: 'Type:', gs_objh-objecttype, 'Category:', gs_objh-objcateg.
   ELSEIF gv_pgmid = 'R3TR'.
-    WRITE: 'Missing Object Header' COLOR COL_NORMAL INTENSIFIED OFF.
+    WRITE 'Missing Object Header' COLOR COL_NORMAL INTENSIFIED OFF.
     gv_warn = gv_warn + 1.
   ELSEIF gv_pgmid = 'LIMU'.
-    WRITE: 'Part Object' COLOR COL_NORMAL INTENSIFIED OFF.
+    WRITE 'Part Object' COLOR COL_NORMAL INTENSIFIED OFF.
   ENDIF.
 ENDFORM.
 
@@ -470,7 +465,7 @@ FORM check_badi.
 
   " Check for icon
   IF gv_icon IS INITIAL OR gv_icon = icon_dummy.
-    WRITE: 'Missing icon'(003) COLOR COL_NEGATIVE.
+    WRITE 'Missing icon'(003) COLOR COL_NEGATIVE.
     gv_error = gv_error + 1.
     gv_count = gv_count + 1.
   ENDIF.
@@ -479,10 +474,10 @@ FORM check_badi.
   gv_len = strlen( gv_object ).
   IF gv_text IS INITIAL.
     IF gv_len < 4.
-      WRITE: 'Missing text'(004) COLOR COL_TOTAL.
+      WRITE 'Missing text'(004) COLOR COL_TOTAL.
       gv_warn = gv_warn + 1.
     ELSE.
-      WRITE: 'Missing text'(004) COLOR COL_NEGATIVE.
+      WRITE 'Missing text'(004) COLOR COL_NEGATIVE.
       gv_error = gv_error + 1.
     ENDIF.
     gv_count = gv_count + 1.
@@ -492,7 +487,7 @@ FORM check_badi.
   READ TABLE gt_objects TRANSPORTING NO FIELDS
     WITH KEY table_line = gv_object.
   IF sy-subrc = 0.
-    WRITE: 'Already defined above'(005) COLOR COL_NEGATIVE.
+    WRITE 'Already defined above'(005) COLOR COL_NEGATIVE.
     gv_error = gv_error + 1.
     gv_count = gv_count + 1.
   ELSE.
@@ -500,7 +495,7 @@ FORM check_badi.
   ENDIF.
 
   IF gv_count = 0.
-    WRITE: 'Test successful'(022) COLOR COL_POSITIVE.
+    WRITE 'Test successful'(022) COLOR COL_POSITIVE.
     gv_ok = gv_ok + 1.
   ENDIF.
 ENDFORM.
@@ -510,7 +505,7 @@ FORM check_objs.
 
   " Check of WB objects
   IF gv_class = '/MBTOOLS/CL_CTS_REQ_DISP_WB'.
-    WRITE: 'WB Mapping:'(021).
+    WRITE 'WB Mapping:'(021).
 
     PERFORM get_object_type USING gv_pgmid gv_object CHANGING gv_obj_type.
 
@@ -520,7 +515,7 @@ FORM check_objs.
       WRITE: 'Diff'(008) COLOR COL_TOTAL, gv_obj_type COLOR COL_TOTAL.
     ENDIF.
 
-    WRITE: 'MBT Mapping:'(006).
+    WRITE 'MBT Mapping:'(006).
 
     PERFORM get_object_type_ext USING gv_object CHANGING gv_obj_type.
 
@@ -586,21 +581,21 @@ FORM check_objs.
         IF gs_e071_txt-icon IS INITIAL.
           gs_e071_txt-icon = icon_dummy.
         ENDIF.
-        WRITE: gs_e071_txt-icon.
+        WRITE gs_e071_txt-icon.
         IF gs_e071_txt-text IS INITIAL.
           gs_e071_txt-text = '(' && 'Text not found'(020) && ')'.
-          WRITE: gs_e071_txt-text COLOR COL_NEGATIVE.
+          WRITE gs_e071_txt-text COLOR COL_NEGATIVE.
           gv_error = gv_error + 1.
         ELSE.
-          WRITE: gs_e071_txt-text COLOR COL_POSITIVE.
+          WRITE gs_e071_txt-text COLOR COL_POSITIVE.
           gv_ok = gv_ok + 1.
         ENDIF.
         gs_e071_txt-obj_name = '[' && gs_e071_txt-obj_name && ']'.
         CONDENSE gs_e071_txt-obj_name NO-GAPS.
         IF gs_e071-obj_name = gs_e071_txt-obj_name.
-          WRITE: gs_e071_txt-obj_name COLOR COL_NORMAL INTENSIFIED ON.
+          WRITE gs_e071_txt-obj_name COLOR COL_NORMAL INTENSIFIED ON.
         ELSE.
-          WRITE: gs_e071_txt-obj_name COLOR COL_NORMAL INTENSIFIED OFF.
+          WRITE gs_e071_txt-obj_name COLOR COL_NORMAL INTENSIFIED OFF.
         ENDIF.
       ELSE.
         WRITE: gv_icon AS ICON, 'No text found'(009) COLOR COL_NEGATIVE.
@@ -617,21 +612,21 @@ FORM check_objs.
 ENDFORM.
 
 FORM check_git.
-  WRITE: 'abapGit:' ##NO_TEXT.
+  WRITE 'abapGit:' ##NO_TEXT.
 
   gv_class = 'ZCL_ABAPGIT_OBJECT_' && gv_object.
 
   READ TABLE gt_abapgit TRANSPORTING NO FIELDS
     WITH TABLE KEY table_line = gv_class.
   IF sy-subrc = 0.
-    WRITE: 'Yes'(011) COLOR COL_POSITIVE.
+    WRITE 'Yes'(011) COLOR COL_POSITIVE.
     gv_ok = gv_ok + 1.
     DELETE gt_no_enh WHERE table_line = gv_class.
   ELSEIF gv_pgmid = 'R3TR'.
-    WRITE: 'No'(012) COLOR COL_TOTAL.
+    WRITE 'No'(012) COLOR COL_TOTAL.
     gv_warn = gv_warn + 1.
   ELSE.
-    WRITE: 'n/a       ' COLOR COL_NORMAL INTENSIFIED ON.
+    WRITE 'n/a       ' COLOR COL_NORMAL INTENSIFIED ON.
     gv_ok = gv_ok + 1.
   ENDIF.
 ENDFORM.

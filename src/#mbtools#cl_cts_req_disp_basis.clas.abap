@@ -19,11 +19,9 @@ CLASS /mbtools/cl_cts_req_disp_basis DEFINITION
     ALIASES get_object_icon
       FOR /mbtools/if_cts_req_display~get_object_icon.
 
-    CLASS-DATA:
-      gt_object_list TYPE RANGE OF e071-object READ-ONLY.
+    CLASS-DATA gt_object_list TYPE RANGE OF e071-object READ-ONLY.
 
     CLASS-METHODS class_constructor.
-
   PROTECTED SECTION.
   PRIVATE SECTION.
 
@@ -33,8 +31,7 @@ CLASS /mbtools/cl_cts_req_disp_basis DEFINITION
         dokdescr1 TYPE doku_descr,
       END OF ty_dokclass.
 
-    CLASS-DATA:
-      gt_dokclass TYPE HASHED TABLE OF ty_dokclass WITH UNIQUE KEY dokclass.
+    CLASS-DATA gt_dokclass TYPE HASHED TABLE OF ty_dokclass WITH UNIQUE KEY dokclass.
 
     CLASS-METHODS get_variant_text
       IMPORTING
@@ -48,7 +45,6 @@ CLASS /mbtools/cl_cts_req_disp_basis DEFINITION
         !iv_obj_name     TYPE csequence
       RETURNING
         VALUE(rv_result) TYPE ddtext.
-
 ENDCLASS.
 
 
@@ -70,8 +66,7 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
       lv_obj_name   TYPE sobj_name,
       ls_e071_txt   TYPE /mbtools/trwbo_s_e071_txt.
 
-    FIELD-SYMBOLS:
-      <ls_e071> TYPE trwbo_s_e071.
+    FIELD-SYMBOLS <ls_e071> TYPE trwbo_s_e071.
 
     LOOP AT it_e071 ASSIGNING <ls_e071> WHERE object IN gt_object_list.
       CLEAR ls_e071_txt.
@@ -336,8 +331,7 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
 
   METHOD class_constructor.
 
-    DATA:
-      ls_object_list LIKE LINE OF gt_object_list.
+    DATA ls_object_list LIKE LINE OF gt_object_list.
 
     ls_object_list-sign   = 'I'.
     ls_object_list-option = 'EQ'.

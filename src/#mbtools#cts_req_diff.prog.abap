@@ -161,27 +161,28 @@ START-OF-SELECTION.
     gv_line = sy-tabix.
     READ TABLE gt_delta ASSIGNING <gs_delta> WITH KEY number = gv_line.
     IF sy-subrc = 0.
-      IF <gs_delta>-vrsflag = 'U'.
-        WRITE: / gv_line, '-', <gs_code>(c_max) COLOR COL_NEGATIVE INTENSIFIED OFF.
-        READ TABLE gt_enh ASSIGNING <gs_code_enh> INDEX gv_enh_line.
-        IF sy-subrc = 0.
-          WRITE: / gv_line, '+', <gs_code_enh>(c_max) COLOR COL_POSITIVE INTENSIFIED OFF.
-        ELSE.
+      CASE <gs_delta>-vrsflag.
+        WHEN 'U'.
+          WRITE: / gv_line, '-', <gs_code>(c_max) COLOR COL_NEGATIVE INTENSIFIED OFF.
+          READ TABLE gt_enh ASSIGNING <gs_code_enh> INDEX gv_enh_line.
+          IF sy-subrc = 0.
+            WRITE: / gv_line, '+', <gs_code_enh>(c_max) COLOR COL_POSITIVE INTENSIFIED OFF.
+          ELSE.
+            BREAK-POINT ID /mbtools/bc.
+          ENDIF.
+        WHEN 'I'.
+          LOOP AT gt_delta ASSIGNING <gs_delta> WHERE number = gv_line.
+            WRITE: / gv_line, '+', <gs_delta>-line(c_max) COLOR COL_POSITIVE INTENSIFIED OFF.
+            gv_enh_line = gv_enh_line + 1.
+          ENDLOOP.
+        WHEN 'D'.
+          IF gv_ignore_del = abap_false.
+            WRITE: / gv_line, '-', <gs_code>(c_max) COLOR COL_TOTAL INTENSIFIED OFF.
+          ENDIF.
+          gv_enh_line = gv_enh_line - 1.
+        WHEN OTHERS.
           BREAK-POINT ID /mbtools/bc.
-        ENDIF.
-      ELSEIF <gs_delta>-vrsflag = 'I'.
-        LOOP AT gt_delta ASSIGNING <gs_delta> WHERE number = gv_line.
-          WRITE: / gv_line, '+', <gs_delta>-line(c_max) COLOR COL_POSITIVE INTENSIFIED OFF.
-          gv_enh_line = gv_enh_line + 1.
-        ENDLOOP.
-      ELSEIF <gs_delta>-vrsflag = 'D'.
-        IF gv_ignore_del = abap_false.
-          WRITE: / gv_line, '-', <gs_code>(c_max) COLOR COL_TOTAL INTENSIFIED OFF.
-        ENDIF.
-        gv_enh_line = gv_enh_line - 1.
-      ELSE.
-        BREAK-POINT ID /mbtools/bc.
-      ENDIF.
+      ENDCASE.
     ELSE.
       WRITE: / gv_line, ' ', <gs_code>(c_max) COLOR COL_NORMAL INTENSIFIED OFF.
     ENDIF.
