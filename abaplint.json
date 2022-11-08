@@ -556,7 +556,9 @@
       "severity": "Error"
     },
     "no_aliases": {
-      "exclude": [],
+      "exclude": [
+        "#mbtools#cl_cts_req_disp.*.clas.abap"
+      ],
       "severity": "Error"
     },
     "no_chained_assignment": {
