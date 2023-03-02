@@ -244,7 +244,7 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
             WHERE name = <ls_e071>-obj_name
               AND local = ''
               AND langu = sy-langu.
-        WHEN 'SHI5'. " Gen. hierarchy storage extrension name
+        WHEN 'SHI5'. " Gen. hierarchy storage extension name
           SELECT SINGLE text FROM ttree_extt INTO ls_e071_txt-text
             WHERE extension = <ls_e071>-obj_name
               AND spras     = sy-langu.

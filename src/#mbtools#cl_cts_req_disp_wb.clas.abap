@@ -334,7 +334,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         cv_icon = icon_test.
       WHEN 'SOBJ' OR swbm_c_type_bor_objtype.
         cv_icon = icon_businav_objects.
-      WHEN 'SHI3' OR 'U' OR 'SHI6'.
+      WHEN 'SHI3' OR 'U' OR 'SHI6' OR 'SHI7'.
         cv_icon = icon_context_menu.
       WHEN 'SHLP' OR 'SHLD' OR swbm_c_type_ddic_searchhelp OR 'SHLX'.
         cv_icon = icon_value_help.
@@ -623,6 +623,8 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     ls_object_list-low = 'SHI3'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SHI6'. "NEW: Same as SHI3
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'SHI7'. "NEW: Same as SHI3
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'U'.
     APPEND ls_object_list TO gt_object_list.
@@ -989,7 +991,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         ev_obj_type = 'FUGR'.
       WHEN 'SRFC'.
         ev_obj_type = 'FUNC'.
-      WHEN 'SHI6'.
+      WHEN 'SHI6' OR 'SHI7'.
         ev_obj_type = 'SHI3'.
     ENDCASE.
 
