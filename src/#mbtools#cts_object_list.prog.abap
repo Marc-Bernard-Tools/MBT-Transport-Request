@@ -585,7 +585,9 @@ FORM format_tabkeys
       SELECT intlen FROM dd03l INTO TABLE lt_len
         WHERE tabname = <ls_e071k>-objname AND keyflag = abap_true
         ORDER BY position.
-      ASSERT sy-subrc = 0. " something wrong with DDIC
+      IF sy-subrc <> 0. " table has been deleted
+        CONTINUE.
+      ENDIF.
     ENDAT.
     CLEAR: l_pos, l_tabkey.
     LOOP AT lt_len ASSIGNING <l_len> WHERE table_line > 0.
@@ -613,7 +615,9 @@ FORM format_tabkeys
       SELECT intlen FROM dd03l INTO TABLE lt_len
         WHERE tabname = <ls_e071k_str>-objname AND keyflag = abap_true
         ORDER BY position.
-      ASSERT sy-subrc = 0. " something wrong with DDIC
+      IF sy-subrc <> 0. " table has been deleted
+        CONTINUE.
+      ENDIF.
     ENDAT.
     CLEAR: l_pos, l_tabkey_str.
     LOOP AT lt_len ASSIGNING <l_len> WHERE table_line > 0.
