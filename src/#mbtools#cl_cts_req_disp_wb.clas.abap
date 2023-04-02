@@ -357,7 +357,7 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       WHEN swbm_c_type_cua_title.
         cv_icon = icon_wd_toolbar_caption.
       WHEN 'TABL' OR 'TABD' OR swbm_c_type_ddic_db_table OR swbm_c_type_ddic_structure
-          OR swbm_c_type_prg_table OR 'TABT' OR 'INDX'.
+          OR swbm_c_type_prg_table OR 'TABT' OR 'INDX' OR 'XINX'.
         cv_icon = icon_database_table.
       WHEN 'TRAN' OR swbm_c_type_transaction.
         cv_icon = icon_execute_object.
@@ -445,6 +445,10 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     ls_object_list-option = 'EQ'.
 
     ls_object_list-low = 'APPL'.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'AVAS'.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = swbm_c_type_cls_assignment.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'BMED'.
     APPEND ls_object_list TO gt_object_list.
@@ -680,6 +684,14 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_prg_table.
     APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'INDX'.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = swbm_c_type_ddic_db_tabindex.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = 'XINX'.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = swbm_c_type_ddic_db_tabxinx.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'TABU'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'VDAT'.
@@ -701,6 +713,8 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     ls_object_list-low = 'TYPE'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_ddic_typepool.
+    APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = swbm_c_type_prg_type_group.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'UDMO'.
     APPEND ls_object_list TO gt_object_list.
@@ -809,8 +823,6 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'XPRA'.
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'INDX'.
-    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DDLS'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'DCLS'.
@@ -864,11 +876,17 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
     " From INCLUDE TTYPLENG
     CONSTANTS:
       lc_prog     TYPE i VALUE 40,
+      lc_vari     TYPE i VALUE 14,
       lc_dynp     TYPE i VALUE 4,
       lc_msag     TYPE i VALUE 20,
       lc_mess     TYPE i VALUE 3,
       lc_clas     TYPE i VALUE 30,
       lc_meth     TYPE i VALUE 61,
+      lc_wapa     TYPE i VALUE 30,
+      lc_wapp     TYPE i VALUE 70,
+      lc_indx     TYPE i VALUE 3,
+      lc_ddic     TYPE i VALUE 30,
+      lc_ddic_old TYPE i VALUE 10,
       lc_prog_old TYPE i VALUE 8.
 
     CLEAR: ev_obj_type, ev_obj_name, ev_encl_obj.
@@ -889,6 +907,19 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         ev_encl_obj = lv_name(lc_prog).
       ELSE.                          " old syntax
         ev_obj_name = lv_name+lc_prog_old(lc_dynp).
+        ev_encl_obj = lv_name(lc_prog_old).
+      ENDIF.
+    ELSEIF iv_pgmid = 'LIMU' AND ( iv_object = 'VARI' OR iv_object = 'VARX' ).
+      ev_obj_type = 'PV'.
+      lv_length1  = lc_prog + lc_vari.      " new maximum length
+      lv_name     = iv_obj_name(lv_length1)." skip comments
+      lv_objlen   = strlen( lv_name ).
+      lv_length2  = lc_prog_old + lc_vari.  " former maximum length
+      IF lv_objlen > lv_length2.     " new syntax
+        ev_obj_name = lv_name+lc_prog(lc_vari).
+        ev_encl_obj = lv_name(lc_prog).
+      ELSE.                          " old syntax
+        ev_obj_name = lv_name+lc_prog_old(lc_vari).
         ev_encl_obj = lv_name(lc_prog_old).
       ENDIF.
     ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'MESS'.
@@ -913,9 +944,22 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
       ev_obj_type = 'INTF'.
       ev_obj_name = iv_obj_name.
       ev_encl_obj = space.
+    ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'WAPP'.
+      ev_obj_type = 'WAPP'.
+      ev_obj_name = iv_obj_name+lc_wapa(lc_wapp).
+      ev_encl_obj = iv_obj_name(lc_wapa).
     ELSEIF iv_pgmid = 'LIMU' AND iv_object = 'ADIR'.
       ev_obj_type = iv_obj_name+4(4).
       ev_obj_name = iv_obj_name+8.
+    ELSEIF iv_object = 'INDX' OR iv_object = 'XINX'.
+      ev_obj_type = iv_object.
+      IF strlen( iv_obj_name ) > lc_ddic_old + lc_indx.
+        ev_obj_name = iv_obj_name+lc_ddic(lc_indx).
+        ev_encl_obj = iv_obj_name(lc_ddic).
+      ELSE.
+        ev_obj_name = iv_obj_name+lc_ddic_old(lc_indx).
+        ev_encl_obj = iv_obj_name(lc_ddic_old).
+      ENDIF.
     ELSE.
       ev_obj_type = iv_object.
       ev_obj_name = iv_obj_name.
@@ -954,9 +998,6 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
         ev_obj_type = 'PROG'.
       WHEN 'XPRA'.
         ev_obj_type = 'PROG'.
-      WHEN 'INDX'.
-        ev_obj_type = 'TABL'.
-        ev_obj_name = ev_obj_name(10).
       WHEN 'LDBA'.
         ev_obj_type = swbm_c_type_logical_database.
       WHEN 'DSEL'.
