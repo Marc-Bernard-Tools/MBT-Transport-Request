@@ -582,7 +582,7 @@ FORM format_tabkeys
   LOOP AT ct_e071k ASSIGNING <ls_e071k>.
     AT NEW objname.
       CLEAR lt_len.
-      SELECT intlen FROM dd03l INTO TABLE lt_len
+      SELECT leng FROM dd03l INTO TABLE lt_len
         WHERE tabname = <ls_e071k>-objname AND keyflag = abap_true
         ORDER BY position.
       IF sy-subrc <> 0. " table has been deleted
@@ -612,7 +612,7 @@ FORM format_tabkeys
   LOOP AT ct_e071k_str ASSIGNING <ls_e071k_str>.
     AT NEW objname.
       CLEAR lt_len.
-      SELECT intlen FROM dd03l INTO TABLE lt_len
+      SELECT leng FROM dd03l INTO TABLE lt_len
         WHERE tabname = <ls_e071k_str>-objname AND keyflag = abap_true
         ORDER BY position.
       IF sy-subrc <> 0. " table has been deleted
