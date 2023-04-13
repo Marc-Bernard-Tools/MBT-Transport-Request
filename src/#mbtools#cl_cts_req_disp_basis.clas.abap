@@ -366,6 +366,8 @@ CLASS /mbtools/cl_cts_req_disp_basis IMPLEMENTATION.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'AVAS'. " Classification
     APPEND ls_object_list TO gt_object_list.
+    ls_object_list-low = swbm_c_type_cls_assignment.
+    APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFB1'. " Switch Framework
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = 'SFB2'. " Switch Framework

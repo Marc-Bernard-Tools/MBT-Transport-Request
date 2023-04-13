@@ -446,10 +446,8 @@ CLASS /mbtools/cl_cts_req_disp_wb IMPLEMENTATION.
 
     ls_object_list-low = 'APPL'.
     APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = 'AVAS'.
-    APPEND ls_object_list TO gt_object_list.
-    ls_object_list-low = swbm_c_type_cls_assignment.
-    APPEND ls_object_list TO gt_object_list.
+    " 'AVAS'.
+    " see /MBTOOLS/CL_CTS_REQ_DISP_BASIS
     ls_object_list-low = 'BMED'.
     APPEND ls_object_list TO gt_object_list.
     ls_object_list-low = swbm_c_type_proc_function.
