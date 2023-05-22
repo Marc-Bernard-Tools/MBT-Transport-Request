@@ -8,6 +8,23 @@ and [ISO Date Format](https://www.iso.org/iso-8601-date-and-time-format.html).
 
 ## [Unreleased]
 
+## Version [1.4.0] - 2023-05-22
+
+### Added
+
+- Add support for SHI6/7
+
+### Changed
+
+- Switch from MBT Base to MBT Package Manager
+
+### Fixed
+
+- Fix dump when displaying TABU entries
+- Fix display of INDX and XINX, add AVAS
+- Fix AVAS icon
+- Fix display of table keys
+
 ## Version [1.3.1] - 2022-10-18
 
 ### Added
@@ -48,7 +65,8 @@ Launch Release
 Initial Release. For details, see [Features](https://marcbernardtools.com/docs/mbt-transport-request/features).
 
 
-[Unreleased]: https://github.com/Marc-Bernard-Tools/MBT-Transport-Request/compare/1.3.1...main
+[Unreleased]: https://github.com/Marc-Bernard-Tools/MBT-Transport-Request/compare/1.4.0...main
+[1.4.0]: https://github.com/Marc-Bernard-Tools/MBT-Transport-Request/compare/1.3.1...1.4.0
 [1.3.1]: https://github.com/Marc-Bernard-Tools/MBT-Transport-Request/compare/1.3.0...1.3.1
 [1.3.0]: https://github.com/Marc-Bernard-Tools/MBT-Transport-Request/compare/1.2.0...1.3.0
 [1.2.0]: https://github.com/Marc-Bernard-Tools/MBT-Transport-Request/compare/1.1.0...1.2.0
