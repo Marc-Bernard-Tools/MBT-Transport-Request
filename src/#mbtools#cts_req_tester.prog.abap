@@ -565,7 +565,7 @@ FORM check_objs.
 
   IF sy-subrc = 0.
     " Do BAdI call for selected object
-    CLEAR: gt_e071_txt.
+    CLEAR gt_e071_txt.
 
     CALL METHOD gr_class->('GET_OBJECT_DESCRIPTIONS')
       EXPORTING
