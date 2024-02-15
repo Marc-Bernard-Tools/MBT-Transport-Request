@@ -2,6 +2,7 @@
 <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
  <asx:values>
   <DATA>
+   <NAME>mbt-transport-request</NAME>
    <MASTER_LANGUAGE>E</MASTER_LANGUAGE>
    <STARTING_FOLDER>/src/</STARTING_FOLDER>
    <FOLDER_LOGIC>PREFIX</FOLDER_LOGIC>
@@ -11,9 +12,10 @@
      <MIN_RELEASE>731</MIN_RELEASE>
     </item>
    </REQUIREMENTS>
+   <VERSION_CONSTANT>/MBTOOLS/CL_TOOL_BC_CTS_REQ=&gt;C_TOOL-VERSION</VERSION_CONSTANT>
    <PACKAGING>
     <NAME>mbt-transport-request</NAME>
-    <VERSION>1.4.0</VERSION>
+    <VERSION>1.4.1</VERSION>
     <DESCRIPTION>The ultimate enhancement for displaying of transport requests in SAP GUI</DESCRIPTION>
     <TARGET_PACKAGE>/MBTOOLS/BC-CTS-REQ</TARGET_PACKAGE>
     <LOGO>/MBTOOLS/MBT_TRANSPORT_REQUEST_TN</LOGO>
